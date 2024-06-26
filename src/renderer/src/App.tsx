@@ -13,7 +13,7 @@ const App: Component = () => {
         Build an Electron app with <span class="solid">Solid</span>
         &nbsp;and <span class="ts">TypeScript</span>
       </div>
-      <p class="tip">Please try pressingasdasdasd asdaddy<code>F12</code> to open the devTool</p>
+      <p class="tip">Please try pressingasdasdasd asdaddyasd<code>F12</code> to open the devTool</p>
       <div class="actions">
         <div class="action">
           <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">Documentation</a>
