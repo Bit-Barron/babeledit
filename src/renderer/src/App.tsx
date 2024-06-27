@@ -19,7 +19,7 @@ const App: Component = () => {
     <div>
       <For each={navIcons}>
         {(item) => (
-          <div class="" onClick={() => getItem(item)}>
+          <div class="text-green-500 flex" onClick={() => getItem(item)}>
             {item.name}
           </div>
         )}

@@ -24,6 +24,7 @@
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
     "@kobalte/core": "^0.13.3",
+    "@tailwindcss/ui": "^0.7.2",
     "class-variance-authority": "^0.7.0",
     "electron-updater": "^6.1.7"
   },
