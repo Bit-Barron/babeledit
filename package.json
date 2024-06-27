@@ -23,6 +23,7 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
+    "@kobalte/core": "^0.13.3",
     "electron-updater": "^6.1.7"
   },
   "devDependencies": {
@@ -30,13 +31,17 @@
     "@electron-toolkit/eslint-config-ts": "^2.0.0",
     "@electron-toolkit/tsconfig": "^1.0.1",
     "@types/node": "^20.14.8",
+    "autoprefixer": "^10.4.19",
     "electron": "^31.0.2",
     "electron-builder": "^24.13.3",
     "electron-vite": "^2.3.0",
     "eslint": "^8.57.0",
     "eslint-plugin-solid": "^0.14.1",
+    "postcss": "^8.4.38",
+    "postcss-loader": "^8.1.1",
     "prettier": "^3.3.2",
     "solid-js": "^1.8.17",
+    "tailwindcss": "^3.4.4",
     "typescript": "^5.5.2",
     "vite": "^5.3.1",
     "vite-plugin-solid": "^2.10.2"

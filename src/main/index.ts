@@ -1,7 +1,8 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import fs from 'fs'
 
 function createWindow(): void {
   // Create the browser window.
@@ -50,7 +51,7 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  ipcMain.on('ping', () => console.log('pondasdasdg'))
 
   createWindow()
 
@@ -59,6 +60,29 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+})
+
+ipcMain.on('open-file', (event) => {
+  dialog
+    .showOpenDialog({
+      properties: ['openFile'],
+      filters: [{ name: 'JSON FILES', extensions: ['json'] }]
+    })
+    .then((result) => {
+      if (!result.canceled) {
+        const filePath = result.filePaths[0]
+        fs.readFile(filePath, 'utf-8', (err, data) => {
+          if (err) {
+            console.log('Error')
+            return
+          }
+          event.sender.send('selected-file', data)
+        })
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
