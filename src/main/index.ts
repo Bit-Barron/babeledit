@@ -49,7 +49,7 @@ app.whenReady().then(() => {
   })
 })
 
-ipcMain.on('open-file', async () => {
+ipcMain.on('open-file', async (event) => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ['openFile'],
     filters: [{ name: 'JSON Files', extensions: ['json'] }]
@@ -58,8 +58,20 @@ ipcMain.on('open-file', async () => {
   if (canceled) {
     return { canceled: true }
   }
-  const fileContent = fs.readFileSync(filePaths[0], 'utf-8')
-  return { canceled: false, content: JSON.parse(fileContent) }
+
+  try {
+    const fileContent = fs.readFileSync(filePaths[0], 'utf-8')
+    const jsonData = JSON.parse(fileContent)
+
+    const categories = Object.keys(jsonData)
+
+    console.log(categories)
+
+    event.reply('open-file-reply', { canceled: false, categories })
+  } catch (err) {
+    console.error('Error reading on parsing JSON file:', err)
+    return event.reply('open-file-reply', { error: 'Error reading or parsing JSON file' })
+  }
 })
 
 ipcMain.on('translation', async () => {})
