@@ -1,6 +1,6 @@
 {
   "tsx": true,
-  "componentDir": "./src/components/ui",
+  "componentDir": "./src/renderer/components",
   "tailwind": {
     "config": "tailwind.config.cjs",
     "css": "src/app.css"

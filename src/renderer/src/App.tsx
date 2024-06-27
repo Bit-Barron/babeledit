@@ -17,9 +17,15 @@ const App: Component = () => {
 
   return (
     <div>
-      <For each={navIcons}>{(item) => <div class='' onClick={() => getItem(item)}>{item.name}</div>}</For>
+      <For each={navIcons}>
+        {(item) => (
+          <div class="" onClick={() => getItem(item)}>
+            {item.name}
+          </div>
+        )}
+      </For>
       <div class="flex items-center justify-center w-full">
-        <h1>Upload Json File</h1>
+        <h1 class="">Upload Json File</h1>
         <form>
           <input type="file" onChange={ipcHandle} />
         </form>
