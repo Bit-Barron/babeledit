@@ -1,6 +1,6 @@
 {
   "files": [],
   "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.web.json" }],
-  "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
-
+  "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"],
+  
 }
