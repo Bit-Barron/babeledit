@@ -59,9 +59,10 @@ ipcMain.on('open-file', async () => {
     return { canceled: true }
   }
   const fileContent = fs.readFileSync(filePaths[0], 'utf-8')
-  console.log(fileContent)
   return { canceled: false, content: JSON.parse(fileContent) }
 })
+
+ipcMain.on('translation', async () => {})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

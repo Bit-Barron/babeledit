@@ -1,4 +1,4 @@
-import { type Component } from 'solid-js'
+import type { Component } from 'solid-js'
 
 const App: Component = () => {
   const ipcHandle = (): void => window.electron.ipcRenderer.send('open-file')
