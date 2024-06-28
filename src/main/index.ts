@@ -55,8 +55,6 @@ ipcMain.on('open-file', async (event) => {
     filters: [{ name: 'JSON Files', extensions: ['json'] }]
   })
 
-  console.log(filePaths[0])
-
   if (canceled) {
     return event.reply('open-file-reply', { canceled: true })
   }
@@ -67,7 +65,7 @@ ipcMain.on('open-file', async (event) => {
 
     const categories = Object.keys(jsonData)
 
-    event.reply('open-file-reply', { canceled: false, categories })
+    event.reply('open-file-reply', { canceled: false, categories, filePaths })
   } catch (err) {
     console.error('Error reading or parsing JSON file:', err)
     event.reply('open-file-reply', { error: 'Error reading or parsing JSON file' })

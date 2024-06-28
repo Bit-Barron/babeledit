@@ -6,7 +6,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from '../components/ui/Dialog'
-import { Dropzone } from '../components/ui/Dropzone'
+import { Dropzone, uploadedFiles } from '../components/ui/Dropzone'
 import { Button } from '../components/ui/Button'
 import { DashboardTabs } from '../utils/clientHelper'
 import { VsJson } from 'solid-icons/vs'
@@ -44,6 +44,10 @@ const DASHBOARD_TABS: DashboardTabs[] = [
 ]
 
 const App: Component = () => {
+  const files = uploadedFiles()
+
+  console.log('files_', files)
+
   return (
     <div>
       <h1 class="text-2xl font-bold">Create a new translation project:</h1>
@@ -69,6 +73,7 @@ const App: Component = () => {
                     Remove Language
                   </Button>
                 </div>
+                <For each={files}>{(file) => <div>{file.path}</div>}</For>
               </AlertDialogContent>
             </AlertDialog>
           )}
