@@ -9,6 +9,16 @@ import {
 import { Dropzone } from '../components/ui/Dropzone'
 import { Button } from '../components/ui/Button'
 import { DASHBOARD_TABS } from '../utils/clientHelper'
+import {
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxItemLabel,
+  ComboboxTrigger,
+  Combobox
+} from '../components/ui/Combobox'
 
 const App: Component = () => {
   const [fileExtensions, setFileExtensions] = createSignal<string[]>([])
@@ -44,7 +54,22 @@ const App: Component = () => {
                 </Button>
 
                 <span>Primary Language</span>
-                <For each={fileExtensions()}>{(fileExtension) => <div>{fileExtension}</div>}</For>
+                <Combobox
+                  options={[fileExtensions.name]}
+                  placeholder="Search a fruit..."
+                  itemComponent={(ext) => (
+                    <ComboboxItem item={ext.item}>
+                      <ComboboxItemLabel>{ext.item.rawValue}</ComboboxItemLabel>
+                      <ComboboxItemIndicator />
+                    </ComboboxItem>
+                  )}
+                >
+                  <ComboboxControl>
+                    <ComboboxInput />
+                    <ComboboxTrigger />
+                  </ComboboxControl>
+                  <ComboboxContent />
+                </Combobox>
               </AlertDialogContent>
             </AlertDialog>
           )}
