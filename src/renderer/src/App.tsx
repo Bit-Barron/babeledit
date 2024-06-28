@@ -6,7 +6,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from '../components/ui/Dialog'
-import { Dropzone, uploadedFiles } from '../components/ui/Dropzone'
+import { Dropzone } from '../components/ui/Dropzone'
 import { Button } from '../components/ui/Button'
 import { DashboardTabs } from '../utils/clientHelper'
 import { VsJson } from 'solid-icons/vs'
@@ -44,10 +44,6 @@ const DASHBOARD_TABS: DashboardTabs[] = [
 ]
 
 const App: Component = () => {
-  const files = uploadedFiles()
-
-  console.log('files_', files)
-
   return (
     <div>
       <h1 class="text-2xl font-bold">Create a new translation project:</h1>
@@ -59,21 +55,16 @@ const App: Component = () => {
                 <tab.icon class="mx-auto text-2xl" />
                 {tab.name}
               </AlertDialogTrigger>
-              <AlertDialogContent class="bg-gray-800">
+              <AlertDialogContent class="">
                 <AlertDialogTitle>Configure Languages</AlertDialogTitle>
                 <AlertDialogDescription>
                   Add or remove languages and thir corresponding translation files:
                 </AlertDialogDescription>
                 <Dropzone />
-                <div class="flex space-x-3">
-                  <Button variant="secondary" class="border hover:bg-gray-600">
-                    Add Language
-                  </Button>
-                  <Button variant="destructive" class="bg-red-400 hover:bg-red-500 !text-black">
-                    Remove Language
-                  </Button>
+                <div class="flex justify-between space-x-3">
+                  <Button>Add Language</Button>
+                  <Button variant="ghost">Rem Language</Button>
                 </div>
-                <For each={files}>{(file) => <div>{file.path}</div>}</For>
               </AlertDialogContent>
             </AlertDialog>
           )}
