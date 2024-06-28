@@ -50,11 +50,12 @@ app.whenReady().then(() => {
 })
 
 ipcMain.on('open-file', async (event) => {
-  console.log(event)
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ['openFile'],
     filters: [{ name: 'JSON Files', extensions: ['json'] }]
   })
+
+  console.log(filePaths[0])
 
   if (canceled) {
     return event.reply('open-file-reply', { canceled: true })
@@ -65,7 +66,6 @@ ipcMain.on('open-file', async (event) => {
     const jsonData = JSON.parse(fileContent)
 
     const categories = Object.keys(jsonData)
-    console.log('Categories:', categories)
 
     event.reply('open-file-reply', { canceled: false, categories })
   } catch (err) {

@@ -21,3 +21,8 @@ export type NavbarIcon = {
   icon: string
   current: boolean
 }
+
+export type DashboardTabs = {
+  name: string
+  icon: any;
+}

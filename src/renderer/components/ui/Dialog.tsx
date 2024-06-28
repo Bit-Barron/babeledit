@@ -3,7 +3,7 @@ import { JSX, splitProps, ValidComponent } from 'solid-js'
 import * as AlertDialogPrimitive from '@kobalte/core/alert-dialog'
 import { PolymorphicProps } from '@kobalte/core/polymorphic'
 
-import { cn } from '../utils/clientHelper'
+import { cn } from '../../utils/clientHelper'
 
 const AlertDialog = AlertDialogPrimitive.Root
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger
