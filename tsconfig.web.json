@@ -4,8 +4,9 @@
     "src/renderer/src/env.d.ts",
     "src/renderer/src/**/*",
     "src/preload/*.d.ts",
-    "src/renderer/components"
-  ],
+    "src/renderer/components", 
+    "src/lib/utils/util/"
+, "src/renderer/utils"  ],
   "compilerOptions": {
     "composite": true,
     "jsxImportSource": "solid-js",

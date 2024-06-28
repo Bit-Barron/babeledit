@@ -26,7 +26,8 @@
     "@kobalte/core": "^0.13.3",
     "@tailwindcss/ui": "^0.7.2",
     "class-variance-authority": "^0.7.0",
-    "electron-updater": "^6.1.7"
+    "electron-updater": "^6.1.7",
+    "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^2.0.0",

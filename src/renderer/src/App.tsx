@@ -1,6 +1,6 @@
 import { type Component } from 'solid-js'
 import { For } from 'solid-js'
-import { NavbarIcon, navbarIconNames } from './utils/clientHelper'
+import { NavbarIcon, navbarIconNames } from '../utils/clientHelper'
 import { Button } from '../components/button'
 
 const App: Component = () => {
