@@ -8,40 +8,7 @@ import {
 } from '../components/ui/Dialog'
 import { Dropzone } from '../components/ui/Dropzone'
 import { Button } from '../components/ui/Button'
-import { DashboardTabs } from '../utils/clientHelper'
-import { VsJson } from 'solid-icons/vs'
-import { BsFiletypeYml } from 'solid-icons/bs'
-import { FaBrandsJava } from 'solid-icons/fa'
-import { BiLogosFlutter } from 'solid-icons/bi'
-import { SiCsharp } from 'solid-icons/si'
-import { FaBrandsAngular } from 'solid-icons/fa'
-
-const DASHBOARD_TABS: DashboardTabs[] = [
-  {
-    name: 'Generic JSON',
-    icon: VsJson
-  },
-  {
-    name: 'Generic YAML',
-    icon: BsFiletypeYml
-  },
-  {
-    name: 'jave.properties',
-    icon: FaBrandsJava
-  },
-  {
-    name: 'Flutter ARB',
-    icon: BiLogosFlutter
-  },
-  {
-    name: '.resx Resource',
-    icon: SiCsharp
-  },
-  {
-    name: 'Angular',
-    icon: FaBrandsAngular
-  }
-]
+import { DASHBOARD_TABS } from '../utils/clientHelper'
 
 const App: Component = () => {
   return (
@@ -63,7 +30,15 @@ const App: Component = () => {
                 <Dropzone />
                 <div class="flex justify-between space-x-3">
                   <Button>Add Language</Button>
-                  <Button variant="ghost">Rem Language</Button>
+                  <Button variant="destructive">Remove Language</Button>
+                </div>
+
+                <Button class="w-full" variant="secondary">
+                  Finish
+                </Button>
+                <div class="flex">
+                  <div>Primary Language: </div>
+                  <button>De</button>
                 </div>
               </AlertDialogContent>
             </AlertDialog>

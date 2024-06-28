@@ -19,11 +19,11 @@ export const Dropzone: Component = () => {
 
     window.electron.ipcRenderer.send('open-file', files)
 
-    const uploadedFiles = files.map((file) => ({
+    const newUploadedFiles = files.map((file) => ({
       name: file.name,
       path: file.path
     }))
-    setUploadedFiles(uploadedFiles)
+    setUploadedFiles([...uploadedFiles(), ...newUploadedFiles])
   }
 
   return (
@@ -44,13 +44,17 @@ export const Dropzone: Component = () => {
                 {uploadedFiles().length === 1 ? (
                   <div class="!flex !justify-center !items-center">{uploadedFiles()[0].path}</div>
                 ) : (
-                  `Files selected: ${uploadedFiles().length}`
+                  <ul class="!flex !flex-col !items-center">
+                    {uploadedFiles().map((file) => (
+                      <li>{file.path}</li>
+                    ))}
+                  </ul>
                 )}
               </div>
             </Show>
           </p>
         </div>
-        <input type="file" class="hidden" />
+        <input type="file" class="hidden" multiple />
       </label>
     </div>
   )

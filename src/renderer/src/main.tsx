@@ -8,7 +8,6 @@ import { ThemeProvider } from '../components/provider/ThemeProvider'
 render(
   () => (
     <div>
-      {/* <Navbar /> */}
       <ThemeProvider>
         <App />
       </ThemeProvider>
