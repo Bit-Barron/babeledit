@@ -20,12 +20,19 @@ import {
   DrawerTrigger
 } from '../components/ui/Drawer'
 
+type FileExtension = {
+  fileName: string
+  path: string
+}
+
 const App: Component = () => {
-  const [fileExtension, setFileExtension] = createSignal<string>('')
+  const [fileExtension, setFileExtension] = createSignal<FileExtension>()
 
   window.electron.ipcRenderer.on('open-file-reply', (event, response) => {
+    console.log(event)
     setFileExtension(response.fileName)
   })
+  console.log(fileExtension)
 
   return (
     <div>
