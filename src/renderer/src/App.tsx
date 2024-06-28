@@ -1,4 +1,4 @@
-import { For, type Component } from 'solid-js'
+import { Component, For, createSignal } from 'solid-js'
 import {
   AlertDialog,
   AlertDialogContent,
@@ -9,8 +9,22 @@ import {
 import { Dropzone } from '../components/ui/Dropzone'
 import { Button } from '../components/ui/Button'
 import { DASHBOARD_TABS } from '../utils/clientHelper'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '../components/ui/DropdownMenu'
 
 const App: Component = () => {
+  const [fileExtension, setFileExtension] = createSignal<string>('')
+
+  window.electron.ipcRenderer.on('open-file-reply', (event, response) => {
+    setFileExtension(response.fileName)
+  })
+
   return (
     <div>
       <h1 class="text-2xl font-bold">Create a new translation project:</h1>
@@ -25,21 +39,26 @@ const App: Component = () => {
               <AlertDialogContent class="">
                 <AlertDialogTitle>Configure Languages</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Add or remove languages and thir corresponding translation files:
+                  Add or remove languages and their corresponding translation files:
                 </AlertDialogDescription>
                 <Dropzone />
-                <div class="flex justify-between space-x-3">
-                  <Button>Add Language</Button>
+                <div class="flex space-x-3">
                   <Button variant="destructive">Remove Language</Button>
                 </div>
-
                 <Button class="w-full" variant="secondary">
                   Finish
                 </Button>
-                <div class="flex">
-                  <div>Primary Language: </div>
-                  <button>De</button>
-                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger class="0">Primary Language</DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <DropdownMenuItem>Billing</DropdownMenuItem>
+                    <DropdownMenuItem>Team</DropdownMenuItem>
+                    <DropdownMenuItem>Subscription</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </AlertDialogContent>
             </AlertDialog>
           )}

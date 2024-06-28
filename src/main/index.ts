@@ -3,6 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import fs from 'fs'
+import path from 'path'
 
 function createWindow(): void {
   const mainWindow = new BrowserWindow({
@@ -62,10 +63,11 @@ ipcMain.on('open-file', async (event) => {
   try {
     const fileContent = fs.readFileSync(filePaths[0], 'utf-8')
     const jsonData = JSON.parse(fileContent)
-
     const categories = Object.keys(jsonData)
 
-    event.reply('open-file-reply', { canceled: false, categories, filePaths })
+    const fileName = path.parse(filePaths[0]).name
+
+    event.reply('open-file-reply', { canceled: false, categories, filePaths, fileName })
   } catch (err) {
     console.error('Error reading or parsing JSON file:', err)
     event.reply('open-file-reply', { error: 'Error reading or parsing JSON file' })
