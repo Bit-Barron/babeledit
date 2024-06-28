@@ -4,6 +4,7 @@ import { NavbarIcon, navbarIconNames } from './utils/clientHelper'
 
 const App: Component = () => {
   const ipcHandle = (): void => window.electron.ipcRenderer.send('open-file')
+  
 
   const navIcons: NavbarIcon[] = navbarIconNames.map((name) => ({
     name,
