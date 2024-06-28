@@ -40,7 +40,7 @@ export const Dropzone: Component = () => {
           <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
             <Show when={uploadedFiles().length === 0}>Drop your language file here</Show>
             <Show when={uploadedFiles().length > 0}>
-              <div class="">
+              <div>
                 {uploadedFiles().length === 1 ? (
                   <div class="!flex !justify-center !items-center">{uploadedFiles()[0].path}</div>
                 ) : (

@@ -56,7 +56,7 @@ const App: Component = () => {
                 <span>Primary Language</span>
                 <Combobox
                   options={[fileExtensions.name]}
-                  placeholder="Search a fruit..."
+                  placeholder="primary language"
                   itemComponent={(ext) => (
                     <ComboboxItem item={ext.item}>
                       <ComboboxItemLabel>{ext.item.rawValue}</ComboboxItemLabel>
