@@ -3,7 +3,9 @@ module.exports = {
   rules: {
     'import/no-extraneous-dependencies': 'off',
     'import/no-unresolved': 'error',
-    'react/react-in-jsx-scope': 'off'
+    'react/react-in-jsx-scope': 'off',
+    'no-unused-vars': 'off', // Disable the base no-unused-vars rule
+    '@typescript-eslint/no-unused-vars': ['warning']
   },
   parserOptions: {
     ecmaVersion: 2020,
@@ -14,7 +16,6 @@ module.exports = {
   },
   settings: {
     'import/resolver': {
-      // See https://github.com/benmosher/eslint-plugin-import/issues/1396#issuecomment-575727774 for line below
       node: {},
       webpack: {
         config: require.resolve('./.erb/configs/webpack.config.eslint.ts')

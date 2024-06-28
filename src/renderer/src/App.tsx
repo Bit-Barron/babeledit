@@ -10,13 +10,15 @@ import { Dropzone } from '../components/ui/Dropzone'
 import { Button } from '../components/ui/Button'
 import { DASHBOARD_TABS } from '../utils/clientHelper'
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '../components/ui/DropdownMenu'
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger
+} from '../components/ui/Drawer'
 
 const App: Component = () => {
   const [fileExtension, setFileExtension] = createSignal<string>('')
@@ -48,17 +50,21 @@ const App: Component = () => {
                 <Button class="w-full" variant="secondary">
                   Finish
                 </Button>
-                <DropdownMenu>
-                  <DropdownMenuTrigger class="0">Primary Language</DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem>Billing</DropdownMenuItem>
-                    <DropdownMenuItem>Team</DropdownMenuItem>
-                    <DropdownMenuItem>Subscription</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <Drawer>
+                  <DrawerTrigger>Primary Language</DrawerTrigger>
+                  <DrawerContent>
+                    <DrawerHeader>
+                      <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+                      <DrawerDescription>This action cannot be undone.</DrawerDescription>
+                    </DrawerHeader>
+                    <DrawerFooter>
+                      <Button>Submit</Button>
+                      <DrawerClose>
+                        <Button variant="outline">Cancel</Button>
+                      </DrawerClose>
+                    </DrawerFooter>
+                  </DrawerContent>
+                </Drawer>
               </AlertDialogContent>
             </AlertDialog>
           )}
