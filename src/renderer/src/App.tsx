@@ -9,30 +9,15 @@ import {
 import { Dropzone } from '../components/ui/Dropzone'
 import { Button } from '../components/ui/Button'
 import { DASHBOARD_TABS } from '../utils/clientHelper'
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger
-} from '../components/ui/Drawer'
-
-type FileExtension = {
-  fileName: string
-  path: string
-}
 
 const App: Component = () => {
-  const [fileExtension, setFileExtension] = createSignal<FileExtension>()
+  const [fileExtensions, setFileExtensions] = createSignal<string[]>([])
 
-  window.electron.ipcRenderer.on('open-file-reply', (event, response) => {
-    console.log(event)
-    setFileExtension(response.fileName)
+  window.electron.ipcRenderer.on('open-file-reply', (_event, response) => {
+    if (!response.canceled && !response.error) {
+      setFileExtensions((prevExtensions) => [...prevExtensions, response.fileName])
+    }
   })
-  console.log(fileExtension)
 
   return (
     <div>
@@ -57,21 +42,9 @@ const App: Component = () => {
                 <Button class="w-full" variant="secondary">
                   Finish
                 </Button>
-                <Drawer>
-                  <DrawerTrigger>Primary Language</DrawerTrigger>
-                  <DrawerContent>
-                    <DrawerHeader>
-                      <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-                      <DrawerDescription>This action cannot be undone.</DrawerDescription>
-                    </DrawerHeader>
-                    <DrawerFooter>
-                      <Button>Submit</Button>
-                      <DrawerClose>
-                        <Button variant="outline">Cancel</Button>
-                      </DrawerClose>
-                    </DrawerFooter>
-                  </DrawerContent>
-                </Drawer>
+
+                <span>Primary Language</span>
+                <For each={fileExtensions()}>{(fileExtension) => <div>{fileExtension}</div>}</For>
               </AlertDialogContent>
             </AlertDialog>
           )}
