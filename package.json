@@ -27,6 +27,7 @@
     "@tailwindcss/ui": "^0.7.2",
     "class-variance-authority": "^0.7.0",
     "electron-updater": "^6.1.7",
+    "solid-icons": "^1.1.0",
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {

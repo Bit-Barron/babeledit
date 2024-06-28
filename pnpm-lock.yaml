@@ -26,6 +26,9 @@ importers:
       electron-updater:
         specifier: ^6.1.7
         version: 6.2.1
+      solid-icons:
+        specifier: ^1.1.0
+        version: 1.1.0(solid-js@1.8.17)
       tailwind-merge:
         specifier: ^2.3.0
         version: 2.3.0
@@ -2343,6 +2346,11 @@ packages:
   smart-buffer@4.2.0:
     resolution: {integrity: sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==}
     engines: {node: '>= 6.0.0', npm: '>= 3.0.0'}
+
+  solid-icons@1.1.0:
+    resolution: {integrity: sha512-IesTfr/F1ElVwH2E1110s2RPXH4pujKfSs+koT8rwuTAdleO5s26lNSpqJV7D1+QHooJj18mcOiz2PIKs0ic+A==}
+    peerDependencies:
+      solid-js: '*'
 
   solid-js@1.8.17:
     resolution: {integrity: sha512-E0FkUgv9sG/gEBWkHr/2XkBluHb1fkrHywUgA6o6XolPDCJ4g1HaLmQufcBBhiF36ee40q+HpG/vCZu7fLpI3Q==}
@@ -5188,6 +5196,10 @@ snapshots:
 
   smart-buffer@4.2.0:
     optional: true
+
+  solid-icons@1.1.0(solid-js@1.8.17):
+    dependencies:
+      solid-js: 1.8.17
 
   solid-js@1.8.17:
     dependencies:

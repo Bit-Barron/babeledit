@@ -50,13 +50,14 @@ app.whenReady().then(() => {
 })
 
 ipcMain.on('open-file', async (event) => {
+  console.log(event)
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ['openFile'],
     filters: [{ name: 'JSON Files', extensions: ['json'] }]
   })
 
   if (canceled) {
-    return { canceled: true }
+    return event.reply('open-file-reply', { canceled: true })
   }
 
   try {
@@ -64,13 +65,12 @@ ipcMain.on('open-file', async (event) => {
     const jsonData = JSON.parse(fileContent)
 
     const categories = Object.keys(jsonData)
-
-    console.log(categories)
+    console.log('Categories:', categories)
 
     event.reply('open-file-reply', { canceled: false, categories })
   } catch (err) {
-    console.error('Error reading on parsing JSON file:', err)
-    return event.reply('open-file-reply', { error: 'Error reading or parsing JSON file' })
+    console.error('Error reading or parsing JSON file:', err)
+    event.reply('open-file-reply', { error: 'Error reading or parsing JSON file' })
   }
 })
 
