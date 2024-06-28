@@ -1,7 +1,16 @@
 import './assets/main.css'
-import './index.css';
+import './index.css'
 
 import { render } from 'solid-js/web'
 import App from './App'
+import { Navbar } from '../components/Navbar'
 
-render(() => <App />, document.getElementById('root') as HTMLElement)
+render(
+  () => (
+    <div>
+      <Navbar />
+      <App />
+    </div>
+  ),
+  document.getElementById('root') as HTMLElement
+)

@@ -1,27 +1,10 @@
 import { type Component } from 'solid-js'
-import { For } from 'solid-js'
-import { NavbarIcon, navbarIconNames } from '../utils/clientHelper'
-import { Button } from '../components/button'
 
 const App: Component = () => {
   const ipcHandle = (): void => window.electron.ipcRenderer.send('open-file')
 
-  const navIcons: NavbarIcon[] = navbarIconNames.map((name) => ({
-    name,
-    icon: '',
-    current: false
-  }))
-
   return (
     <div>
-      <Button />
-      <For each={navIcons}>
-        {(item) => (
-          <div class="flex" onClick={() => console.log(item)}>
-            {item.name}
-          </div>
-        )}
-      </For>
       <div class="flex items-center justify-center w-full">
         <h1 class="text-green-500">Upload Json File</h1>
         <form>
