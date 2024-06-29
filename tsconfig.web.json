@@ -5,8 +5,9 @@
     "src/renderer/src/**/*",
     "src/preload/*.d.ts",
     "src/renderer/components", 
-    "src/lib/utils/util/", 
-    "src/renderer/utils"  ],
+    "src/renderer/utils",
+    "src/lib/**/*.ts"
+  ],
   "compilerOptions": {
     "composite": true,
     "jsxImportSource": "solid-js",
