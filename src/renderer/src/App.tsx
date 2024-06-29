@@ -1,4 +1,4 @@
-import { Component, For, createSignal } from 'solid-js'
+import { Component, createSignal, For } from 'solid-js'
 import {
   AlertDialog,
   AlertDialogContent,
@@ -10,28 +10,30 @@ import { Dropzone } from '../components/ui/dropzone'
 import { Button } from '../components/ui/button'
 import { DASHBOARD_TABS } from '../utils/clientHelper'
 import {
+  Combobox,
   ComboboxContent,
   ComboboxControl,
   ComboboxInput,
   ComboboxItem,
   ComboboxItemIndicator,
   ComboboxItemLabel,
-  Combobox,
-  ComboboxSection,
   ComboboxTrigger
 } from '../components/ui/combobox'
 
+const getFileExtension = (fileName) => fileName.split('.').pop()
+
 const App: Component = () => {
   const [fileExtensions, setFileExtensions] = createSignal<string[]>([])
+  const [selectedExtension, setSelectedExtension] = createSignal('')
 
   window.electron.ipcRenderer.on('open-file-reply', (_event, response) => {
     if (!response.canceled && !response.error) {
-      console.log(response.fileName)
-      setFileExtensions((prevExtensions) => [...prevExtensions, response.fileName])
+      setFileExtensions((prevExtensions) => {
+        const newExtensions = [...prevExtensions, getFileExtension(response.fileName)]
+        return newExtensions
+      })
     }
   })
-
-  console.log('file extensions', fileExtensions.fileName)
 
   return (
     <div>
@@ -57,17 +59,23 @@ const App: Component = () => {
                   Finish
                 </Button>
                 <Combobox
-                  options={[fileExtensions.name]}
-                  placeholder="Search a fruit..."
+                  class="!text-white"
+                  options={fileExtensions().map((ext) => ({ value: ext, label: ext }))}
+                  placeholder="Primary Language"
+                  onVolumeChange={(value) => {
+                    setSelectedExtension(value)
+                  }}
                   itemComponent={(props) => (
                     <ComboboxItem item={props.item}>
-                      <ComboboxItemLabel>{props.item.rawValue}</ComboboxItemLabel>
+                      <ComboboxItemLabel class="!text-white">
+                        {props.item.rawValue.label}
+                      </ComboboxItemLabel>
                       <ComboboxItemIndicator />
                     </ComboboxItem>
                   )}
                 >
-                  <ComboboxControl aria-label="Fruit">
-                    <ComboboxInput />
+                  <ComboboxControl>
+                    <ComboboxInput value={selectedExtension()} />
                     <ComboboxTrigger />
                   </ComboboxControl>
                   <ComboboxContent />
