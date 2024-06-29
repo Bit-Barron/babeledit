@@ -6,6 +6,7 @@
     "css": "src/index.css"
   },
   "aliases": {
-    "path": "~/*"
+    "path": "~/*",
+    "lib": "~lib/*"
   }
 }

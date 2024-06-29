@@ -3,7 +3,7 @@ import { JSX, splitProps, ValidComponent } from 'solid-js'
 import * as ComboboxPrimitive from '@kobalte/core/combobox'
 import { PolymorphicProps } from '@kobalte/core/polymorphic'
 
-import { cn } from '../../utils/clientHelper'
+import { cn } from '~/lib/utils'
 
 const Combobox = ComboboxPrimitive.Root
 const ComboboxItemLabel = ComboboxPrimitive.ItemLabel

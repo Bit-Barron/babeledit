@@ -1,16 +1,9 @@
-import type { ClassValue } from 'clsx'
-import { clsx } from 'clsx'
-import { twMerge } from 'tailwind-merge'
 import { VsJson } from 'solid-icons/vs'
 import { BsFiletypeYml } from 'solid-icons/bs'
 import { FaBrandsJava } from 'solid-icons/fa'
 import { BiLogosFlutter } from 'solid-icons/bi'
 import { SiCsharp } from 'solid-icons/si'
 import { FaBrandsAngular } from 'solid-icons/fa'
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
 
 export const navbarIconNames = [
   'Open project',
