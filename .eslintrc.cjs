@@ -1,29 +1,18 @@
+const { rules } = require('eslint-plugin-solid')
+
 module.exports = {
-  extends: 'erb',
+  plugins: ['solid'],
+  extends: [
+    'eslint:recommended',
+    'plugin:solid/typescript',
+    '@electron-toolkit/eslint-config-ts/recommended',
+    '@electron-toolkit/eslint-config-prettier'
+  ],
   rules: {
     'import/no-extraneous-dependencies': 'off',
-    'import/no-unresolved': 'error',
     'react/react-in-jsx-scope': 'off',
-    'no-unused-vars': 'off', // Disable the base no-unused-vars rule
-    '@typescript-eslint/no-unused-vars': ['warning']
-  },
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
-    project: './tsconfig.json',
-    tsconfigRootDir: __dirname,
-    createDefaultProgram: true
-  },
-  settings: {
-    'import/resolver': {
-      node: {},
-      webpack: {
-        config: require.resolve('./.erb/configs/webpack.config.eslint.ts')
-      },
-      typescript: {}
-    },
-    'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.tsx']
-    }
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['warning'],
+    'import/no-unresolved': 'off'
   }
 }
