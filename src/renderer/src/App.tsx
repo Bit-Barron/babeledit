@@ -9,15 +9,29 @@ import {
 import { Dropzone } from '../components/ui/dropzone'
 import { Button } from '../components/ui/button'
 import { DASHBOARD_TABS } from '../utils/clientHelper'
+import {
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxItemLabel,
+  Combobox,
+  ComboboxSection,
+  ComboboxTrigger
+} from '../components/ui/combobox'
 
 const App: Component = () => {
   const [fileExtensions, setFileExtensions] = createSignal<string[]>([])
 
   window.electron.ipcRenderer.on('open-file-reply', (_event, response) => {
     if (!response.canceled && !response.error) {
+      console.log(response.fileName)
       setFileExtensions((prevExtensions) => [...prevExtensions, response.fileName])
     }
   })
+
+  console.log('file extensions', fileExtensions.fileName)
 
   return (
     <div>
@@ -42,8 +56,22 @@ const App: Component = () => {
                 <Button class="w-full" variant="secondary">
                   Finish
                 </Button>
-
-                <span>Primary Language</span>
+                <Combobox
+                  options={[fileExtensions.name]}
+                  placeholder="Search a fruit..."
+                  itemComponent={(props) => (
+                    <ComboboxItem item={props.item}>
+                      <ComboboxItemLabel>{props.item.rawValue}</ComboboxItemLabel>
+                      <ComboboxItemIndicator />
+                    </ComboboxItem>
+                  )}
+                >
+                  <ComboboxControl aria-label="Fruit">
+                    <ComboboxInput />
+                    <ComboboxTrigger />
+                  </ComboboxControl>
+                  <ComboboxContent />
+                </Combobox>
               </AlertDialogContent>
             </AlertDialog>
           )}

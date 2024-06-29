@@ -3,7 +3,7 @@ import '../../index.css'
 
 import { render } from 'solid-js/web'
 import App from './App'
-import { ThemeProvider } from '../components/provider/ThemeProvider'
+import { ThemeProvider } from '../components/provider/theme-provider'
 
 render(
   () => (
