@@ -5,20 +5,10 @@ import {
   AlertDialogDescription,
   AlertDialogTitle,
   AlertDialogTrigger
-} from '../components/ui/Dialog'
-import { Dropzone } from '../components/ui/Dropzone'
-import { Button } from '../components/ui/Button'
+} from '../components/ui/alert-dialog'
+import { Dropzone } from '../components/ui/dropzone'
+import { Button } from '../components/ui/button'
 import { DASHBOARD_TABS } from '../utils/clientHelper'
-import {
-  ComboboxContent,
-  ComboboxControl,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxItemIndicator,
-  ComboboxItemLabel,
-  ComboboxTrigger,
-  Combobox
-} from '../components/ui/Combobox'
 
 const App: Component = () => {
   const [fileExtensions, setFileExtensions] = createSignal<string[]>([])
@@ -54,22 +44,6 @@ const App: Component = () => {
                 </Button>
 
                 <span>Primary Language</span>
-                <Combobox
-                  options={[fileExtensions.name]}
-                  placeholder="primary language"
-                  itemComponent={(ext) => (
-                    <ComboboxItem item={ext.item}>
-                      <ComboboxItemLabel>{ext.item.rawValue}</ComboboxItemLabel>
-                      <ComboboxItemIndicator />
-                    </ComboboxItem>
-                  )}
-                >
-                  <ComboboxControl>
-                    <ComboboxInput />
-                    <ComboboxTrigger />
-                  </ComboboxControl>
-                  <ComboboxContent />
-                </Combobox>
               </AlertDialogContent>
             </AlertDialog>
           )}

@@ -2,7 +2,7 @@
   "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
   "include": ["electron.vite.config.*", "src/main/**/*", "src/preload/**/*", "src/**/*", "src/lib"],
   "compilerOptions": {
-    "baseUrl": "./src", // Setzt das Basisverzeichnis, in dem sich Ihre Quelldateien befinden
+    "baseUrl": "./", // Setzt das Basisverzeichnis, in dem sich Ihre Quelldateien befinden
     "paths": {
       "~/*": ["*"], // Alle Ordner innerhalb von src werden gemappt
       "~lib/*": ["lib/*"] // Der lib-Ordner wird gemappt
