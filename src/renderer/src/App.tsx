@@ -16,12 +16,15 @@ import {
   SelectTrigger,
   SelectValue
 } from '../components/ui/select'
+import { useNavigate } from 'solid-app-router'
 
 const getFileExtension = (fileName) => fileName.split('.').pop()
 
 const App: Component = () => {
   const [fileExtensions, setFileExtensions] = createSignal<string[]>([])
   const [value, setValue] = createSignal('')
+
+  const navigate = useNavigate()
 
   window.electron.ipcRenderer.on('open-file-reply', (_event, response) => {
     if (!response.canceled && !response.error) {
@@ -52,7 +55,7 @@ const App: Component = () => {
                 <div class="flex space-x-3">
                   <Button variant="destructive">Remove Language</Button>
                 </div>
-                <Button class="w-full" variant="secondary">
+                <Button class="w-full" variant="secondary" onClick={() => navigate('/lang.tsx')}>
                   Finish
                 </Button>
                 <Select

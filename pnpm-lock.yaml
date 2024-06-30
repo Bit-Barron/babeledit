@@ -29,6 +29,9 @@ importers:
       electron-updater:
         specifier: ^6.1.7
         version: 6.2.1
+      solid-app-router:
+        specifier: ^0.4.2
+        version: 0.4.2(solid-js@1.8.17)
       solid-icons:
         specifier: ^1.1.0
         version: 1.1.0(solid-js@1.8.17)
@@ -3579,6 +3582,11 @@ packages:
 
   smob@1.5.0:
     resolution: {integrity: sha512-g6T+p7QO8npa+/hNx9ohv1E5pVCmWrVCUzUXJyLdMmftX6ER0oiWY/w9knEonLpnOp6b6FenKnMfR8gqwWdwig==}
+
+  solid-app-router@0.4.2:
+    resolution: {integrity: sha512-+NrLcmqYssx8DcbpcLBaYPqfTRtS+rkfbxMhLH8MHfTcTkdZfrkWQK7lsUvuPCebGEzfaPZJvHqBwhPrCXAmxg==}
+    peerDependencies:
+      solid-js: ^1.3.5
 
   solid-focus-trap@0.1.7:
     resolution: {integrity: sha512-NSJiIkL+WTWGgca+OKQA9rV3bD51lT23iLn1Z+Ap1Qk3rJBxQ8SoEAQ0FvXoQThtyXFKAK1ibcVBBMMEcu6YMw==}
@@ -7946,6 +7954,10 @@ snapshots:
     optional: true
 
   smob@1.5.0: {}
+
+  solid-app-router@0.4.2(solid-js@1.8.17):
+    dependencies:
+      solid-js: 1.8.17
 
   solid-focus-trap@0.1.7(solid-js@1.8.17):
     dependencies:
