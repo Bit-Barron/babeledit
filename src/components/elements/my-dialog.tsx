@@ -10,7 +10,7 @@ interface MyDialogProps {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
   title: string;
-  description: string;
+  description?: string;
   children: React.ReactNode;
 }
 
