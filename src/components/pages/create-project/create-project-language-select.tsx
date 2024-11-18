@@ -6,14 +6,10 @@ import { Button } from "@/components/ui/button";
 export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
   isOpen,
   onClose,
-  onSelect,
 }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const handleSelect = () => {
-    onSelect({ code: "es", name: "Spanish" });
-    onClose();
-  };
+  const handleSelect = () => {};
 
   return (
     <MyDialog title="Select language" isOpen={isOpen} setIsOpen={onClose}>
