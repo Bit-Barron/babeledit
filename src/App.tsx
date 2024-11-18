@@ -1,14 +1,19 @@
 import { useState } from "react";
 import "./App.css";
 import { TRANSLATION_PROJECTS } from "./utils/constants";
-import { TranslationDialog } from "./components/elements/my-dialog";
+import { MyDialog } from "./components/elements/my-dialog";
 import FileUpload from "@/components/elements/translation-file-upload";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isCreateProjectOpen, setIsCreateProjectOpen] =
+    useState<boolean>(false);
+  const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
 
-  const handleUpload = (file: File) => {
-    console.log(file);
+  const handleUpload = () => {
+    console.log("testabrakadabar");
   };
 
   return (
@@ -18,7 +23,7 @@ function App() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {TRANSLATION_PROJECTS.map((option) => (
             <button
-              onClick={() => setIsOpen(true)}
+              onClick={() => setIsCreateProjectOpen(true)}
               key={option.title}
               className="flex flex-col items-center justify-center p-4 border rounded-lg transition-colors cursor-pointer aspect-square"
             >
@@ -29,14 +34,47 @@ function App() {
             </button>
           ))}
         </div>
-        <TranslationDialog
-          title="Create a new translation project"
-          description="Select a project to get started."
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
+        <MyDialog
+          title="Configure languages"
+          description="Add or remove languages and their corresponding translations"
+          isOpen={isCreateProjectOpen}
+          setIsOpen={setIsCreateProjectOpen}
         >
           <FileUpload maxSize={0} acceptedTypes={[]} onUpload={handleUpload} />
-        </TranslationDialog>
+          <Button
+            onClick={() => setIsLanguageOpen(true)}
+            className="mt-5"
+            variant="outline"
+          >
+            Add Language
+          </Button>
+          <Separator className="my-4" />
+          <div className="flex justify-between">
+            <div className="flex space-x-3">
+              <h1 className="text-sm">Primary language</h1>
+              <Button variant="outline" className="h-6">
+                English
+              </Button>
+            </div>
+            <Button variant="destructive">Close</Button>
+          </div>
+          <MyDialog
+            description=""
+            title="Select language"
+            isOpen={isLanguageOpen}
+            setIsOpen={setIsLanguageOpen}
+          >
+            <Input placeholder="Search languages..." />
+            <div className="flex items-end justify-end">
+              <Button className="mt-5" variant="outline">
+                Cancel
+              </Button>
+              <Button variant="secondary" className="mt-5 ml-2">
+                Ok
+              </Button>
+            </div>
+          </MyDialog>
+        </MyDialog>
 
         <button className="mt-8 text-gray-400 hover:text-gray-300 text-sm">
           Open example project...

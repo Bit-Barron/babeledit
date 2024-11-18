@@ -14,7 +14,7 @@ interface MyDialogProps {
   children: React.ReactNode;
 }
 
-export const TranslationDialog: React.FC<MyDialogProps> = ({
+export const MyDialog: React.FC<MyDialogProps> = ({
   isOpen,
   setIsOpen,
   title,
