@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { MyDialog } from "@/components/elements/my-dialog";
-import FileUpload from "@/components/pages/create-project/translation-file-upload";
+import FileUpload from "@/components/pages/create-project/create-project-file-upload";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { LanguageDisplay } from "@/components/pages/create-project/language-display";
-import { LanguageSelectDialog } from "@/components/pages/create-project/language-select-dialog";
+import { LanguageDisplay } from "@/components/pages/create-project/create-project-language-list";
+import { LanguageSelectDialog } from "@/components/pages/create-project/create-project-language-select";
 
 export const CreateProject: React.FC<CreateProjectProps> = ({
   isOpen,

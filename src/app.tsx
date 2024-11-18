@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./app.css";
 import { TRANSLATION_PROJECTS } from "./utils/constants";
-import { CreateProject } from "@/components/pages/create-project/create-project";
+import { CreateProject } from "@/components/pages/create-project/create-project-dialog";
 
 function App() {
   const [isCreateProjectOpen, setIsCreateProjectOpen] =
