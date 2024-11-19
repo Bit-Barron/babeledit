@@ -1,6 +1,11 @@
 import React from "react";
-import { ChevronRight, ChevronDown, Folder, MessageSquare } from "lucide-react";
+import {
+  FaChevronRight as ChevronRight,
+  FaChevronDown as ChevronDown,
+  FaFolder as Folder,
+} from "react-icons/fa";
 import { cn } from "@/lib/utils";
+import { FiMessageSquare } from "react-icons/fi";
 
 interface TreeNodeProps {
   node: TreeNode;
@@ -33,7 +38,7 @@ const TreeNodeIcon = ({
   return (
     <>
       <span className="w-4 mr-1" />
-      <MessageSquare className="h-4 w-4 mr-2 text-gray-400" />
+      <FiMessageSquare className="h-4 w-4 mr-2 text-gray-400" />
     </>
   );
 };
