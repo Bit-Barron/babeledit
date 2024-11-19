@@ -15,9 +15,8 @@ export const TranslationEditor = () => {
       <Header fileName={files[0]?.name} />
 
       <div className="flex">
-        {/* Left Panel */}
         <div className="w-[300px] border-r border-gray-800">
-          <div className="p-2 border-b border-gray-800 font-medium">
+          <div className="p-4 border-b border-gray-800 font-medium">
             Translation IDs
           </div>
           <div className="overflow-auto">
