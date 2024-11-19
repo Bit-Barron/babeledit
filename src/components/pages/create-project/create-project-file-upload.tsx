@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FiUpload, FiFile, FiX } from "react-icons/fi";
+import { useFileUploadStore } from "@/store/file-upload-store";
 
 interface FileUploadProps {
   maxSize: number;
@@ -9,20 +10,19 @@ interface FileUploadProps {
 
 const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
   const [dragActive, setDragActive] = useState(false);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const { selectedFiles, removeFile, setSelectedFiles } = useFileUploadStore();
 
   const handleFiles = (files: FileList) => {
     const jsonFiles = Array.from(files).filter((file) =>
       file.name.endsWith(".json")
     );
-    setSelectedFiles((prev) => [...prev, ...jsonFiles]);
+    setSelectedFiles([...selectedFiles, ...jsonFiles]);
     onUpload([...selectedFiles, ...jsonFiles]);
   };
 
-  const removeFile = (index: number) => {
-    const newFiles = selectedFiles.filter((_, i) => i !== index);
-    setSelectedFiles(newFiles);
-    onUpload(newFiles);
+  const handleFileRemove = (index: number) => {
+    removeFile(index);
+    onUpload(selectedFiles.filter((_, i) => i !== index));
   };
 
   const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
@@ -95,7 +95,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
                 <span className="text-sm">{file.name}</span>
               </div>
               <button
-                onClick={() => removeFile(index)}
+                onClick={() => handleFileRemove(index)}
                 className="text-gray-400 hover:text-gray-200"
               >
                 <FiX className="w-4 h-4" />

@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { LanguageDisplay } from "@/components/pages/create-project/create-project-language-list";
 import { LanguageSelectDialog } from "@/components/pages/create-project/create-project-language-select";
+import { useFileUploadStore } from "@/store/file-upload-store";
+import { toast } from "sonner";
 
 export const CreateProject: React.FC<CreateProjectProps> = ({
   isOpen,
@@ -18,6 +20,8 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
     { code: "en", name: "English" },
   ]);
 
+  const { selectedFiles } = useFileUploadStore();
+
   const handleAddLanguage = (language: Language) => {
     setLanguages((prev) => [...prev, language]);
     setPrimaryLang(language.name);
@@ -25,8 +29,20 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
   };
 
   const handleCreateProject = () => {
+    if (selectedFiles.length === 0) {
+      toast.error("Please upload files to continue");
+      return;
+    }
+
     setIsOpen(false);
-    navigate("/translation-editor");
+    navigate("/translation-editor", {
+      state: {
+        languages,
+        primaryLang,
+        files: selectedFiles,
+      },
+    });
+    toast.success("Project created successfully");
   };
 
   return (
@@ -40,8 +56,8 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
         <FileUpload
           maxSize={0}
           acceptedTypes={[]}
-          onUpload={function (): void {
-            throw new Error("Function not implemented.");
+          onUpload={function (files: File[]): void {
+            console.log("Files uploaded:", files);
           }}
         />
 
@@ -49,8 +65,14 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
           <Button onClick={() => setIsLanguageOpen(true)} variant="outline">
             Add Language
           </Button>
-          <Button onClick={handleCreateProject} variant="default">
-            Save changes
+          <Button
+            onClick={handleCreateProject}
+            variant="default"
+            disabled={selectedFiles.length === 0}
+          >
+            {selectedFiles.length === 0
+              ? "Upload files to continue"
+              : "Save changes"}
           </Button>
         </div>
 
