@@ -13,7 +13,6 @@ export const TranslationEditor = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <Header fileName={files[0]?.name} />
-
       <div className="flex">
         <div className="w-[300px] border-r border-gray-800">
           <div className="p-4 border-b border-gray-800 font-medium">
@@ -36,6 +35,9 @@ export const TranslationEditor = () => {
 
         <div className="flex-1">
           <LanguageHeader />
+          <section className="p-2">
+            <div>sd</div>
+          </section>
         </div>
       </div>
     </div>

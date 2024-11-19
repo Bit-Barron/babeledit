@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FiUpload, FiFile, FiX } from "react-icons/fi";
 import { useFileUploadStore } from "@/store/file-upload-store";
+import { validateJSON } from "@/utils/client-helper";
+import { toast } from "@/hooks/use-toast";
 
 interface FileUploadProps {
   maxSize: number;
@@ -8,14 +10,24 @@ interface FileUploadProps {
   onUpload: (files: File[]) => void;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
+export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
   const [dragActive, setDragActive] = useState(false);
   const { selectedFiles, removeFile, setSelectedFiles } = useFileUploadStore();
 
   const handleFiles = (files: FileList) => {
-    const jsonFiles = Array.from(files).filter((file) =>
-      file.name.endsWith(".json")
+    const jsonFiles = validateJSON(
+      Array.from(files)
+        .map((file) => file.name)
+        .join(",")
     );
+
+    if (!jsonFiles) {
+      toast({
+        title: "Invalid file format",
+        description: "Please upload valid JSON files",
+        variant: "destructive",
+      });
+    }
     setSelectedFiles([...selectedFiles, ...jsonFiles]);
     onUpload([...selectedFiles, ...jsonFiles]);
   };
@@ -107,5 +119,3 @@ const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
     </div>
   );
 };
-
-export default FileUpload;

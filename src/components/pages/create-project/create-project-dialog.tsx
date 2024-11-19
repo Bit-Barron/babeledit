@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MyDialog } from "@/components/elements/my-dialog";
-import FileUpload from "@/components/pages/create-project/create-project-file-upload";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { LanguageDisplay } from "@/components/pages/create-project/create-project-language-list";
 import { LanguageSelectDialog } from "@/components/pages/create-project/create-project-language-select";
 import { useFileUploadStore } from "@/store/file-upload-store";
 import { useToast } from "@/hooks/use-toast";
+import { FileUpload } from "@/components/pages/create-project/create-project-file-upload";
 
 export const CreateProject: React.FC<CreateProjectProps> = ({
   isOpen,
@@ -15,18 +15,16 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
 }) => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
   const [primaryLang, setPrimaryLang] = useState<string>("English");
   const [languages, setLanguages] = useState<Language[]>([
     { code: "en", name: "English" },
   ]);
-
   const { selectedFiles } = useFileUploadStore();
 
   const handleAddLanguage = (language: Language) => {
     setLanguages((prev) => [...prev, language]);
     setPrimaryLang(language.name);
-    console.log(languages);
   };
 
   const handleCreateProject = async () => {
@@ -84,7 +82,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
           maxSize={0}
           acceptedTypes={[]}
           onUpload={function (files: File[]): void {
-            console.log("Files uploaded:", files);
+            console.log(files);
           }}
         />
 

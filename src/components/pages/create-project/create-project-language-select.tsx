@@ -9,8 +9,6 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const handleSelect = () => {};
-
   return (
     <MyDialog title="Select language" isOpen={isOpen} setIsOpen={onClose}>
       <Input
@@ -22,9 +20,7 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
         <Button variant="outline" onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="secondary" onClick={handleSelect}>
-          Ok
-        </Button>
+        <Button variant="secondary">Ok</Button>
       </div>
     </MyDialog>
   );
