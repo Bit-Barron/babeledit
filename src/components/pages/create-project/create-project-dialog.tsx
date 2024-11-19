@@ -7,12 +7,13 @@ import { Separator } from "@/components/ui/separator";
 import { LanguageDisplay } from "@/components/pages/create-project/create-project-language-list";
 import { LanguageSelectDialog } from "@/components/pages/create-project/create-project-language-select";
 import { useFileUploadStore } from "@/store/file-upload-store";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 
 export const CreateProject: React.FC<CreateProjectProps> = ({
   isOpen,
   setIsOpen,
 }) => {
+  const { toast } = useToast();
   const navigate = useNavigate();
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [primaryLang, setPrimaryLang] = useState<string>("English");
@@ -30,7 +31,11 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
 
   const handleCreateProject = () => {
     if (selectedFiles.length === 0) {
-      toast.error("Please upload files to continue");
+      toast({
+        title: "No files uploaded",
+        description: "Please upload files to continue",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -42,7 +47,11 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
         files: selectedFiles,
       },
     });
-    toast.success("Project created successfully");
+    toast({
+      title: "Project created",
+      description: "You can now start translating your files",
+      variant: "success",
+    });
   };
 
   return (
