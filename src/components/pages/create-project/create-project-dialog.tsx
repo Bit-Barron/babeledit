@@ -29,7 +29,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
     console.log(languages);
   };
 
-  const handleCreateProject = () => {
+  const handleCreateProject = async () => {
     if (selectedFiles.length === 0) {
       toast({
         title: "No files uploaded",
@@ -39,19 +39,37 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
       return;
     }
 
-    setIsOpen(false);
-    navigate("/translation-editor", {
-      state: {
-        languages,
-        primaryLang,
-        files: selectedFiles,
-      },
-    });
-    toast({
-      title: "Project created",
-      description: "You can now start translating your files",
-      variant: "success",
-    });
+    try {
+      const fileContents = await Promise.all(
+        selectedFiles.map(async (file) => {
+          const text = await file.text();
+          return {
+            name: file.name,
+            content: JSON.parse(text),
+          };
+        })
+      );
+
+      setIsOpen(false);
+      navigate("/translation-editor", {
+        state: {
+          languages,
+          primaryLang,
+          files: fileContents,
+        },
+      });
+      toast({
+        title: "Project created",
+        description: "You can now start translating your files",
+        variant: "success",
+      });
+    } catch (error) {
+      toast({
+        title: "Error reading files",
+        description: "Please make sure your files are valid JSON",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
