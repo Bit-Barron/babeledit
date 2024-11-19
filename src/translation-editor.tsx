@@ -1,6 +1,6 @@
-import { Header } from "@/components/pages/translation-editor/header";
-import { LanguageHeader } from "@/components/pages/translation-editor/language-header";
-import { TreeNodeComponent } from "@/components/pages/translation-editor/tree-node";
+import { Header } from "@/components/pages/translation-editor/translation-header";
+import { LanguageHeader } from "@/components/pages/translation-editor/translation-language-header";
+import { TreeNodeComponent } from "@/components/pages/translation-editor/translation-tree-node";
 import { useTranslationTree } from "@/components/store/use-translation-tree";
 import { useLocation } from "react-router-dom";
 
