@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MyDialog } from "@/components/elements/my-dialog";
 import FileUpload from "@/components/pages/create-project/create-project-file-upload";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
   isOpen,
   setIsOpen,
 }) => {
+  const navigate = useNavigate();
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [primaryLang, setPrimaryLang] = useState<string>("English");
   const [languages, setLanguages] = useState<Language[]>([
@@ -19,10 +21,12 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
   const handleAddLanguage = (language: Language) => {
     setLanguages((prev) => [...prev, language]);
     setPrimaryLang(language.name);
+    console.log(languages);
   };
 
   const handleCreateProject = () => {
-    console.log("Creating project with languages:", languages);
+    setIsOpen(false);
+    navigate("/translation-editor");
   };
 
   return (

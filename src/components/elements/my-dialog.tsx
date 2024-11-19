@@ -29,9 +29,7 @@ export const MyDialog: React.FC<MyDialogProps> = ({
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
 
-        <div className="p-4">
-          <p>{children}</p>
-        </div>
+        <div className="p-4">{children}</div>
       </DialogContent>
     </Dialog>
   );
