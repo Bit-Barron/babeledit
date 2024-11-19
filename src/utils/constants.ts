@@ -66,3 +66,5 @@ export const TRANSLATION_PROJECTS: ProjectOption[] = [
     icon: SiEmberdotjs,
   },
 ];
+
+export const LANGUAGES = ["de-DE", "en-US", "es-ES", "fr-FR"];

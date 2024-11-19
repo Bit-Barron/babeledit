@@ -1,56 +1,42 @@
-import { Button } from "@/components/ui/button";
+import { Header } from "@/components/pages/translation-editor/header";
+import { LanguageHeader } from "@/components/pages/translation-editor/language-header";
+import { TreeNodeComponent } from "@/components/pages/translation-editor/tree-node";
+import { useTranslationTree } from "@/components/store/use-translation-tree";
 import { useLocation } from "react-router-dom";
-
-const LANGUAGES = ["de-DE", "en-US", "es-ES", "fr-FR"];
-
-interface FileData {
-  name: string;
-  content: any;
-}
 
 export const TranslationEditor = () => {
   const location = useLocation();
-  const files = (location.state?.files || []) as FileData[];
+  const files = location.state?.files || [];
+  const { treeData, expandedNodes, selectedTranslation, handleNodeClick } =
+    useTranslationTree(files[0]?.content);
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="flex items-center justify-between p-4 border-b border-gray-800">
-        <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            className="text-white hover:text-white hover:bg-gray-800"
-          >
-            Back
-          </Button>
-          <span>Translation Editor - {files[0]?.name || "No file"}</span>
-        </div>
-        <Button
-          variant="outline"
-          className="text-white border-gray-600 hover:bg-gray-800 hover:text-white"
-        >
-          Save Changes
-        </Button>
-      </div>
+      <Header fileName={files[0]?.name} />
 
       <div className="flex">
+        {/* Left Panel */}
         <div className="w-[300px] border-r border-gray-800">
-          <div className="p-4 border-b border-gray-800 font-medium">
+          <div className="p-2 border-b border-gray-800 font-medium">
             Translation IDs
           </div>
-          <pre className="p-4 text-xs whitespace-pre-wrap">
-            {JSON.stringify(files[0]?.content, null, 2)}
-          </pre>
+          <div className="overflow-auto">
+            {treeData.map((node: TreeNode) => (
+              <TreeNodeComponent
+                key={node.label}
+                node={node}
+                path={node.label}
+                level={0}
+                isExpanded={expandedNodes.has(node.label)}
+                isSelected={selectedTranslation === node.label}
+                onNodeClick={handleNodeClick}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="flex-1">
-          <div className="grid grid-cols-[1fr,100px,100px,100px,100px] border-b border-gray-800">
-            <div className="p-4 font-medium">Translations</div>
-            {LANGUAGES.map((lang) => (
-              <div key={lang} className="p-4 text-center font-medium">
-                {lang}
-              </div>
-            ))}
-          </div>
+          <LanguageHeader />
         </div>
       </div>
     </div>
