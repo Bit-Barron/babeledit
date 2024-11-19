@@ -1,8 +1,9 @@
-export function validateJSON(body: string) {
+export async function validateJSON(file: File): Promise<File | null> {
   try {
-    let data = JSON.parse(body);
-    return data;
+    const text = await file.text();
+    JSON.parse(text); // Throws if not valid JSON
+    return file; // Return the file itself if valid
   } catch (e) {
-    return null;
+    return null; // Return null if invalid
   }
 }
