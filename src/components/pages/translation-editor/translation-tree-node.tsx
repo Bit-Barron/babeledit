@@ -1,7 +1,14 @@
-import React from "react";
+import React, { memo, useCallback } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { cn } from "@/lib/utils";
 import { TreeNodeIcon } from "@/components/pages/translation-editor/translation-tree-node-icon";
+import { ITEM_TYPE } from "@/utils/constants";
+
+interface TreeNode {
+  label: string;
+  type: "folder" | "translation";
+  children?: TreeNode[];
+}
 
 interface TreeNodeProps {
   node: TreeNode;
@@ -13,70 +20,57 @@ interface TreeNodeProps {
   onMove: (dragPath: string, dropPath: string) => void;
 }
 
-const ITEM_TYPE = "TREE_NODE";
+export const TreeNodeComponent: React.FC<TreeNodeProps> = memo(
+  ({ node, path, level, isExpanded, isSelected, onNodeClick, onMove }) => {
+    const handleClick = useCallback(() => {
+      onNodeClick(node, path);
+    }, [node, path, onNodeClick]);
 
-export const TreeNodeComponent: React.FC<TreeNodeProps> = ({
-  node,
-  path,
-  level,
-  isExpanded,
-  isSelected,
-  onNodeClick,
-  onMove,
-}) => {
-  const [{ isDragging }, drag] = useDrag({
-    type: ITEM_TYPE,
-    item: { path, type: node.type },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
+    const [{ isDragging }, drag] = useDrag(
+      () => ({
+        type: ITEM_TYPE,
+        item: { path, type: node.type },
+        collect: (monitor) => ({
+          isDragging: monitor.isDragging(),
+        }),
+      }),
+      [path, node.type]
+    );
 
-  const [{ isOver, canDrop }, drop] = useDrop({
-    accept: ITEM_TYPE,
-    drop: (item: { path: string; type: string }) => {
-      if (item.path !== path) {
-        onMove(item.path, path);
+    const [{ isOver, canDrop }, drop] = useDrop(
+      () => ({
+        accept: ITEM_TYPE,
+        drop: (item: { path: string; type: string }) => {
+          if (item.path !== path) {
+            onMove(item.path, path);
+          }
+        },
+        canDrop: (item: { path: string; type: string }) =>
+          !path.startsWith(item.path) && item.path !== path,
+        collect: (monitor) => ({
+          isOver: monitor.isOver(),
+          canDrop: monitor.canDrop(),
+        }),
+      }),
+      [path, onMove]
+    );
+
+    const dragDropRef = useCallback(
+      (el: HTMLDivElement | null) => {
+        drag(el);
+        drop(el);
+      },
+      [drag, drop]
+    );
+
+    const renderChildren = () => {
+      if (node.type !== "folder" || !isExpanded || !node.children) {
+        return null;
       }
-    },
-    canDrop: (item: { path: string; type: string }) => {
-      return !path.startsWith(item.path) && item.path !== path;
-    },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
-    }),
-  });
 
-  const dragDropRef = (el: HTMLDivElement) => {
-    drag(el);
-    drop(el);
-  };
-
-  return (
-    <div
-      ref={dragDropRef}
-      className={cn(
-        "relative",
-        isDragging && "opacity-50",
-        isOver && canDrop && "bg-blue-900/20",
-        isOver && !canDrop && "bg-red-900/20"
-      )}
-    >
-      <div
-        className={cn(
-          "flex items-center px-2 py-1 cursor-pointer hover:bg-gray-800",
-          isSelected && "bg-gray-800"
-        )}
-        style={{ paddingLeft: `${level * 16}px` }}
-        onClick={() => onNodeClick(node, path)}
-      >
-        <TreeNodeIcon type={node.type} isExpanded={isExpanded} />
-        <span className="text-sm">{node.label}</span>
-      </div>
-      {node.type === "folder" && isExpanded && node.children && (
+      return (
         <div>
-          {node.children.map((child: TreeNode) => (
+          {node.children.map((child) => (
             <TreeNodeComponent
               key={`${path}.${child.label}`}
               node={child}
@@ -89,7 +83,35 @@ export const TreeNodeComponent: React.FC<TreeNodeProps> = ({
             />
           ))}
         </div>
-      )}
-    </div>
-  );
-};
+      );
+    };
+
+    return (
+      <div
+        ref={dragDropRef}
+        className={cn(
+          "relative",
+          isDragging && "opacity-50",
+          isOver && canDrop && "bg-blue-900/20",
+          isOver && !canDrop && "bg-red-900/20"
+        )}
+      >
+        <div
+          className={cn(
+            "flex items-center px-2 py-1 cursor-pointer hover:bg-gray-800",
+            isSelected && "bg-gray-800"
+          )}
+          onClick={handleClick}
+        >
+          <TreeNodeIcon type={node.type} isExpanded={isExpanded} />
+          <span className="text-sm">{node.label}</span>
+        </div>
+        {renderChildren()}
+      </div>
+    );
+  }
+);
+
+TreeNodeComponent.displayName = "TreeNodeComponent";
+
+export default TreeNodeComponent;
