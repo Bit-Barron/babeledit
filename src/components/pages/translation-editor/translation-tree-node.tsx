@@ -1,4 +1,5 @@
 import React from "react";
+import { useDrag, useDrop } from "react-dnd";
 import { cn } from "@/lib/utils";
 import { TreeNodeIcon } from "@/components/pages/translation-editor/translation-tree-node-icon";
 
@@ -9,7 +10,10 @@ interface TreeNodeProps {
   isExpanded: boolean;
   isSelected: boolean;
   onNodeClick: (node: TreeNode, path: string) => void;
+  onMove: (dragPath: string, dropPath: string) => void;
 }
+
+const ITEM_TYPE = "TREE_NODE";
 
 export const TreeNodeComponent: React.FC<TreeNodeProps> = ({
   node,
@@ -18,9 +22,47 @@ export const TreeNodeComponent: React.FC<TreeNodeProps> = ({
   isExpanded,
   isSelected,
   onNodeClick,
+  onMove,
 }) => {
+  const [{ isDragging }, drag] = useDrag({
+    type: ITEM_TYPE,
+    item: { path, type: node.type },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
+  const [{ isOver, canDrop }, drop] = useDrop({
+    accept: ITEM_TYPE,
+    drop: (item: { path: string; type: string }) => {
+      if (item.path !== path) {
+        onMove(item.path, path);
+      }
+    },
+    canDrop: (item: { path: string; type: string }) => {
+      return !path.startsWith(item.path) && item.path !== path;
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  });
+
+  const dragDropRef = (el: HTMLDivElement) => {
+    drag(el);
+    drop(el);
+  };
+
   return (
-    <div>
+    <div
+      ref={dragDropRef}
+      className={cn(
+        "relative",
+        isDragging && "opacity-50",
+        isOver && canDrop && "bg-blue-900/20",
+        isOver && !canDrop && "bg-red-900/20"
+      )}
+    >
       <div
         className={cn(
           "flex items-center px-2 py-1 cursor-pointer hover:bg-gray-800",
@@ -43,6 +85,7 @@ export const TreeNodeComponent: React.FC<TreeNodeProps> = ({
               isExpanded={isExpanded}
               isSelected={isSelected}
               onNodeClick={onNodeClick}
+              onMove={onMove}
             />
           ))}
         </div>
