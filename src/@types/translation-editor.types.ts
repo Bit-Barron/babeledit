@@ -8,7 +8,7 @@ export interface TreeNode {
 
 export interface ProjectOption {
   title: string;
-  icon: IconType;
+  Icon: IconType;
 }
 
 export interface TreeNodeProps {

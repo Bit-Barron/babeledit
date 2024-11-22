@@ -15,16 +15,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <div className="max-w-5xl mx-auto">
         <h1 className="text-xl mb-8">Create a new translation project</h1>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {TRANSLATION_PROJECTS.map((option) => (
+          {TRANSLATION_PROJECTS.map(({ title, Icon }) => (
             <button
               onClick={() => setIsCreateProjectOpen(true)}
-              key={option.title}
+              key={title}
               className="flex flex-col items-center justify-center p-4 border rounded-lg transition-colors cursor-pointer aspect-square"
             >
-              <option.icon className="text-3xl mb-2" />
-              <span className="text-sm text-center text-gray-300">
-                {option.title}
-              </span>
+              <Icon className="text-3xl mb-2" />
+              <span className="text-sm text-center text-gray-300">{title}</span>
             </button>
           ))}
         </div>

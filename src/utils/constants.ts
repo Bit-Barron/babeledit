@@ -14,51 +14,51 @@ import { ProjectOption } from "@/@types/translation-editor.types";
 export const TRANSLATION_PROJECTS: ProjectOption[] = [
   {
     title: "Generic JSON",
-    icon: VscJson,
+    Icon: VscJson,
   },
   {
     title: "Generic YAML",
-    icon: SiYaml,
+    Icon: SiYaml,
   },
   {
     title: "Java Properties",
-    icon: FaJava,
+    Icon: FaJava,
   },
   {
     title: "Flutter ARB",
-    icon: TbBrandReactNative,
+    Icon: TbBrandReactNative,
   },
   {
     title: "resx Resource",
-    icon: VscJson,
+    Icon: VscJson,
   },
   {
     title: "Angular",
-    icon: FaAngular,
+    Icon: FaAngular,
   },
   {
     title: "React",
-    icon: SiReact,
+    Icon: SiReact,
   },
   {
     title: "i18next",
-    icon: SiNextdotjs,
+    Icon: SiNextdotjs,
   },
   {
     title: "Ruby on Rails YAML",
-    icon: SiRubyonrails,
+    Icon: SiRubyonrails,
   },
   {
     title: "Laravel",
-    icon: FaLaravel,
+    Icon: FaLaravel,
   },
   {
     title: "vue-i18n JSON",
-    icon: SiVuedotjs,
+    Icon: SiVuedotjs,
   },
   {
     title: "Ember",
-    icon: SiEmberdotjs,
+    Icon: SiEmberdotjs,
   },
 ];
 
