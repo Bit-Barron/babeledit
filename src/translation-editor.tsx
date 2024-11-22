@@ -6,6 +6,7 @@ import { TranslationHeader } from "@/components/pages/translation-editor/transla
 import { LanguageHeader } from "@/components/pages/translation-editor/translation-language-header";
 import { TreeNodeComponent } from "@/components/pages/translation-editor/translation-tree-node";
 import useTranslationStore from "@/store/translation-store";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface TranslationFile {
   name: string;
@@ -16,7 +17,6 @@ export const TranslationEditor = () => {
   const location = useLocation();
   const files = (location.state?.files || []) as TranslationFile[];
   const [translations, setTranslations] = useState<Record<string, string>>({});
-
   const {
     treeData,
     expandedNodes,
@@ -91,26 +91,26 @@ export const TranslationEditor = () => {
               {selectedTranslation ? (
                 <div className="space-y-4">
                   <div className="text-sm text-gray-300 mb-4">
-                    Selected: {selectedTranslation}
+                    {selectedTranslation}
                   </div>
                   {files.map((file) => (
-                    <div key={file.name} className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-200">
-                        {file.name}
-                      </label>
-                      <textarea
-                        value={translations[file.name] || ""}
-                        onChange={(e) => {
-                          setTranslations((prev) => ({
-                            ...prev,
-                            [file.name]: e.target.value,
-                          }));
-                        }}
-                        className="w-full h-24 bg-gray-900 border border-gray-700 
-                                 rounded-md p-2 text-sm focus:ring-2 
-                                 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="Enter translation..."
-                      />
+                    <div key={file.name} className="mb-6">
+                      <div className="flex items-center gap-4 mb-2">
+                        <div className="flex-1 flex items-center gap-4">
+                          <input
+                            value={translations[file.name] || ""}
+                            disabled
+                            className="flex-1 bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Enter translation..."
+                          />
+                          <div className="flex items-center gap-2 min-w-[100px]">
+                            <Checkbox className="h-4 w-4" />
+                            <span className="text-sm text-gray-400">
+                              Approved
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
