@@ -7,11 +7,7 @@ import { LanguageHeader } from "@/components/pages/translation-editor/translatio
 import { TreeNodeComponent } from "@/components/pages/translation-editor/translation-tree-node";
 import useTranslationStore from "@/store/translation-store";
 import { Checkbox } from "@/components/ui/checkbox";
-
-interface TranslationFile {
-  name: string;
-  content: Record<string, any>;
-}
+import { TranslationFile } from "@/@types/translation-editor.types";
 
 export const TranslationEditor = () => {
   const location = useLocation();
@@ -126,5 +122,3 @@ export const TranslationEditor = () => {
     </DndProvider>
   );
 };
-
-export default TranslationEditor;

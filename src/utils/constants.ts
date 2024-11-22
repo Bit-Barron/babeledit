@@ -1,4 +1,3 @@
-import { IconType } from "react-icons";
 import { VscJson } from "react-icons/vsc";
 import { FaJava, FaAngular, FaLaravel } from "react-icons/fa";
 import {
@@ -10,11 +9,7 @@ import {
 } from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
 import { SiEmberdotjs } from "react-icons/si";
-
-interface ProjectOption {
-  title: string;
-  icon: IconType;
-}
+import { ProjectOption } from "@/@types/translation-editor.types";
 
 export const TRANSLATION_PROJECTS: ProjectOption[] = [
   {
@@ -69,9 +64,9 @@ export const TRANSLATION_PROJECTS: ProjectOption[] = [
 
 export const LANGUAGES = ["de-DE", "en-US", "es-ES", "fr-FR"];
 
-
 export const ICON_SIZE = "h-4 w-4";
 export const MARGIN_RIGHT = "mr-1";
 export const FOLDER_COLOR = "text-yellow-500";
 export const TRANSLATION_COLOR = "text-gray-400";
 export const ITEM_TYPE = "TREE_NODE";
+export const DRAG_ITEM_TYPE = "tree-node" as const;
