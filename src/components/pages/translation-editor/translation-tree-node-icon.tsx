@@ -1,42 +1,19 @@
-import {
-  ICON_SIZE,
-  MARGIN_RIGHT,
-  FOLDER_COLOR,
-  TRANSLATION_COLOR,
-} from "@/utils/constants";
-import {
-  FaChevronRight as ChevronRight,
-  FaChevronDown as ChevronDown,
-  FaFolder as Folder,
-} from "react-icons/fa";
-import { FiMessageSquare as MessageSquare } from "react-icons/fi";
+import { ICON_SIZE, FOLDER_COLOR } from "@/utils/constants";
+import { FaFolder } from "react-icons/fa";
 
 interface TreeNodeIconProps {
   type: "folder" | "translation";
   isExpanded?: boolean;
 }
 
-export const TreeNodeIcon: React.FC<TreeNodeIconProps> = ({
-  type,
-  isExpanded = false,
-}) => {
-  const renderFolderIcon = () => (
-    <>
-      {isExpanded ? (
-        <ChevronDown className={`${ICON_SIZE} ${MARGIN_RIGHT}`} />
-      ) : (
-        <ChevronRight className={`${ICON_SIZE} ${MARGIN_RIGHT}`} />
+export const TreeNodeIcon: React.FC<TreeNodeIconProps> = ({ type }) => {
+  return (
+    <div>
+      {type === "folder" && (
+        <div className={`${ICON_SIZE} mr-2 ${FOLDER_COLOR}`}>
+          <FaFolder />
+        </div>
       )}
-      <Folder className={`${ICON_SIZE} mr-2 ${FOLDER_COLOR}`} />
-    </>
+    </div>
   );
-
-  const renderTranslationIcon = () => (
-    <>
-      <span className={`${ICON_SIZE} ${MARGIN_RIGHT}`} />
-      <MessageSquare className={`${ICON_SIZE} mr-2 ${TRANSLATION_COLOR}`} />
-    </>
-  );
-
-  return type === "folder" ? renderFolderIcon() : renderTranslationIcon();
 };

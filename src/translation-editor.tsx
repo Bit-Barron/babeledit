@@ -8,6 +8,7 @@ import { TreeNodeComponent } from "@/components/pages/translation-editor/transla
 import useTranslationStore from "@/store/translation-store";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TranslationFile } from "@/@types/translation-editor.types";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export const TranslationEditor = () => {
   const location = useLocation();
@@ -59,31 +60,33 @@ export const TranslationEditor = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="min-h-screen bg-black text-white">
+      <div className="bg-black text-white h-screen flex flex-col">
         <TranslationHeader fileName={files[0]?.name} />
-        <div className="flex">
-          <div className="w-[300px] border-r border-gray-800">
-            <div className="p-4 border-b border-gray-800 font-medium">
+        <div className="flex flex-1 overflow-hidden">
+          <div className="w-[300px] border-r border-gray-800 flex flex-col">
+            <div className="p-4 border-b border-gray-800 font-medium shrink-0">
               Translation IDs
             </div>
-            <div className="overflow-auto">
-              {treeData.map((node) => (
-                <TreeNodeComponent
-                  key={node.label}
-                  node={node}
-                  path={node.label}
-                  level={0}
-                  isExpanded={expandedNodes.has(node.label)}
-                  isSelected={selectedTranslation === node.label}
-                  onNodeClick={handleNodeClick}
-                  onMove={moveNode}
-                />
-              ))}
-            </div>
+            <ScrollArea className="flex-1">
+              <div className="h-full">
+                {treeData.map((node) => (
+                  <TreeNodeComponent
+                    key={node.label}
+                    node={node}
+                    path={node.label}
+                    level={0}
+                    isExpanded={expandedNodes.has(node.label)}
+                    isSelected={selectedTranslation === node.label}
+                    onNodeClick={handleNodeClick}
+                    onMove={moveNode}
+                  />
+                ))}
+              </div>
+            </ScrollArea>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 flex flex-col overflow-hidden">
             <LanguageHeader />
-            <section className="p-4">
+            <section className="p-4 flex-1">
               {selectedTranslation ? (
                 <div className="space-y-4">
                   <div className="text-sm text-gray-300 mb-4">
