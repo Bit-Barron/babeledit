@@ -5,13 +5,11 @@ import { FaRegFileAlt } from "react-icons/fa";
 export const TreeNodeComponent = ({ content }: any) => {
   const nodes = Array.isArray(content) ? content : [content];
 
-  const [expandedNodes, setExpandedNodes] = useState<{
-    [key: string]: boolean;
-  }>({});
+  const [expandedNodes, setExpandedNodes] = useState<any>({});
 
   const toggleNode = (nodeLabel: string) => {
     console.log(nodeLabel);
-    setExpandedNodes((prev) => ({
+    setExpandedNodes((prev: { [x: string]: any }) => ({
       ...prev,
       [nodeLabel]: !prev[nodeLabel],
     }));
