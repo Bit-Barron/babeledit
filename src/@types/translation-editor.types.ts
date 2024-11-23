@@ -11,24 +11,17 @@ export interface ProjectOption {
   Icon: IconType;
 }
 
-export interface TreeNodeProps {
-  node: TreeNode;
-  path: string;
-  level: number;
-  isExpanded: boolean;
-  isSelected: boolean;
-  onNodeClick: (node: TreeNode, path: string) => void;
-  onMove: (dragPath: string, dropPath: string) => void;
-}
-
-export interface DragItem {
-  path: string;
-  type: NodeType;
-}
-
-type NodeType = "folder" | "translation";
+export type NodeType = "folder" | "translation";
 
 export interface TranslationFile {
   name: string;
   content: Record<string, any>;
+}
+
+export interface LanguageFile {
+  name: string;
+}
+
+export interface LocationState {
+  files: LanguageFile[];
 }

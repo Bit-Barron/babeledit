@@ -1,13 +1,6 @@
+import { LocationState } from "@/@types/translation-editor.types";
 import React from "react";
 import { useLocation } from "react-router-dom";
-
-interface LanguageFile {
-  name: string;
-}
-
-interface LocationState {
-  files: LanguageFile[];
-}
 
 export const LanguageHeader: React.FC = () => {
   const location = useLocation();

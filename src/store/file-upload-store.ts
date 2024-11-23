@@ -5,8 +5,6 @@ interface FileUploadStore {
   setSelectedFiles: (files: File[]) => void;
   addFiles: (files: File[]) => void;
   removeFile: (index: number) => void;
-  clearFiles: () => void;
-  hasFiles: () => boolean;
 }
 
 export const useFileUploadStore = create<FileUploadStore>((set, get) => ({
@@ -23,8 +21,4 @@ export const useFileUploadStore = create<FileUploadStore>((set, get) => ({
     const newFiles = get().selectedFiles.filter((_, i) => i !== index);
     set({ selectedFiles: newFiles });
   },
-
-  clearFiles: () => set({ selectedFiles: [] }),
-
-  hasFiles: () => get().selectedFiles.length > 0,
 }));
