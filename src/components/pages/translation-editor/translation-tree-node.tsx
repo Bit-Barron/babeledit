@@ -1,36 +1,51 @@
-import { TreeNode } from "@/@types/translation-editor.types";
-import React from "react";
-import { FaFolder } from "react-icons/fa";
-import { FaFileAlt } from "react-icons/fa";
+import { useState } from "react";
+import { FaFolder, FaFolderOpen } from "react-icons/fa";
+import { FaRegFileAlt } from "react-icons/fa";
 
-interface TreeNodeComponentProps {
-  content: TreeNode | TreeNode[];
-}
-
-export const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({
-  content,
-}) => {
+export const TreeNodeComponent = ({ content }: any) => {
   const nodes = Array.isArray(content) ? content : [content];
+
+  const [expandedNodes, setExpandedNodes] = useState<{
+    [key: string]: boolean;
+  }>({});
+
+  const toggleNode = (nodeLabel: string) => {
+    console.log(nodeLabel);
+    setExpandedNodes((prev) => ({
+      ...prev,
+      [nodeLabel]: !prev[nodeLabel],
+    }));
+  };
 
   return (
     <div className="pl-4">
       {nodes.map((node) => {
+        const isExpanded = expandedNodes[node.label];
+
         return (
           <div key={node.label}>
-            <div className="flex items-center space-x-2">
+            <div
+              className="flex items-center space-x-2 py-1 rounded cursor-pointer"
+              onClick={() => node.type === "folder" && toggleNode(node.label)}
+            >
               <span className="text-lg">
                 {node.type === "folder" ? (
-                  <FaFolder className="text-yellow-500" />
+                  <div className="text-yellow-500">
+                    {isExpanded ? <FaFolderOpen /> : <FaFolder />}
+                  </div>
                 ) : (
-                  <FaFileAlt />
+                  <FaRegFileAlt />
                 )}
               </span>
-              <span className={node.type === "folder" ? "font-medium" : ""}>
+              <span
+                className={`${node.type === "folder" ? "font-medium" : ""}`}
+              >
                 {node.label}
               </span>
             </div>
 
-            {node.type === "folder" &&
+            {isExpanded &&
+              node.type === "folder" &&
               node.children &&
               node.children.length > 0 && (
                 <div className="pl-4 mt-1">
