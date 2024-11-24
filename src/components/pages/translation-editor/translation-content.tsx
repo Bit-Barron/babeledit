@@ -1,7 +1,8 @@
+import { TreeNode } from "@/@types/translation-editor.types";
 import { Card } from "@/components/ui/card";
 
 interface TranslationContentProps {
-  node: any | null;
+  node: TreeNode | null;
 }
 
 export const TranslationContent = ({ node }: TranslationContentProps) => {
@@ -13,7 +14,29 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
     );
   }
 
-  console.log(node);
+  if (node.type === "folder") {
+    return (
+      <div className="flex items-center justify-center h-full text-gray-400">
+        Dies ist ein Ordner. Wähle eine Übersetzung aus.
+      </div>
+    );
+  }
+
+  const highlightPlaceholders = (text: string) => {
+    if (!text) return null;
+
+    const parts = text.split(/(\{\{.*?\}\})/g);
+    return parts.map((part, index) => {
+      if (part.startsWith("{{") && part.endsWith("}}")) {
+        return (
+          <span key={index} className="text-blue-400 font-medium">
+            {part}
+          </span>
+        );
+      }
+      return <span key={index}>{part}</span>;
+    });
+  };
 
   return (
     <Card className="p-4 bg-gray-900 border-gray-700">
@@ -23,7 +46,12 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
           <div className="flex-1">
             <label className="block text-sm text-gray-400 mb-2">Content</label>
             <div className="p-3 bg-gray-800 rounded-md">
-              {node.content || "Kein Inhalt verfügbar"}
+              {highlightPlaceholders(node?.content || "")}
+              {node.content?.includes("{{") && (
+                <div className="text-xs text-gray-500 mt-2">
+                  Diese Übersetzung enthält Platzhalter
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ export interface TreeNode {
   label: string;
   type: NodeType;
   children?: TreeNode[];
+  content?: string;
 }
 
 export interface ProjectOption {
