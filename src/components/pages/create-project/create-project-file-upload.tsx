@@ -40,7 +40,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
 
   const handleFileRemove = (index: number) => {
     removeFile(index);
-    onUpload(selectedFiles.filter((_, i) => i !== index));
+    onUpload(selectedFiles.filter((_: any, i: number) => i !== index));
   };
 
   const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
@@ -103,7 +103,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
 
       {selectedFiles.length > 0 && (
         <div className="space-y-2">
-          {selectedFiles.map((file, index) => (
+          {selectedFiles.map((file: File, index: number) => (
             <div
               key={index}
               className="flex items-center justify-between p-2 bg-gray-800 rounded-lg"

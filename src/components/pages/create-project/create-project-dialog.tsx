@@ -44,7 +44,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
 
     try {
       const fileContents = await Promise.all(
-        selectedFiles.map(async (file) => {
+        selectedFiles.map(async (file: { text: () => any; name: any }) => {
           const text = await file.text();
           return {
             name: file.name,

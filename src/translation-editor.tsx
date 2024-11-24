@@ -10,8 +10,6 @@ import { TreeNodeComponent } from "@/components/pages/translation-editor/transla
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { DndProvider } from "react-dnd";
 
 export const TranslationEditor = () => {
   const location = useLocation();
@@ -41,36 +39,34 @@ export const TranslationEditor = () => {
   };
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div className="bg-black text-white h-screen flex flex-col">
-        <TranslationHeader fileName={files.map((i) => i.name).join(", ")} />
-        <div className="flex flex-1 overflow-hidden">
-          <div className="w-[300px] border-r border-gray-800 flex flex-col">
-            <div className="p-[18px] border-b border-gray-800 font-medium shrink-0">
-              Translation IDs
+    <div className="bg-black text-white h-screen flex flex-col">
+      <TranslationHeader fileName={files.map((i) => i.name).join(", ")} />
+      <div className="flex flex-1 overflow-hidden">
+        <div className="w-[300px] border-r border-gray-800 flex flex-col">
+          <div className="p-[18px] border-b border-gray-800 font-medium shrink-0">
+            Translation IDs
+          </div>
+          <ScrollArea className="flex-1">
+            <div className="h-full">
+              {treeData.map((node) => (
+                <TreeNodeComponent
+                  key={node.label}
+                  content={node.children}
+                  onSelectTranslation={handleSelectTranslation}
+                />
+              ))}
             </div>
-            <ScrollArea className="flex-1">
-              <div className="h-full">
-                {treeData.map((node) => (
-                  <TreeNodeComponent
-                    key={node.label}
-                    content={node.children}
-                    onSelectTranslation={handleSelectTranslation}
-                  />
-                ))}
-              </div>
-            </ScrollArea>
-          </div>
-          <div className="flex-1 flex flex-col overflow-hidden">
-            <LanguageHeader />
-            <ScrollArea className="flex-1">
-              <div className="p-4">
-                <TranslationContent node={selectedNode} />
-              </div>
-            </ScrollArea>
-          </div>
+          </ScrollArea>
+        </div>
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <LanguageHeader />
+          <ScrollArea className="flex-1">
+            <div className="p-4">
+              <TranslationContent node={selectedNode} />
+            </div>
+          </ScrollArea>
         </div>
       </div>
-    </DndProvider>
+    </div>
   );
 };
