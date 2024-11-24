@@ -34,10 +34,6 @@ export const TranslationEditor = () => {
     children: processContent(file.content),
   }));
 
-  const handleSelectTranslation = (node: TreeNode) => {
-    setSelectedNode(node);
-  };
-
   return (
     <div className="bg-black text-white h-screen flex flex-col">
       <TranslationHeader fileName={files.map((i) => i.name).join(", ")} />
@@ -52,7 +48,7 @@ export const TranslationEditor = () => {
                 <TreeNodeComponent
                   key={node.label}
                   content={node.children}
-                  onSelectTranslation={handleSelectTranslation}
+                  onSelectTranslation={() => setSelectedNode(node)}
                 />
               ))}
             </div>

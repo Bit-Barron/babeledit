@@ -10,11 +10,18 @@ interface FileUploadProps {
   onUpload: (files: File[]) => void;
 }
 
-export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
-  const [dragActive, setDragActive] = useState(false);
-  const { selectedFiles, removeFile, setSelectedFiles } = useFileUploadStore();
+interface FileUploadStore {
+  selectedFiles: File[];
+  removeFile: (index: number) => void;
+  setSelectedFiles: (files: File[]) => void;
+}
 
-  const handleFiles = async (files: FileList) => {
+export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
+  const [dragActive, setDragActive] = useState<boolean>(false);
+  const { selectedFiles, removeFile, setSelectedFiles } =
+    useFileUploadStore() as FileUploadStore;
+
+  const handleFiles = async (files: FileList): Promise<void> => {
     const fileArray = Array.from(files);
 
     const validationResults = await Promise.all(
@@ -26,37 +33,39 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
             description: `The file "${file.name}" is not valid JSON.`,
             variant: "destructive",
           });
+          return null;
         }
-        return isValid;
+        return file;
       })
     );
 
     const validFiles = validationResults.filter(
       (file): file is File => file !== null
     );
+
     setSelectedFiles([...selectedFiles, ...validFiles]);
     onUpload([...selectedFiles, ...validFiles]);
   };
 
-  const handleFileRemove = (index: number) => {
+  const handleFileRemove = (index: number): void => {
     removeFile(index);
-    onUpload(selectedFiles.filter((_: any, i: number) => i !== index));
+    onUpload(selectedFiles.filter((_: File, i: number) => i !== index));
   };
 
-  const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrag = (e: React.DragEvent<HTMLDivElement>): void => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(e.type === "dragenter" || e.type === "dragover");
   };
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>): void => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
     handleFiles(e.dataTransfer.files);
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files) {
       handleFiles(e.target.files);
     }

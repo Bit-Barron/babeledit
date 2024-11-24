@@ -9,7 +9,7 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
   if (!node) {
     return (
       <div className="flex items-center justify-center h-full text-gray-400">
-        Wähle eine Übersetzung aus der Liste aus
+        Select a translation from the list
       </div>
     );
   }
