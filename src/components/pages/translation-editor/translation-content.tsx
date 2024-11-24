@@ -47,11 +47,6 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
             <label className="block text-sm text-gray-400 mb-2">Content</label>
             <div className="p-3 bg-gray-800 rounded-md">
               {highlightPlaceholders(node?.content || "")}
-              {node.content?.includes("{{") && (
-                <div className="text-xs text-gray-500 mt-2">
-                  Diese Übersetzung enthält Platzhalter
-                </div>
-              )}
             </div>
           </div>
         </div>
