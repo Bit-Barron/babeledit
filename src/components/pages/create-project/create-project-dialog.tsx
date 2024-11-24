@@ -9,6 +9,11 @@ import { useFileUploadStore } from "@/store/file-upload-store";
 import { useToast } from "@/hooks/use-toast";
 import { FileUpload } from "@/components/pages/create-project/create-project-file-upload";
 
+interface CreateProjectProps {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+}
+
 export const CreateProject: React.FC<CreateProjectProps> = ({
   isOpen,
   setIsOpen,

@@ -3,6 +3,12 @@ import { MyDialog } from "@/components/elements/my-dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+interface LanguageSelectDialogProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSelect: (language: Language) => void;
+}
+
 export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
   isOpen,
   onClose,
