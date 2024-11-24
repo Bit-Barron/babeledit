@@ -18,7 +18,7 @@ export const TranslationEditor = () => {
   const files = (location.state?.files || []) as TranslationFile[];
   const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
 
-  const processContent = (content: any): TreeNode[] => {
+  const processContent = (content: object | null): TreeNode[] => {
     if (typeof content === "object" && content !== null) {
       return Object.entries(content).map(([key, value]) => ({
         label: key,
@@ -43,9 +43,7 @@ export const TranslationEditor = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="bg-black text-white h-screen flex flex-col">
-        <TranslationHeader
-          fileName={files.map((i) => i.name).join(", ")}
-        />
+        <TranslationHeader fileName={files.map((i) => i.name).join(", ")} />
         <div className="flex flex-1 overflow-hidden">
           <div className="w-[300px] border-r border-gray-800 flex flex-col">
             <div className="p-[18px] border-b border-gray-800 font-medium shrink-0">
