@@ -1,30 +1,33 @@
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { useLocation } from "react-router-dom";
-import { TranslationHeader } from "@/components/pages/translation-editor/translation-header";
-import { LanguageHeader } from "@/components/pages/translation-editor/translation-language-header";
 import {
-  NodeType,
   TranslationFile,
   TreeNode,
+  NodeType,
 } from "@/@types/translation-editor.types";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { TranslationContent } from "@/components/pages/translation-editor/translation-content";
+import { TranslationHeader } from "@/components/pages/translation-editor/translation-header";
+import { LanguageHeader } from "@/components/pages/translation-editor/translation-language-header";
 import { TreeNodeComponent } from "@/components/pages/translation-editor/translation-tree-node";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
 
 export const TranslationEditor = () => {
   const location = useLocation();
   const files = (location.state?.files || []) as TranslationFile[];
+  const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
 
   const processContent = (content: any): TreeNode[] => {
     if (typeof content === "object" && content !== null) {
       return Object.entries(content).map(([key, value]) => ({
         label: key,
         type: typeof value === "object" ? "folder" : "translation",
-        children: processContent(value),
+        children: typeof value === "object" ? processContent(value) : [],
+        content: typeof value === "string" ? value : undefined,
       }));
-    } else {
-      return [];
     }
+    return [];
   };
 
   const treeData = files.map((file) => ({
@@ -32,6 +35,10 @@ export const TranslationEditor = () => {
     type: "translation" as NodeType,
     children: processContent(file.content),
   }));
+
+  const handleSelectTranslation = (node: TreeNode) => {
+    setSelectedNode(node);
+  };
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -45,14 +52,22 @@ export const TranslationEditor = () => {
             <ScrollArea className="flex-1">
               <div className="h-full">
                 {treeData.map((node) => (
-                  <TreeNodeComponent key={node.label} content={node.children} />
+                  <TreeNodeComponent
+                    key={node.label}
+                    content={node.children}
+                    onSelectTranslation={handleSelectTranslation}
+                  />
                 ))}
               </div>
             </ScrollArea>
           </div>
           <div className="flex-1 flex flex-col overflow-hidden">
             <LanguageHeader />
-            <section className="p-4 flex-1">asd</section>
+            <ScrollArea className="flex-1">
+              <div className="p-4">
+                <TranslationContent node={selectedNode} />
+              </div>
+            </ScrollArea>
           </div>
         </div>
       </div>

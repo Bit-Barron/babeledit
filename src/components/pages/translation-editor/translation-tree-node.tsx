@@ -1,8 +1,16 @@
 import { useState } from "react";
-import { FaFolder, FaFolderOpen } from "react-icons/fa";
-import { FaRegFileAlt } from "react-icons/fa";
+import { FaFolder, FaFolderOpen, FaRegFileAlt } from "react-icons/fa";
+import { TreeNode } from "@/@types/translation-editor.types";
 
-export const TreeNodeComponent = ({ content }: any) => {
+interface TreeNodeProps {
+  content: TreeNode[];
+  onSelectTranslation: (node: TreeNode) => void;
+}
+
+export const TreeNodeComponent = ({
+  content,
+  onSelectTranslation,
+}: TreeNodeProps) => {
   const nodes = Array.isArray(content) ? content : [content];
 
   const [expandedNodes, setExpandedNodes] = useState<{
@@ -10,8 +18,7 @@ export const TreeNodeComponent = ({ content }: any) => {
   }>({});
 
   const toggleNode = (nodeLabel: string) => {
-    console.log(nodeLabel);
-    setExpandedNodes((prev: { [x: string]: any }) => ({
+    setExpandedNodes((prev) => ({
       ...prev,
       [nodeLabel]: !prev[nodeLabel],
     }));
@@ -25,8 +32,14 @@ export const TreeNodeComponent = ({ content }: any) => {
         return (
           <div key={node.label}>
             <div
-              className="flex items-center space-x-2 py-1 rounded cursor-pointer"
-              onClick={() => node.type === "folder" && toggleNode(node.label)}
+              className="flex hover:bg-gray-500 items-center space-x-2 py-1 rounded cursor-pointer"
+              onClick={() => {
+                if (node.type === "folder") {
+                  toggleNode(node.label);
+                } else {
+                  onSelectTranslation(node);
+                }
+              }}
             >
               <span className="text-lg">
                 {node.type === "folder" ? (
@@ -49,7 +62,10 @@ export const TreeNodeComponent = ({ content }: any) => {
               node.children &&
               node.children.length > 0 && (
                 <div className="pl-4 mt-1">
-                  <TreeNodeComponent content={node.children} />
+                  <TreeNodeComponent
+                    content={node.children}
+                    onSelectTranslation={onSelectTranslation}
+                  />
                 </div>
               )}
           </div>
