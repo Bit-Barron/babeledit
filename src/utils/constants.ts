@@ -63,10 +63,3 @@ export const TRANSLATION_PROJECTS: ProjectOption[] = [
 ];
 
 export const LANGUAGES = ["de-DE", "en-US", "es-ES", "fr-FR"];
-
-export const ICON_SIZE = "h-4 w-4";
-export const MARGIN_RIGHT = "mr-1";
-export const FOLDER_COLOR = "text-yellow-500";
-export const TRANSLATION_COLOR = "text-gray-400";
-export const ITEM_TYPE = "TREE_NODE";
-export const DRAG_ITEM_TYPE = "tree-node" as const;
