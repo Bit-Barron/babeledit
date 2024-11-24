@@ -43,10 +43,12 @@ export const TranslationEditor = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="bg-black text-white h-screen flex flex-col">
-        <TranslationHeader fileName={files[0]?.name} />
+        <TranslationHeader
+          fileName={files.map((i) => i.name).join(", ")}
+        />
         <div className="flex flex-1 overflow-hidden">
           <div className="w-[300px] border-r border-gray-800 flex flex-col">
-            <div className="p-4 border-b border-gray-800 font-medium shrink-0">
+            <div className="p-[18px] border-b border-gray-800 font-medium shrink-0">
               Translation IDs
             </div>
             <ScrollArea className="flex-1">
