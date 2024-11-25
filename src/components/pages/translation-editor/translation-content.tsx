@@ -1,5 +1,6 @@
 import { TreeNode } from "@/@types/translation-editor.types";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 interface TranslationContentProps {
   node: TreeNode | null;
@@ -32,23 +33,27 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
         (part.startsWith("{") && part.endsWith("}"))
       ) {
         return (
-          <span key={index} className="text-blue-400 font-medium">
+          <span key={index} className="font-medium">
             {part}
           </span>
         );
       }
-      return <span key={index}>{part}</span>;
+      return (
+        <span key={index}>
+          <Input className="" value={part} />
+        </span>
+      );
     });
   };
 
   return (
-    <Card className="p-4 bg-gray-900 border-gray-700">
+    <Card className="p-4">
       <h3 className="text-lg font-medium mb-4">Translation: {node.label}</h3>
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-4">
           <div className="flex-1">
             <label className="block text-sm text-gray-400 mb-2">Deutsch</label>
-            <div className="p-3 bg-gray-800 rounded-md min-h-[100px]">
+            <div className="p-3 rounded-md">
               {highlightPlaceholders(node.content?.de || "")}
             </div>
           </div>
@@ -57,7 +62,7 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
         <div className="space-y-4">
           <div className="flex-1">
             <label className="block text-sm text-gray-400 mb-2">English</label>
-            <div className="p-3 bg-gray-800 rounded-md min-h-[100px]">
+            <div className="p-3 rounded-md min-h-[100px]">
               {highlightPlaceholders(node.content?.en || "")}
             </div>
           </div>
@@ -66,3 +71,5 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
     </Card>
   );
 };
+
+export default TranslationContent;
