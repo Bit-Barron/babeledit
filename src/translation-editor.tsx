@@ -76,7 +76,7 @@ export const TranslationEditor = () => {
           <LanguageHeader />
           <ScrollArea className="flex-1">
             <div className="p-4">
-              <TranslationContent node={selectedNode} />
+              <TranslationContent node={selectedNode as TreeNode} />
             </div>
           </ScrollArea>
         </div>

@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { highlightPlaceholders } from "@/utils/client-helper";
 
 interface TranslationContentProps {
-  node: TreeNode | null;
+  node: TreeNode;
 }
 
 export const TranslationContent = ({ node }: TranslationContentProps) => {
