@@ -1,7 +1,6 @@
 import { TranslationFile, TreeNode } from "@/@types/translation-editor.types";
 import { TranslationContent } from "@/components/pages/translation-editor/translation-content";
 import { TranslationHeader } from "@/components/pages/translation-editor/translation-header";
-import { LanguageHeader } from "@/components/pages/translation-editor/translation-language-header";
 import { TreeNodeComponent } from "@/components/pages/translation-editor/translation-tree-node";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
@@ -62,6 +61,7 @@ export const TranslationEditor = () => {
           <div className="p-[18px] border-b border-gray-800 font-medium shrink-0">
             Translation IDs
           </div>
+          
           <ScrollArea className="flex-1">
             <div className="h-full">
               <TreeNodeComponent
@@ -71,12 +71,10 @@ export const TranslationEditor = () => {
             </div>
           </ScrollArea>
         </div>
-
         <div className="flex-1 flex flex-col overflow-hidden">
-          <LanguageHeader />
           <ScrollArea className="flex-1">
             <div className="p-4">
-              <TranslationContent node={selectedNode as TreeNode} />
+              <TranslationContent node={selectedNode} />
             </div>
           </ScrollArea>
         </div>
