@@ -14,23 +14,28 @@ export const highlightPlaceholders = (text: string) => {
   if (!text) return null;
 
   const parts = text.split(/(\{\{.*?\}\}|\{[^{}]+\})/g);
-  return parts.map((part, index) => {
-    if (
-      (part.startsWith("{{") && part.endsWith("}}")) ||
-      (part.startsWith("{") && part.endsWith("}"))
-    ) {
-      return (
-        <span key={index} className="font-medium">
-          {part}
-        </span>
-      );
-    }
-    return (
-      <span key={index}>
-        <Input value={part} />
-      </span>
-    );
-  });
+
+  return (
+    <div className="w-full space-y-2">
+      {parts.map((part, index) => {
+        if (
+          (part.startsWith("{{") && part.endsWith("}}")) ||
+          (part.startsWith("{") && part.endsWith("}"))
+        ) {
+          return (
+            <div key={index} className="w-full">
+              <span className="font-medium">{part}</span>
+            </div>
+          );
+        }
+        return (
+          <div key={index}>
+            <Input value={part} className="!w-full" />
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export const remomveJsonFromFile = (filename: string) => {
