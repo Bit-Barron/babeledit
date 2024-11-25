@@ -13,8 +13,6 @@ export const TreeNodeComponent = ({
 }: TreeNodeProps) => {
   const nodes = Array.isArray(content) ? content : [content];
 
-  console.log("nodew", nodes);
-
   const [expandedNodes, setExpandedNodes] = useState<{
     [key: string]: boolean;
   }>({});

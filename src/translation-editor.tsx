@@ -1,11 +1,6 @@
-import {
-  TranslationFile,
-  TreeNode,
-  NodeType,
-} from "@/@types/translation-editor.types";
+import { TranslationFile, TreeNode } from "@/@types/translation-editor.types";
 import { TranslationContent } from "@/components/pages/translation-editor/translation-content";
 import { TranslationHeader } from "@/components/pages/translation-editor/translation-header";
-import { LanguageHeader } from "@/components/pages/translation-editor/translation-language-header";
 import { TreeNodeComponent } from "@/components/pages/translation-editor/translation-tree-node";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
@@ -16,25 +11,43 @@ export const TranslationEditor = () => {
   const files = (location.state?.files || []) as TranslationFile[];
   const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
 
-  const processContent = (content: object | null): TreeNode[] => {
-    if (typeof content === "object" && content !== null) {
-      return Object.entries(content).map(([key, value]) => ({
+  const processObject = (obj: any, path: string[] = []): TreeNode[] => {
+    if (!obj || typeof obj !== "object") return [];
+
+    return Object.entries(obj).map(([key, value]) => {
+      const currentPath = [...path, key];
+      const isFolder = typeof value === "object";
+
+      return {
         label: key,
-        type: typeof value === "object" ? "folder" : "translation",
-        children: typeof value === "object" ? processContent(value) : [],
-        content: typeof value === "string" ? value : undefined,
-      }));
-    }
-    return [];
+        type: isFolder ? "folder" : "translation",
+        children: isFolder ? processObject(value, currentPath) : [],
+        content: !isFolder ? getTranslationsForKey(currentPath) : undefined,
+      };
+    });
   };
 
-  const treeData = files.map((file) => ({
-    label: file.name,
-    type: "translation" as NodeType,
-    children: processContent(file.content),
-  }));
+  const getTranslationsForKey = (path: string[]): { [key: string]: string } => {
+    const translations: { [key: string]: string } = {};
 
-  console.log(treeData);
+    files.forEach((file) => {
+      let current = file.content;
+      for (const key of path) {
+        if (!current || typeof current !== "object") return;
+        current = current[key];
+      }
+
+      if (typeof current === "string") {
+        const locale = file.name.replace(".json", "");
+        translations[locale] = current;
+      }
+    });
+
+    return translations;
+  };
+
+  const baseContent = files[0]?.content || {};
+  const treeData = processObject(baseContent);
 
   const handleSelectTranslation = (node: TreeNode) => {
     setSelectedNode(node);
@@ -50,20 +63,14 @@ export const TranslationEditor = () => {
           </div>
           <ScrollArea className="flex-1">
             <div className="h-full">
-              {treeData.map((node) => {
-                return (
-                  <TreeNodeComponent
-                    key={node.label}
-                    content={node.children}
-                    onSelectTranslation={handleSelectTranslation}
-                  />
-                );
-              })}
+              <TreeNodeComponent
+                content={treeData}
+                onSelectTranslation={handleSelectTranslation}
+              />
             </div>
           </ScrollArea>
         </div>
         <div className="flex-1 flex flex-col overflow-hidden">
-          <LanguageHeader />
           <ScrollArea className="flex-1">
             <div className="p-4">
               <TranslationContent node={selectedNode} />

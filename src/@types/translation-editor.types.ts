@@ -2,9 +2,12 @@ import { IconType } from "react-icons";
 
 export interface TreeNode {
   label: string;
-  type: NodeType;
-  children?: TreeNode[];
-  content?: string;
+  type: "folder" | "translation";
+  children: TreeNode[];
+  content?: {
+    de?: string;
+    en?: string;
+  };
 }
 
 export interface ProjectOption {
