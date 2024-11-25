@@ -57,17 +57,14 @@ export const TreeNodeComponent = ({
               </span>
             </div>
 
-            {isExpanded &&
-              node.type === "folder" &&
-              node.children &&
-              node.children.length > 0 && (
-                <div className="pl-4 mt-1">
-                  <TreeNodeComponent
-                    content={node.children}
-                    onSelectTranslation={onSelectTranslation}
-                  />
-                </div>
-              )}
+            {isExpanded && node.children.length > 0 && (
+              <div className="pl-4 mt-1">
+                <TreeNodeComponent
+                  content={node.children}
+                  onSelectTranslation={onSelectTranslation}
+                />
+              </div>
+            )}
           </div>
         );
       })}
