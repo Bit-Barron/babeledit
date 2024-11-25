@@ -24,7 +24,9 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
         {languages.map(([lang, content]) => (
           <div key={lang} className="space-y-4">
             <div className="flex-1">
-              <label className="block text-sm text-gray-400 mb-2">{lang}</label>
+              <label className="block text-sm text-gray-400 mb-2 ml-4">
+                {lang}
+              </label>
               <div className="p-3 rounded-md min-h-[100px]">
                 {highlightPlaceholders(content || "")}
               </div>
