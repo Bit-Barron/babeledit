@@ -1,14 +1,11 @@
 import { LocationState } from "@/@types/translation-editor.types";
+import { remomveJsonFromFile } from "@/utils/client-helper";
 import React from "react";
 import { useLocation } from "react-router-dom";
 
 export const LanguageHeader: React.FC = () => {
   const location = useLocation();
   const files = (location.state as LocationState)?.files ?? [];
-
-  const remomveJsonFromFile = (filename: string) => {
-    return filename.replace(".json", "");
-  };
 
   return (
     <header className="flex justify-between border-b">

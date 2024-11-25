@@ -1,6 +1,6 @@
 import { TreeNode } from "@/@types/translation-editor.types";
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { highlightPlaceholders } from "@/utils/client-helper";
 
 interface TranslationContentProps {
   node: TreeNode | null;
@@ -14,37 +14,6 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
       </div>
     );
   }
-
-  if (node.type === "folder") {
-    return (
-      <div className="flex items-center justify-center h-full text-gray-400">
-        Dies ist ein Ordner. Wähle eine Übersetzung aus.
-      </div>
-    );
-  }
-
-  const highlightPlaceholders = (text: string) => {
-    if (!text) return null;
-
-    const parts = text.split(/(\{\{.*?\}\}|\{[^{}]+\})/g);
-    return parts.map((part, index) => {
-      if (
-        (part.startsWith("{{") && part.endsWith("}}")) ||
-        (part.startsWith("{") && part.endsWith("}"))
-      ) {
-        return (
-          <span key={index} className="font-medium">
-            {part}
-          </span>
-        );
-      }
-      return (
-        <span key={index}>
-          <Input className="" value={part} />
-        </span>
-      );
-    });
-  };
 
   return (
     <Card className="p-4">
