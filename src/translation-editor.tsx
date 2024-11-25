@@ -34,6 +34,8 @@ export const TranslationEditor = () => {
     children: processContent(file.content),
   }));
 
+  console.log(treeData);
+
   const handleSelectTranslation = (node: TreeNode) => {
     setSelectedNode(node);
   };
@@ -48,13 +50,15 @@ export const TranslationEditor = () => {
           </div>
           <ScrollArea className="flex-1">
             <div className="h-full">
-              {treeData.map((node) => (
-                <TreeNodeComponent
-                  key={node.label}
-                  content={node.children}
-                  onSelectTranslation={handleSelectTranslation}
-                />
-              ))}
+              {treeData.map((node) => {
+                return (
+                  <TreeNodeComponent
+                    key={node.label}
+                    content={node.children}
+                    onSelectTranslation={handleSelectTranslation}
+                  />
+                );
+              })}
             </div>
           </ScrollArea>
         </div>

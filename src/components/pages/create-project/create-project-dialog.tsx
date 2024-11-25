@@ -86,9 +86,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
         <FileUpload
           maxSize={0}
           acceptedTypes={[]}
-          onUpload={function (files: File[]): void {
-            console.log(files);
-          }}
+          onUpload={function (): void {}}
         />
 
         <div className="flex justify-between">
