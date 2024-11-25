@@ -22,10 +22,10 @@ export interface TranslationFile {
   content: Record<string, any>;
 }
 
-export interface LanguageFile {
-  name: string;
-}
-
 export interface LocationState {
-  files: LanguageFile[];
+  files: [
+    {
+      name: string;
+    }
+  ];
 }
