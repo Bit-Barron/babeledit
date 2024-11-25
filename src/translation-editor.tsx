@@ -1,6 +1,7 @@
 import { TranslationFile, TreeNode } from "@/@types/translation-editor.types";
 import { TranslationContent } from "@/components/pages/translation-editor/translation-content";
 import { TranslationHeader } from "@/components/pages/translation-editor/translation-header";
+import { LanguageHeader } from "@/components/pages/translation-editor/translation-language-header";
 import { TreeNodeComponent } from "@/components/pages/translation-editor/translation-tree-node";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
@@ -27,8 +28,8 @@ export const TranslationEditor = () => {
     });
   };
 
-  const getTranslationsForKey = (path: string[]): { [key: string]: string } => {
-    const translations: { [key: string]: string } = {};
+  const getTranslationsForKey = (path: string[]) => {
+    const translations: Record<string, any> = {};
 
     files.forEach((file) => {
       let current = file.content;
@@ -70,7 +71,9 @@ export const TranslationEditor = () => {
             </div>
           </ScrollArea>
         </div>
+
         <div className="flex-1 flex flex-col overflow-hidden">
+          <LanguageHeader />
           <ScrollArea className="flex-1">
             <div className="p-4">
               <TranslationContent node={selectedNode} />

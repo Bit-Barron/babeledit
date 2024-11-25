@@ -6,6 +6,10 @@ export const LanguageHeader: React.FC = () => {
   const location = useLocation();
   const files = (location.state as LocationState)?.files ?? [];
 
+  const remomveJsonFromFile = (filename: string) => {
+    return filename.replace(".json", "");
+  };
+
   return (
     <header className="flex justify-between border-b">
       <div className="p-4">
@@ -20,7 +24,7 @@ export const LanguageHeader: React.FC = () => {
             role="tab"
             tabIndex={0}
           >
-            {lang.name}
+            {remomveJsonFromFile(lang.name)}
           </div>
         ))}
       </nav>
