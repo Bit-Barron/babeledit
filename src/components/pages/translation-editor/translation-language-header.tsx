@@ -15,11 +15,9 @@ export const LanguageHeader: React.FC = () => {
       </div>
 
       <nav className="flex items-center">
-        {files.map((lang, index) => (
+        {files.map((lang) => (
           <>
-            {index > 0 && (
-              <Separator orientation="vertical" className="h-6 mx-1" />
-            )}
+            <Separator orientation="vertical" className="h-6 mx-1" />
             <div
               className="p-4 text-center font-medium hover:bg-gray-800 transition-colors cursor-pointer"
               role="tab"

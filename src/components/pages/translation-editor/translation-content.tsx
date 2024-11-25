@@ -20,6 +20,10 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
 
   const languages = node.content ? Object.entries(node.content) : [];
 
+  const checkIfApproved = (content: string) => {
+    if (!content) return false;
+  };
+
   return (
     <section>
       <Card className="p-4">
@@ -27,6 +31,7 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
         <div>
           {languages.map(([lang, content]) => {
             const cleanedLang = lang.replace(/\s*\(\d+\)$/, "").trim();
+            checkIfApproved(content || "");
 
             return (
               <div key={lang}>

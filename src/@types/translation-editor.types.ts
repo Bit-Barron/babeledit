@@ -4,10 +4,7 @@ export interface TreeNode {
   label: string;
   type: "folder" | "translation";
   children: TreeNode[];
-  content?: {
-    de?: string;
-    en?: string;
-  };
+  content?: Record<string, any>;
 }
 
 export interface ProjectOption {

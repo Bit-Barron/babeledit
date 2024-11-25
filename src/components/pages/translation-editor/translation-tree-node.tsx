@@ -7,10 +7,10 @@ interface TreeNodeProps {
   onSelectTranslation: (node: TreeNode) => void;
 }
 
-export const TreeNodeComponent = ({
+export const TreeNodeComponent: React.FC<TreeNodeProps> = ({
   content,
   onSelectTranslation,
-}: TreeNodeProps) => {
+}) => {
   const nodes = Array.isArray(content) ? content : [content];
 
   const [expandedNodes, setExpandedNodes] = useState<Record<string, boolean>>(
