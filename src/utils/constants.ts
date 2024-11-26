@@ -63,3 +63,4 @@ export const TRANSLATION_PROJECTS: ProjectOption[] = [
 ];
 
 export const LANGUAGES = ["de-DE", "en-US", "es-ES", "fr-FR"];
+export const TRANSLATION_API_URL = "https://api.mymemory.translated.net";

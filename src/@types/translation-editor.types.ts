@@ -26,3 +26,10 @@ export interface LocationState {
     }
   ];
 }
+
+export interface TranslationStatus {
+  isApproved: boolean;
+  isPending: boolean;
+}
+
+export type TranslationsStatuses = Record<string, TranslationStatus>;
