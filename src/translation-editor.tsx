@@ -29,7 +29,7 @@ export const TranslationEditor = () => {
   };
 
   const getTranslationsForKey = (path: string[]) => {
-    const translations: Record<string, any> = {};
+    const translations: Record<string, string> = {};
 
     files.forEach((file) => {
       let current = file.content;
@@ -48,6 +48,8 @@ export const TranslationEditor = () => {
   };
 
   const baseContent = files[0]?.content || {};
+
+  console.log("baseContent", baseContent);
   const treeData = processObject(baseContent);
 
   const handleSelectTranslation = (node: TreeNode) => {
