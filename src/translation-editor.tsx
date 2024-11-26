@@ -48,8 +48,6 @@ export const TranslationEditor = () => {
   };
 
   const baseContent = files[0]?.content || {};
-
-  console.log("baseContent", baseContent);
   const treeData = processObject(baseContent);
 
   const handleSelectTranslation = (node: TreeNode) => {
