@@ -1,81 +1,27 @@
-import {
-  TranslationsStatuses,
-  TreeNode,
-} from "@/@types/translation-editor.types";
+import { TreeNode } from "@/@types/translation-editor.types";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { highlightPlaceholders } from "@/utils/client-helper";
-import { TRANSLATION_API_URL } from "@/utils/constants";
-import { useState, useCallback } from "react";
 
 interface TranslationContentProps {
   node: TreeNode | null;
 }
 
 export const TranslationContent = ({ node }: TranslationContentProps) => {
-  const [translationStatuses, setTranslationStatuses] =
-    useState<TranslationsStatuses>({});
-
-  const checkIfApproved = useCallback(
-    async (sourceContent: string, sourceLang: string, targetLang: string) => {
-      if (!sourceContent) return false;
-
-      const EMAIL = "bit.barron22@gmail.com";
-
-      try {
-        const url = `${TRANSLATION_API_URL}/get?q=${encodeURIComponent(
-          sourceContent
-        )}&langpair=${sourceLang}|${targetLang}${EMAIL ? `&de=${EMAIL}` : ""}`;
-
-        const response = await fetch(url);
-        const data = await response.json();
-
-        setTranslationStatuses((prev) => ({
-          ...prev,
-          [targetLang]: {
-            isApproved: true,
-            isPending: false,
-            matchPercentage: data.responseData?.match,
-          },
-        }));
-      } catch (error) {
-        console.error("Error fetching translation", error);
-        setTranslationStatuses((prev) => ({
-          ...prev,
-          [targetLang]: {
-            isApproved: false,
-            isPending: false,
-            matchPercentage: 0,
-          },
-        }));
-      }
-    },
-    [setTranslationStatuses, TRANSLATION_API_URL]
-  );
-
-  if (!node) {
-    return (
-      <section>
-        <div className="flex items-center justify-center h-full text-gray-400">
-          Select a translation from the list
-        </div>
-      </section>
-    );
-  }
-
-  const languages = node.content ? Object.entries(node.content) : [];
+  const languages = node?.content ? Object.entries(node.content) : [];
 
   return (
     <section>
+      {!node?.type && (
+        <div className="flex items-center justify-center h-full text-gray-400">
+          Select a translation from the list
+        </div>
+      )}
       <Card className="p-4">
-        <h3 className="text-lg font-medium mb-4">Translation: {node.label}</h3>
+        <h3 className="text-lg font-medium mb-4">Translation: {node?.label}</h3>
         <div>
           {languages.map(([lang, content]) => {
             const cleanedLang = lang.replace(/\s*\(\d+\)$/, "").trim();
-            const status = translationStatuses[lang] || {
-              isApproved: false,
-              isPending: true,
-            };
 
             return (
               <div key={lang}>
@@ -85,14 +31,7 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
                   </label>
                   {highlightPlaceholders(content || "")}
                   <div className="flex space-x-2">
-                    <Checkbox
-                      checked={status.isApproved}
-                      disabled={status.isPending}
-                      className="mt-2 ml-3"
-                    />
-                    <h1 className="mt-1">
-                      {status.isPending ? "Checking..." : "Approved"}
-                    </h1>
+                    <Checkbox className="mt-2 ml-3" />
                   </div>
                 </div>
               </div>
