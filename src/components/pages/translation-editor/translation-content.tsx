@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { highlightPlaceholders } from "@/utils/client-helper";
 import { TRANSLATION_API_URL } from "@/utils/constants";
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 interface TranslationContentProps {
   node: TreeNode | null;
@@ -16,29 +16,16 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
   const [translationStatuses, setTranslationStatuses] =
     useState<TranslationsStatuses>({});
 
-  const cleanLanguage = useCallback((lang: string): string => {
-    let code = lang
-      .replace(/\s*\(\d+\)$/, "")
-      .trim()
-      .toLowerCase();
-    return code.replace("_", "-");
-  }, []);
-
   const checkIfApproved = useCallback(
     async (sourceContent: string, sourceLang: string, targetLang: string) => {
       if (!sourceContent) return false;
 
-      const EMAIL = "qadoazer@gmail.com";
+      const EMAIL = "bit.barron22@gmail.com";
 
       try {
-        const normalizedSourceLang = cleanLanguage(sourceLang);
-        const normalizedTargetLang = cleanLanguage(targetLang);
-
         const url = `${TRANSLATION_API_URL}/get?q=${encodeURIComponent(
           sourceContent
-        )}&langpair=${normalizedSourceLang}|${normalizedTargetLang}${
-          EMAIL ? `&de=${EMAIL}` : ""
-        }`;
+        )}&langpair=${sourceLang}|${targetLang}${EMAIL ? `&de=${EMAIL}` : ""}`;
 
         const response = await fetch(url);
         const data = await response.json();
@@ -63,27 +50,8 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
         }));
       }
     },
-    [cleanLanguage]
+    [setTranslationStatuses, TRANSLATION_API_URL]
   );
-
-  useEffect(() => {
-    if (node?.content) {
-      // Initialize statuses
-      const initialStatuses: TranslationsStatuses = {};
-      Object.entries(node.content).forEach(([lang]) => {
-        initialStatuses[lang] = {
-          isApproved: false,
-          isPending: true,
-        };
-      });
-      setTranslationStatuses(initialStatuses);
-
-      // Start checks
-      Object.entries(node.content).forEach(([lang, content]) => {
-        checkIfApproved(content || "", "en", lang);
-      });
-    }
-  }, [node, checkIfApproved]);
 
   if (!node) {
     return (
