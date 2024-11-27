@@ -10,7 +10,6 @@ export const LanguageHeader: React.FC = () => {
       <div className="p-4">
         <h1 className="font-medium text-lg">Translations</h1>
       </div>
-
       <nav className="flex items-center">
         {languages.map((lang) => (
           <>

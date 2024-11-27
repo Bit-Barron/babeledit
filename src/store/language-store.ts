@@ -14,12 +14,9 @@ export const useLanguageStore = create<LanguageStore>((set) => ({
   languages: [],
   setLanguages: (languages) =>
     set({
-      languages: languages.map(
-        (language) =>
-          ({
-            id: language,
-            name: language,
-          } as LanguageProps)
-      ),
+      languages: languages.map((language) => ({
+        id: language,
+        name: language,
+      })),
     }),
 }));

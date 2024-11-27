@@ -6,6 +6,7 @@ import { highlightPlaceholders } from "@/utils/client-helper";
 import { useLanguageStore } from "@/store/language-store";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
+import { TRANSLATION_API_URL } from "@/utils/constants";
 
 interface TranslationContentProps {
   node: TreeNode | null;
@@ -29,7 +30,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
 
         for (const language of languages) {
           const response = await fetch(
-            `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
+            `${TRANSLATION_API_URL}/get?q=${encodeURIComponent(
               content
             )}&langpair=${sourceLang}|${language.name}`
           );

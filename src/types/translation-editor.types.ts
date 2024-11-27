@@ -1,3 +1,5 @@
+// translation editor types
+
 export interface TreeNode {
   label: string;
   type: "folder" | "translation";
