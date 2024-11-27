@@ -13,8 +13,6 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
 
   useEffect(() => {
     const checkIfApproved = (): string => {
-      console.log("languages", languages);
-
       return "Approved";
     };
 

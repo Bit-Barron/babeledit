@@ -24,7 +24,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
   const navigate = useNavigate();
   const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
   const { selectedFiles } = useFileUploadStore();
-  const PRIMARY_LANG = "en";
+  const PRIMARY_LANG = "english";
 
   const handleCreateProject = async () => {
     if (selectedFiles.length === 0) {
@@ -96,11 +96,14 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
               : "Save changes"}
           </Button>
         </div>
+        <div>
+          {languages.map((language) => (
+            <div key={language}>{language}</div>
+          ))}
+        </div>
 
         <Separator />
-
         <LanguageDisplay primaryLang={PRIMARY_LANG} />
-
         <LanguageSelectDialog
           isOpen={isLanguageOpen}
           onClose={() => setIsLanguageOpen(false)}

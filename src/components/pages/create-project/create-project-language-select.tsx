@@ -16,11 +16,13 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
   onClose,
 }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const { setLanguages } = useLanguageStore();
+  const { setLanguages, languages } = useLanguageStore();
 
   const handleLanguageSelect = (language: string) => {
-    setLanguages([language]);
+    setLanguages([...languages, language]);
   };
+
+  console.log(languages)
 
   return (
     <MyDialog title="Select language" isOpen={isOpen} setIsOpen={onClose}>
@@ -38,7 +40,7 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
                 variant="outline"
                 className="w-full justify-start"
               >
-                <span className="text-sta">{language}</span>
+                <span>{language}</span>
               </Button>
             </div>
           ))}
@@ -48,7 +50,9 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
         <Button variant="outline" onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="secondary">Ok</Button>
+        <Button variant="secondary" onClick={onClose}>
+          Ok
+        </Button>
       </div>
     </MyDialog>
   );
