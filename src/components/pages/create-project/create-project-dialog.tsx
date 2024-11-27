@@ -9,6 +9,7 @@ import { useFileUploadStore } from "@/store/file-upload-store";
 import { useToast } from "@/hooks/use-toast";
 import { FileUpload } from "@/components/pages/create-project/create-project-file-upload";
 import { useLanguageStore } from "@/store/language-store";
+import { PRIMARY_LANG } from "@/utils/constants";
 
 interface CreateProjectProps {
   isOpen: boolean;
@@ -20,14 +21,13 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
   setIsOpen,
 }) => {
   const { toast } = useToast();
-  const { languages } = useLanguageStore();
   const navigate = useNavigate();
+  const { languages } = useLanguageStore();
   const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
   const { selectedFiles } = useFileUploadStore();
-  const PRIMARY_LANG = "english";
 
   const handleCreateProject = async () => {
-    if (selectedFiles.length === 0) {
+    if (!selectedFiles) {
       toast({
         title: "No files uploaded",
         description: "Please upload files to continue",
@@ -35,10 +35,9 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
       });
       return;
     }
-
     try {
       const fileContents = await Promise.all(
-        selectedFiles.map(async (file: { text: () => any; name: any }) => {
+        selectedFiles.map(async (file) => {
           const text = await file.text();
           return {
             name: file.name,
@@ -51,10 +50,6 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
       navigate("/translation-editor", {
         state: {
           files: fileContents,
-          languages: languages.map((lang) => ({
-            name: lang.name,
-            id: lang.id,
-          })),
         },
       });
       toast({

@@ -1,4 +1,4 @@
-import { TreeNode } from "@/@types/translation-editor.types";
+import { TreeNode } from "@/types/translation-editor.types";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { highlightPlaceholders } from "@/utils/client-helper";

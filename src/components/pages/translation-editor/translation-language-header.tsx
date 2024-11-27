@@ -1,4 +1,4 @@
-import { LocationState } from "@/@types/translation-editor.types";
+import { LocationState } from "@/types/translation-editor.types";
 import { Separator } from "@/components/ui/separator";
 import { remomveJsonFromFile } from "@/utils/client-helper";
 import React from "react";

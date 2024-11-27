@@ -9,10 +9,7 @@ import {
 } from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
 import { SiEmberdotjs } from "react-icons/si";
-import {
-  LanguageProps,
-  ProjectOption,
-} from "@/@types/translation-editor.types";
+import { LanguageProps, ProjectOption } from "@/types/translation-editor.types";
 
 export const TRANSLATION_PROJECTS: ProjectOption[] = [
   {
@@ -113,3 +110,4 @@ export const LANGUAGES: LanguageProps[] = [
   { id: "zh-TW", name: "zh-TW" },
 ];
 export const TRANSLATION_API_URL = "https://api.mymemory.translated.net";
+export const PRIMARY_LANG = "english";

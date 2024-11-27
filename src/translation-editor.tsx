@@ -1,4 +1,4 @@
-import { TranslationFile, TreeNode } from "@/@types/translation-editor.types";
+import { TranslationFile, TreeNode } from "@/types/translation-editor.types";
 import { TranslationContent } from "@/components/pages/translation-editor/translation-content";
 import { TranslationHeader } from "@/components/pages/translation-editor/translation-header";
 import { LanguageHeader } from "@/components/pages/translation-editor/translation-language-header";

@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/button";
 
-export const LanguageDisplay: React.FC<{ primaryLang: string }> = ({
+interface LanguageDisplayProps {
+  primaryLang: string;
+}
+
+export const LanguageDisplay: React.FC<LanguageDisplayProps> = ({
   primaryLang,
 }) => (
   <div className="flex justify-between items-center">
