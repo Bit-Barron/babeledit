@@ -2,6 +2,7 @@ import { TreeNode } from "@/@types/translation-editor.types";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { highlightPlaceholders } from "@/utils/client-helper";
+import { useEffect } from "react";
 
 interface TranslationContentProps {
   node: TreeNode | null;
@@ -9,6 +10,16 @@ interface TranslationContentProps {
 
 export const TranslationContent = ({ node }: TranslationContentProps) => {
   const languages = node?.content ? Object.entries(node.content) : [];
+
+  useEffect(() => {
+    const checkIfApproved = (): string => {
+      console.log("languages", languages);
+
+      return "Approved";
+    };
+
+    checkIfApproved();
+  }, [node]);
 
   return (
     <section>
@@ -32,6 +43,7 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
                   {highlightPlaceholders(content || "")}
                   <div className="flex space-x-2">
                     <Checkbox className="mt-2 ml-3" />
+                    <h1 className="mt-1">Approved</h1>
                   </div>
                 </div>
               </div>

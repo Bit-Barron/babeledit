@@ -8,6 +8,7 @@ import { LanguageSelectDialog } from "@/components/pages/create-project/create-p
 import { useFileUploadStore } from "@/store/file-upload-store";
 import { useToast } from "@/hooks/use-toast";
 import { FileUpload } from "@/components/pages/create-project/create-project-file-upload";
+import { useLanguageStore } from "@/store/language-store";
 
 interface CreateProjectProps {
   isOpen: boolean;
@@ -19,18 +20,11 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
   setIsOpen,
 }) => {
   const { toast } = useToast();
+  const { languages } = useLanguageStore();
   const navigate = useNavigate();
   const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
-  const [primaryLang, setPrimaryLang] = useState<string>("English");
-  const [languages, setLanguages] = useState<Language[]>([
-    { code: "en", name: "English" },
-  ]);
   const { selectedFiles } = useFileUploadStore();
-
-  const handleAddLanguage = (language: Language) => {
-    setLanguages((prev) => [...prev, language]);
-    setPrimaryLang(language.name);
-  };
+  const PRIMARY_LANG = "en";
 
   const handleCreateProject = async () => {
     if (selectedFiles.length === 0) {
@@ -56,9 +50,8 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
       setIsOpen(false);
       navigate("/translation-editor", {
         state: {
-          languages,
-          primaryLang,
           files: fileContents,
+          languages: languages,
         },
       });
       toast({
@@ -106,12 +99,11 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
 
         <Separator />
 
-        <LanguageDisplay primaryLang={primaryLang} />
+        <LanguageDisplay primaryLang={PRIMARY_LANG} />
 
         <LanguageSelectDialog
           isOpen={isLanguageOpen}
           onClose={() => setIsLanguageOpen(false)}
-          onSelect={handleAddLanguage}
         />
       </div>
     </MyDialog>
