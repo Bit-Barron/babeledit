@@ -37,7 +37,3 @@ export const highlightPlaceholders = (text: string) => {
     </div>
   );
 };
-
-export const remomveJsonFromFile = (filename: string) => {
-  return filename.replace(".json", "");
-};

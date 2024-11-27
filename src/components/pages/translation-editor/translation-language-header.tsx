@@ -1,12 +1,9 @@
-import { LocationState } from "@/types/translation-editor.types";
 import { Separator } from "@/components/ui/separator";
-import { remomveJsonFromFile } from "@/utils/client-helper";
+import { useLanguageStore } from "@/store/language-store";
 import React from "react";
-import { useLocation } from "react-router-dom";
 
 export const LanguageHeader: React.FC = () => {
-  const location = useLocation();
-  const files = (location.state as LocationState)?.files ?? [];
+  const { languages } = useLanguageStore();
 
   return (
     <header className="flex justify-between border-b">
@@ -15,7 +12,7 @@ export const LanguageHeader: React.FC = () => {
       </div>
 
       <nav className="flex items-center">
-        {files.map((lang) => (
+        {languages.map((lang) => (
           <>
             <Separator orientation="vertical" className="h-6 mx-1" />
             <div
@@ -23,7 +20,7 @@ export const LanguageHeader: React.FC = () => {
               role="tab"
               tabIndex={0}
             >
-              {remomveJsonFromFile(lang.name)}
+              {lang.name}
             </div>
           </>
         ))}

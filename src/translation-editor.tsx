@@ -11,8 +11,6 @@ export const TranslationEditor = () => {
   const { processedFiles } = useFileUploadStore();
   const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
 
-  console.log("processedFiles", processedFiles);
-
   const processObject = (obj: any, path: string[] = []): TreeNode[] => {
     if (!obj || typeof obj !== "object") return [];
 

@@ -21,10 +21,10 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
   setIsOpen,
 }) => {
   const { toast } = useToast();
-  const navigate = useNavigate();
   const { languages } = useLanguageStore();
-  const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
   const { selectedFiles, processFiles, isLoading } = useFileUploadStore();
+  const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const handleCreateProject = async () => {
     const processedFiles = await processFiles();

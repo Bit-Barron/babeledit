@@ -1,4 +1,5 @@
 import { TreeNode } from "@/types/translation-editor.types";
+import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { highlightPlaceholders } from "@/utils/client-helper";
@@ -77,6 +78,8 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
           })}
         </div>
         <div className="p-2">
+          <Separator className="mt-5" orientation="horizontal" />
+
           <div className="space-y-4 mt-5">
             {languages.map((language, idx) => (
               <div key={idx}>
