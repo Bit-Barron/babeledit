@@ -53,31 +53,27 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
       <Card className="p-4">
         <h3 className="text-lg font-medium mb-4">Translation: {node?.label}</h3>
         <div className="space-y-4 mt-5">
-          {nodeLanguages.map(([lang, content], idx) => {
-            const cleanedLang = lang.replace(/\s*\(\d+\)$/, "").trim();
-
-            return (
-              <div key={idx}>
-                <div className="flex items-center gap-4">
-                  <label className="text-sm text-gray-400 min-w-[50px]">
-                    {cleanedLang}
-                  </label>
-                  {highlightPlaceholders(content || "")}
-                  <div className="flex items-center gap-2">
-                    <Checkbox />
-                    <span>Approved</span>
-                  </div>
+          {nodeLanguages.map(([lang, content]) => (
+            <div key={lang}>
+              <div className="flex items-center gap-4">
+                <label className="text-sm text-gray-400 min-w-[50px]">
+                  {lang}
+                </label>
+                {highlightPlaceholders(content || "")}
+                <div className="flex items-center gap-2">
+                  <Checkbox />
+                  <span>Approved</span>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
         <div className="p-2">
           <Separator className="mt-5" orientation="horizontal" />
 
           <div className="space-y-4 mt-5">
-            {languages.map((language, idx) => (
-              <div key={idx}>
+            {languages.map((language) => (
+              <div key={language.name}>
                 <div className="flex items-center gap-4">
                   <label className="text-sm text-gray-400 min-w-[50px]">
                     {language.name}
