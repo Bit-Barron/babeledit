@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { MyDialog } from "@/components/elements/my-dialog";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { FileUpload } from "@/components/pages/create-project/create-project-file-upload";
 import { LanguageDisplay } from "@/components/pages/create-project/create-project-language-list";
 import { LanguageSelectDialog } from "@/components/pages/create-project/create-project-language-select";
-import { useFileUploadStore } from "@/store/file-upload-store";
+import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { FileUpload } from "@/components/pages/create-project/create-project-file-upload";
+import { useFileUploadStore } from "@/store/file-upload-store";
 import { useLanguageStore } from "@/store/language-store";
 import { PRIMARY_LANG } from "@/utils/constants";
+import { Separator } from "@radix-ui/react-separator";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface CreateProjectProps {
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  setIsOpen: (open: boolean) => void;
 }
 
 export const CreateProject: React.FC<CreateProjectProps> = ({
@@ -24,42 +24,22 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
   const navigate = useNavigate();
   const { languages } = useLanguageStore();
   const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
-  const { selectedFiles } = useFileUploadStore();
+  const { selectedFiles, processFiles, isLoading } = useFileUploadStore();
 
   const handleCreateProject = async () => {
-    if (!selectedFiles) {
-      toast({
-        title: "No files uploaded",
-        description: "Please upload files to continue",
-        variant: "destructive",
-      });
-      return;
-    }
-    try {
-      const fileContents = await Promise.all(
-        selectedFiles.map(async (file) => {
-          const text = await file.text();
-          return {
-            name: file.name,
-            content: JSON.parse(text),
-          };
-        })
-      );
+    const processedFiles = await processFiles();
 
+    if (processedFiles.length > 0) {
       setIsOpen(false);
-      navigate("/translation-editor", {
-        state: {
-          files: fileContents,
-        },
-      });
+      navigate("/translation-editor");
       toast({
         title: "Project created",
         description: "You can now start translating your files",
         variant: "success",
       });
-    } catch (error) {
+    } else {
       toast({
-        title: "Error reading files",
+        title: "Error processing files",
         description: "Please make sure your files are valid JSON",
         variant: "destructive",
       });
@@ -77,7 +57,9 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
         <FileUpload
           maxSize={0}
           acceptedTypes={[]}
-          onUpload={function (): void {}}
+          onUpload={(files) =>
+            useFileUploadStore.getState().setSelectedFiles(files)
+          }
         />
 
         <div className="flex justify-between">
@@ -87,10 +69,12 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
           <Button
             onClick={handleCreateProject}
             variant="default"
-            disabled={selectedFiles.length === 0}
+            disabled={selectedFiles.length === 0 || isLoading}
           >
             {selectedFiles.length === 0
               ? "Upload files to continue"
+              : isLoading
+              ? "Processing..."
               : "Save changes"}
           </Button>
         </div>

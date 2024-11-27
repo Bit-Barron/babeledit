@@ -2,7 +2,6 @@ import { TreeNode } from "@/types/translation-editor.types";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { highlightPlaceholders } from "@/utils/client-helper";
-import { Separator } from "@/components/ui/separator";
 import { useLanguageStore } from "@/store/language-store";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
@@ -14,13 +13,15 @@ interface TranslationContentProps {
 export const TranslationContent: React.FC<TranslationContentProps> = ({
   node,
 }) => {
+  // state language
   const { languages } = useLanguageStore();
+
+  // nodeLanguage
   const nodeLanguages = node?.content ? Object.entries(node.content) : [];
   const [translations, setTranslations] = useState<Record<string, string>>({});
 
   useEffect(() => {
     const translateContent = async () => {
-      if (!languages.length || !nodeLanguages.length) return;
       const newTranslations: Record<string, string> = {};
 
       for (const [lang, content] of nodeLanguages) {
@@ -35,7 +36,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
             )}&langpair=${sourceLang}|${language.name}`
           );
 
-          if (response.ok) {
+          if (response.status === 200) {
             const { responseData } = await response.json();
             newTranslations[language.name] = responseData.translatedText;
           }
@@ -44,7 +45,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
       setTranslations(newTranslations);
     };
     translateContent();
-  }, [node]);
+  }, []);
 
   return (
     <section>
@@ -76,7 +77,6 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
           })}
         </div>
         <div className="p-2">
-          <Separator className="mt-5" orientation="horizontal" />
           <div className="space-y-4 mt-5">
             {languages.map((language, idx) => (
               <div key={idx}>
