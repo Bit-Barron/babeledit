@@ -9,9 +9,8 @@ import {
 } from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
 import { SiEmberdotjs } from "react-icons/si";
-import { LanguageProps, ProjectOption } from "@/types/translation-editor.types";
 
-export const TRANSLATION_PROJECTS: ProjectOption[] = [
+export const TRANSLATION_PROJECTS = [
   {
     title: "Generic JSON",
     Icon: VscJson,
@@ -62,7 +61,7 @@ export const TRANSLATION_PROJECTS: ProjectOption[] = [
   },
 ];
 
-export const LANGUAGES: LanguageProps[] = [
+export const LANGUAGES = [
   { id: "ar-AE", name: "ar-AE" },
   { id: "ar-SA", name: "ar-SA" },
   { id: "bn-IN", name: "bn-IN" },

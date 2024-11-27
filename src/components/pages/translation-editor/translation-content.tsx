@@ -14,10 +14,7 @@ interface TranslationContentProps {
 export const TranslationContent: React.FC<TranslationContentProps> = ({
   node,
 }) => {
-  // state language
   const { languages } = useLanguageStore();
-
-  // nodeLanguage
   const nodeLanguages = node?.content ? Object.entries(node.content) : [];
   const [translations, setTranslations] = useState<Record<string, string>>({});
 
@@ -37,10 +34,8 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
             )}&langpair=${sourceLang}|${language.name}`
           );
 
-          if (response.status === 200) {
-            const { responseData } = await response.json();
-            newTranslations[language.name] = responseData.translatedText;
-          }
+          const { responseData } = await response.json();
+          newTranslations[language.name] = responseData.translatedText;
         }
       }
       setTranslations(newTranslations);
@@ -58,11 +53,11 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
       <Card className="p-4">
         <h3 className="text-lg font-medium mb-4">Translation: {node?.label}</h3>
         <div className="space-y-4 mt-5">
-          {nodeLanguages.map(([lang, content]) => {
+          {nodeLanguages.map(([lang, content], idx) => {
             const cleanedLang = lang.replace(/\s*\(\d+\)$/, "").trim();
 
             return (
-              <div key={lang}>
+              <div key={idx}>
                 <div className="flex items-center gap-4">
                   <label className="text-sm text-gray-400 min-w-[50px]">
                     {cleanedLang}
