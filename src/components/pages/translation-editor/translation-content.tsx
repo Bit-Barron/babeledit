@@ -2,15 +2,17 @@ import { TreeNode } from "@/@types/translation-editor.types";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { highlightPlaceholders } from "@/utils/client-helper";
-import { useLocation } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
 import { useLanguageStore } from "@/store/language-store";
+import { Input } from "@/components/ui/input";
 
 interface TranslationContentProps {
   node: TreeNode | null;
 }
 
-export const TranslationContent = ({ node }: TranslationContentProps) => {
+export const TranslationContent: React.FC<TranslationContentProps> = ({
+  node,
+}) => {
   const { languages } = useLanguageStore();
   const nodeLanguages = node?.content ? Object.entries(node.content) : [];
 
@@ -23,20 +25,20 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
       )}
       <Card className="p-4">
         <h3 className="text-lg font-medium mb-4">Translation: {node?.label}</h3>
-        <div>
+        <div className="space-y-4 mt-5">
           {nodeLanguages.map(([lang, content]) => {
             const cleanedLang = lang.replace(/\s*\(\d+\)$/, "").trim();
 
             return (
               <div key={lang}>
-                <div className="flex space-y-5">
-                  <label className="block text-sm text-gray-400 mb-2 mr-4 mt-7">
+                <div className="flex items-center gap-4">
+                  <label className="text-sm text-gray-400 min-w-[100px]">
                     {cleanedLang}
                   </label>
                   {highlightPlaceholders(content || "")}
-                  <div className="flex space-x-2">
-                    <Checkbox className="mt-2 ml-3" />
-                    <h1 className="mt-1">Approved</h1>
+                  <div className="flex items-center gap-2">
+                    <Checkbox />
+                    <span>Approved</span>
                   </div>
                 </div>
               </div>
@@ -45,10 +47,19 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
         </div>
         <div className="p-2">
           <Separator className="mt-5" orientation="horizontal" />
-          <div className="space-y-5 mt-5">
-            {languages.map((lang) => (
-              <div className="text-gray-400" key={lang.id}>
-                {lang.id}
+          <div className="space-y-4 mt-5">
+            {languages.map((language) => (
+              <div key={language.id}>
+                <div className="flex items-center gap-4">
+                  <label className="text-sm text-gray-400 min-w-[100px]">
+                    {language.name}
+                  </label>
+                  <Input className="flex-1" />
+                  <div className="flex items-center gap-2">
+                    <Checkbox />
+                    <span>Approved</span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
