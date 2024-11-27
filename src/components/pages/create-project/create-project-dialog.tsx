@@ -71,7 +71,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
             variant="default"
             disabled={selectedFiles.length === 0 || isLoading}
           >
-            {selectedFiles.length === 0
+            {!selectedFiles
               ? "Upload files to continue"
               : isLoading
               ? "Processing..."
