@@ -19,10 +19,9 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
   const { setLanguages, languages } = useLanguageStore();
 
   const handleLanguageSelect = (language: string) => {
-    setLanguages([...languages, language]);
+    const newLanguages = languages.map((lang) => lang.name);
+    setLanguages([...newLanguages, language]);
   };
-
-  console.log(languages)
 
   return (
     <MyDialog title="Select language" isOpen={isOpen} setIsOpen={onClose}>
@@ -34,13 +33,13 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
       <ScrollArea className="h-[300px] mt-4">
         <section>
           {LANGUAGES.map((language) => (
-            <div key={language} className="p-1 rounded-lg">
+            <div key={language.name} className="p-1 rounded-lg">
               <Button
-                onClick={() => handleLanguageSelect(language)}
+                onClick={() => handleLanguageSelect(language.name)}
                 variant="outline"
                 className="w-full justify-start"
               >
-                <span>{language}</span>
+                <span>{language.name}</span>
               </Button>
             </div>
           ))}

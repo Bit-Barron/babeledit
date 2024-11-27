@@ -33,3 +33,8 @@ export interface TranslationStatus {
 }
 
 export type TranslationsStatuses = Record<string, TranslationStatus>;
+
+export interface LanguageProps {
+  id: string;
+  name: string;
+}

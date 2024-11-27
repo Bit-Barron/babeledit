@@ -2,22 +2,17 @@ import { TreeNode } from "@/@types/translation-editor.types";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { highlightPlaceholders } from "@/utils/client-helper";
-import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { Separator } from "@/components/ui/separator";
+import { useLanguageStore } from "@/store/language-store";
 
 interface TranslationContentProps {
   node: TreeNode | null;
 }
 
 export const TranslationContent = ({ node }: TranslationContentProps) => {
-  const languages = node?.content ? Object.entries(node.content) : [];
-
-  useEffect(() => {
-    const checkIfApproved = (): string => {
-      return "Approved";
-    };
-
-    checkIfApproved();
-  }, [node]);
+  const { languages } = useLanguageStore();
+  const nodeLanguages = node?.content ? Object.entries(node.content) : [];
 
   return (
     <section>
@@ -29,7 +24,7 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
       <Card className="p-4">
         <h3 className="text-lg font-medium mb-4">Translation: {node?.label}</h3>
         <div>
-          {languages.map(([lang, content]) => {
+          {nodeLanguages.map(([lang, content]) => {
             const cleanedLang = lang.replace(/\s*\(\d+\)$/, "").trim();
 
             return (
@@ -47,6 +42,16 @@ export const TranslationContent = ({ node }: TranslationContentProps) => {
               </div>
             );
           })}
+        </div>
+        <div className="p-2">
+          <Separator className="mt-5" orientation="horizontal" />
+          <div className="space-y-5 mt-5">
+            {languages.map((lang) => (
+              <div className="text-gray-400" key={lang.id}>
+                {lang.id}
+              </div>
+            ))}
+          </div>
         </div>
       </Card>
     </section>

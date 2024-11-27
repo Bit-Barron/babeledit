@@ -51,7 +51,10 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
       navigate("/translation-editor", {
         state: {
           files: fileContents,
-          languages: languages,
+          languages: languages.map((lang) => ({
+            name: lang.name,
+            id: lang.id,
+          })),
         },
       });
       toast({
@@ -98,7 +101,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
         </div>
         <div>
           {languages.map((language) => (
-            <div key={language}>{language}</div>
+            <div key={language.id}>{language.name}</div>
           ))}
         </div>
 
