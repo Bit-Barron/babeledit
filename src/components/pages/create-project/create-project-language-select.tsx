@@ -33,19 +33,17 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
         onChange={(e) => setSearchQuery(e.target.value)}
       />
       <ScrollArea className="h-[300px] mt-4">
-        <section>
-          {LANGUAGES.map((language) => (
-            <div key={language.name} className="p-1 rounded-lg">
-              <Button
-                onClick={() => handleLanguageSelect(language.id)}
-                variant="outline"
-                className="w-full justify-start"
-              >
-                <span>{language.name}</span>
-              </Button>
-            </div>
-          ))}
-        </section>
+        {LANGUAGES.map((language) => (
+          <div key={language.name} className="p-1 rounded-lg">
+            <Button
+              onClick={() => handleLanguageSelect(language.id)}
+              variant="outline"
+              className="w-full justify-start"
+            >
+              <span>{language.name}</span>
+            </Button>
+          </div>
+        ))}
       </ScrollArea>
       <div className="flex items-end justify-end gap-2 mt-5">
         <Button variant="outline" onClick={onClose}>
