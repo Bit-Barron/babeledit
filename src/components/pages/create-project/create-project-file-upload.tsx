@@ -39,9 +39,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
       })
     );
 
-    const validFiles = validationResults.filter(
-      (file): file is File => file !== null
-    );
+    const validFiles = validationResults.filter(Boolean) as File[];
 
     setSelectedFiles([...selectedFiles, ...validFiles]);
     onUpload([...selectedFiles, ...validFiles]);
