@@ -56,6 +56,8 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
     translateContent();
   }, [node, languages]);
 
+  console.log(languages);
+
   return (
     <section>
       {!node?.type && (
@@ -82,7 +84,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
           ))}
         </div>
         <div className="p-2">
-          <Separator className="mt-5" orientation="horizontal" />
+          {languages.length > 0 && <Separator />}
 
           <div className="space-y-4 mt-5">
             {languages.map((language) => (
@@ -92,7 +94,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
                 </label>
                 <Input
                   className="flex-1"
-                  value={translations[language.name] || ""}
+                  value={translations[language.name]}
                   disabled={isLoading}
                   placeholder={
                     isLoading ? "Translating..." : "No translation available"
