@@ -89,7 +89,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
             <h3 className="text-sm font-medium text-gray-300">
               Selected Languages
             </h3>
-            <ScrollArea className="h-48 w-full rounded-md">
+            <ScrollArea className="w-full h-20 rounded-md">
               <div className="grid grid-cols-3 gap-2 p-1">
                 {languages.map((language) => (
                   <div
