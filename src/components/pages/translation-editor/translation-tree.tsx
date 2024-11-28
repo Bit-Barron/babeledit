@@ -32,7 +32,7 @@ export const TreeNodeComponent: React.FC<TreeNodeProps> = ({
         return (
           <div key={node.label}>
             <div
-              className="flex hover:bg-gray-500 items-center space-x-2 py-1 rounded cursor-pointer"
+              className={`flex items-center space-x-2 py-1 rounded cursor-pointer`}
               onClick={() => {
                 if (node.type === "folder") {
                   toggleNode(node.label);
