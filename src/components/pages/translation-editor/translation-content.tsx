@@ -23,7 +23,6 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
   useEffect(() => {
     const translateContent = async () => {
       setIsLoading(true);
-      const newTranslations: Record<string, string> = {};
 
       try {
         for (const [lang, content] of nodeLanguages) {
@@ -40,13 +39,12 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
 
             const responseData = await response.json();
 
-            const translatedText = responseData?.responseData?.translatedText;
-            if (translatedText) {
-              newTranslations[language.name] = translatedText;
-            }
+            setTranslations((prev) => ({
+              ...prev,
+              [language.name]: responseData.responseData.translatedText,
+            }));
           }
         }
-        setTranslations(newTranslations);
         setIsLoading(false);
       } catch (error) {
         console.error("Translation error:", error);
@@ -55,8 +53,6 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
 
     translateContent();
   }, [node, languages]);
-
-  console.log(languages);
 
   return (
     <section>
