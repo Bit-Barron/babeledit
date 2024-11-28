@@ -1,9 +1,5 @@
+import { LanguageProps } from "@/types/translation-editor.types";
 import { create } from "zustand";
-
-interface LanguageProps {
-  id: string;
-  name: string;
-}
 
 interface LanguageStore {
   languages: LanguageProps[];

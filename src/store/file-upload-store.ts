@@ -1,16 +1,11 @@
+import { FileContent } from "@/types/translation-editor.types";
 import { create } from "zustand";
-
-interface FileContent {
-  name: string;
-  content: string;
-}
 
 interface FileUploadStore {
   selectedFiles: File[];
   processedFiles: FileContent[];
 
   setSelectedFiles: (files: File[]) => void;
-  removeFile: (index: number) => void;
 
   processFiles: () => Promise<FileContent[]>;
 }
@@ -20,11 +15,6 @@ export const useFileUploadStore = create<FileUploadStore>((set, get) => ({
   processedFiles: [],
 
   setSelectedFiles: (files) => set({ selectedFiles: files }),
-
-  removeFile: (index) => {
-    const newFiles = get().selectedFiles.filter((_, i) => i !== index);
-    set({ selectedFiles: newFiles });
-  },
 
   processFiles: async () => {
     try {
