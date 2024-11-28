@@ -7,7 +7,7 @@ export const LanguageHeader: React.FC = () => {
 
   return (
     <header className="flex justify-between border-b">
-      <div className="p-4">
+      <div className="p-2">
         <h1 className="font-medium text-lg">Translations</h1>
       </div>
       <nav className="flex items-center">
