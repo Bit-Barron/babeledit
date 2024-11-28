@@ -7,10 +7,8 @@ interface LanguageDisplayProps {
 export const LanguageDisplay: React.FC<LanguageDisplayProps> = ({
   primaryLang,
 }) => (
-  <div className="flex justify-between items-center">
-    <h1 className="text-xs">Primary Language {primaryLang}</h1>
-    <Button variant="outline" className="h-6">
-      {primaryLang}
-    </Button>
+  <div className="flex space-x-5">
+    <h1 className="mt-2">Primary Language</h1>
+    <Button variant="secondary">{primaryLang}</Button>
   </div>
 );
