@@ -52,9 +52,7 @@ export const TreeNodeComponent: React.FC<TreeNodeProps> = ({
                   <FaRegFileAlt />
                 )}
               </span>
-              <span
-                className={`${node.type === "folder" ? "font-medium" : ""}`}
-              >
+              <span className={`${node.type === "folder" && "font-medium"}`}>
                 {node.label}
               </span>
             </div>
