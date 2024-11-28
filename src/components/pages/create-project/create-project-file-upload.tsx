@@ -10,16 +10,9 @@ interface FileUploadProps {
   onUpload: (files: File[]) => void;
 }
 
-interface FileUploadStore {
-  selectedFiles: File[];
-  removeFile: (index: number) => void;
-  setSelectedFiles: (files: File[]) => void;
-}
-
 export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
   const [dragActive, setDragActive] = useState<boolean>(false);
-  const { selectedFiles, removeFile, setSelectedFiles } =
-    useFileUploadStore() as FileUploadStore;
+  const { selectedFiles, setSelectedFiles } = useFileUploadStore();
 
   const handleFiles = async (files: FileList): Promise<void> => {
     const fileArray = Array.from(files);
@@ -46,7 +39,6 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
   };
 
   const handleFileRemove = (index: number): void => {
-    removeFile(index);
     onUpload(selectedFiles.filter((_: File, i: number) => i !== index));
   };
 
