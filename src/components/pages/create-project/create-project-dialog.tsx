@@ -55,6 +55,10 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
     }
   };
 
+  const handleRemoveLanguage = (langId: string) => {
+    removeLanguage(langId);
+  };
+
   return (
     <MyDialog
       title={config.title}
