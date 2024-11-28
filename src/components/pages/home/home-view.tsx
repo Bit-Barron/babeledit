@@ -14,7 +14,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   setIsCreateProjectOpen,
 }) => {
   return (
-    <main className="min-h-screen  p-8">
+    <main className="min-h-screen p-8">
       <div className="max-w-6xl mx-auto space-y-8">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold mb-2">Create New Project</h1>
