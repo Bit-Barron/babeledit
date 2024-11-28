@@ -1,3 +1,4 @@
+import { PROJECT_CONFIGS } from "@/components/configs/project-configs";
 import { MyDialog } from "@/components/elements/my-dialog";
 import { FileUpload } from "@/components/pages/create-project/create-project-file-upload";
 import { LanguageDisplay } from "@/components/pages/create-project/create-project-language-list";
@@ -14,17 +15,22 @@ import { useNavigate } from "react-router-dom";
 interface CreateProjectProps {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
+  projectType: string;
 }
 
 export const CreateProject: React.FC<CreateProjectProps> = ({
   isOpen,
   setIsOpen,
+  projectType,
 }) => {
   const { toast } = useToast();
   const { languages } = useLanguageStore();
   const { selectedFiles, processFiles } = useFileUploadStore();
   const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const config =
+    PROJECT_CONFIGS[projectType] || PROJECT_CONFIGS["Generic JSON"];
 
   const handleCreateProject = async () => {
     const processedFiles = await processFiles();
@@ -34,13 +40,13 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
       navigate("/translation-editor");
       toast({
         title: "Project created",
-        description: "You can now start translating your files",
+        description: `Your ${projectType} project has been created successfully`,
         variant: "success",
       });
     } else {
       toast({
         title: "Error processing files",
-        description: "Please make sure your files are valid JSON",
+        description: `Please make sure your files are valid ${projectType} files`,
         variant: "destructive",
       });
     }
@@ -48,15 +54,15 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
 
   return (
     <MyDialog
-      title="Configure languages"
-      description="Add or remove languages and their corresponding translations"
+      title={config.title}
+      description={config.description}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
     >
       <div className="space-y-4">
         <FileUpload
-          maxSize={0}
-          acceptedTypes={[]}
+          maxSize={config.maxSize}
+          acceptedTypes={config.acceptedTypes}
           onUpload={(files) =>
             useFileUploadStore.getState().setSelectedFiles(files)
           }
@@ -71,12 +77,15 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
             variant="default"
             disabled={selectedFiles.length === 0}
           >
-            Create Project
+            Create {projectType} Project
           </Button>
         </div>
-        <div className="">
+
+        <div className="space-y-2">
           {languages.map((language) => (
-            <div key={language.id}>{language.name}</div>
+            <div key={language.id} className="p-2 bg-gray-800 rounded-md">
+              {language.name}
+            </div>
           ))}
         </div>
 
@@ -90,3 +99,5 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
     </MyDialog>
   );
 };
+
+export default CreateProject;

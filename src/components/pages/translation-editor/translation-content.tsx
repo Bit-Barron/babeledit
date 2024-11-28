@@ -25,42 +25,44 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
       setIsLoading(true);
 
       try {
-        for (const [lang, content] of nodeLanguages) {
-          if (!content) continue;
-
-          const sourceLang = lang.split("-")[0];
-
-          for (const language of languages) {
-            const response = await fetch(
-              `${TRANSLATION_API_URL}/get?q=${encodeURIComponent(
-                content
-              )}&langpair=${sourceLang}|${language.name}`
-            );
-
-            const responseData = await response.json();
-
-            setTranslations((prev) => ({
-              ...prev,
-              [language.name]: responseData.responseData.translatedText,
-            }));
-          }
-        }
+        await Promise.all(
+          nodeLanguages.map(async ([lang, content]) => {
+            if (!content) return;
+            const sourceLang = lang.split("-")[0];
+            languages.map(async (language) => {
+              const response = await fetch(
+                `${TRANSLATION_API_URL}/get?q=${encodeURIComponent(
+                  content
+                )}&langpair=${sourceLang}|${language.name}`
+              );
+              const responseData = await response.json();
+              setTranslations((prev) => ({
+                ...prev,
+                [language.name]: responseData.responseData.translatedText,
+              }));
+            });
+          })
+        );
         setIsLoading(false);
       } catch (error) {
         console.error("Translation error:", error);
+        setIsLoading(false);
       }
     };
 
     translateContent();
   }, [node, languages]);
 
+  if (!node?.type) {
+    return (
+      <h1 className="flex text-2xl items-center justify-center h-full text-gray-400">
+        Select a translation from the list
+      </h1>
+    );
+  }
+
   return (
     <section>
-      {!node?.type && (
-        <div className="flex items-center justify-center h-full text-gray-400">
-          Select a translation from the list
-        </div>
-      )}
       <Card className="p-4">
         <h3 className="text-lg font-medium mb-4">Translation: {node?.label}</h3>
         <div className="space-y-4 mt-5">

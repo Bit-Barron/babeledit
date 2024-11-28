@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { CreateProject } from "@/components/pages/create-project/create-project-dialog";
 import { Button } from "@/components/ui/button";
 import { TRANSLATION_PROJECTS } from "@/utils/constants";
@@ -13,6 +13,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
   isCreateProjectOpen,
   setIsCreateProjectOpen,
 }) => {
+  const [selectedProjectType, setSelectedProjectType] =
+    useState<string>("Generic JSON");
+
+  const handleProjectSelect = (projectType: string) => {
+    setSelectedProjectType(projectType);
+    setIsCreateProjectOpen(true);
+  };
+
   return (
     <main className="min-h-screen p-8">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -24,7 +32,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {TRANSLATION_PROJECTS.map(({ title, Icon }) => (
             <button
-              onClick={() => setIsCreateProjectOpen(true)}
+              onClick={() => handleProjectSelect(title)}
               key={title}
               className="group relative flex flex-col items-center justify-center p-6 rounded-xl bg-gray-900 border border-gray-800 hover:border-blue-500 transition-all duration-200 aspect-square hover:bg-gray-800 hover:shadow-lg hover:scale-105"
             >
@@ -51,6 +59,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <CreateProject
           isOpen={isCreateProjectOpen}
           setIsOpen={setIsCreateProjectOpen}
+          projectType={selectedProjectType}
         />
       </div>
     </main>
