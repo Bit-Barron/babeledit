@@ -1,4 +1,5 @@
 import { Input } from "@/components/ui/input";
+import { PlaceholderPart } from "@/types/translation-editor.types";
 
 export async function validateJSON(file: File): Promise<File | null> {
   try {
@@ -13,27 +14,31 @@ export async function validateJSON(file: File): Promise<File | null> {
 export const highlightPlaceholders = (text: string) => {
   if (!text) return null;
 
-  const parts = text.split(/(\{\{.*?\}\}|\{[^{}]+\})/g);
+  const parts = text.split(/(\{\{.*?\}\}|\{[^{}]+\})/g).filter(Boolean);
+  const processedParts: PlaceholderPart[] = parts.map((part) => ({
+    type:
+      (part.startsWith("{{") && part.endsWith("}}")) ||
+      (part.startsWith("{") && part.endsWith("}"))
+        ? "placeholder"
+        : "text",
+    content: part,
+  }));
 
   return (
     <div className="w-full space-y-2">
-      {parts.map((part, index) => {
-        if (
-          (part.startsWith("{{") && part.endsWith("}}")) ||
-          (part.startsWith("{") && part.endsWith("}"))
-        ) {
-          return (
-            <div key={index} className="w-full">
-              <span className="font-medium">{part}</span>
-            </div>
-          );
-        }
-        return (
-          <div key={index}>
-            <Input value={part} className="!w-full" />
-          </div>
-        );
-      })}
+      {processedParts.map((part, index) => (
+        <div key={`${part.content}-${index}`} className="w-full">
+          {part.type === "placeholder" ? (
+            <span className="font-medium text-primary">{part.content}</span>
+          ) : (
+            <Input
+              value={part.content}
+              className="w-full"
+              aria-label={`Text part ${index + 1}`}
+            />
+          )}
+        </div>
+      ))}
     </div>
   );
 };

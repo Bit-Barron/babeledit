@@ -16,3 +16,8 @@ export interface LanguageProps {
   id: string;
   name: string;
 }
+
+export interface PlaceholderPart {
+  type: "placeholder" | "text";
+  content: string;
+}
