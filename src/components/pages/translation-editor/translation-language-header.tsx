@@ -14,11 +14,7 @@ export const LanguageHeader: React.FC = () => {
         {languages.map((lang) => (
           <>
             <Separator orientation="vertical" className="h-6 mx-1" />
-            <div
-              className="p-4 text-center font-medium hover:bg-gray-800 transition-colors cursor-pointer"
-              role="tab"
-              tabIndex={0}
-            >
+            <div className="p-4 text-center font-medium hover:bg-gray-800 transition-colors cursor-pointer">
               {lang.name}
             </div>
           </>

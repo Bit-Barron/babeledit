@@ -20,7 +20,7 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
 
   const handleLanguageSelect = (language: string) => {
     const newLanguages = languages.map((lang) => {
-      return lang.name, lang.id;
+      return lang.name;
     });
     setLanguages([...newLanguages, language]);
   };
@@ -50,7 +50,7 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
           Cancel
         </Button>
         <Button variant="secondary" onClick={onClose}>
-          Ok
+          Save
         </Button>
       </div>
     </MyDialog>

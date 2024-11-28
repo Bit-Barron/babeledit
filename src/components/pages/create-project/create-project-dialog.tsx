@@ -22,7 +22,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
 }) => {
   const { toast } = useToast();
   const { languages } = useLanguageStore();
-  const { selectedFiles, processFiles, isLoading } = useFileUploadStore();
+  const { selectedFiles, processFiles } = useFileUploadStore();
   const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -69,16 +69,12 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
           <Button
             onClick={handleCreateProject}
             variant="default"
-            disabled={selectedFiles.length === 0 || isLoading}
+            disabled={selectedFiles.length === 0}
           >
-            {!selectedFiles
-              ? "Upload files to continue"
-              : isLoading
-              ? "Processing..."
-              : "Save changes"}
+            Create Project
           </Button>
         </div>
-        <div>
+        <div className="">
           {languages.map((language) => (
             <div key={language.id}>{language.name}</div>
           ))}
