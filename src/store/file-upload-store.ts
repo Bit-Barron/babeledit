@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 interface FileContent {
   name: string;
-  content: any;
+  content: string;
 }
 
 interface FileUploadStore {
