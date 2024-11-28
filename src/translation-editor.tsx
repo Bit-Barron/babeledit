@@ -49,10 +49,6 @@ export const TranslationEditor = () => {
   const baseContent = processedFiles[0]?.content || {};
   const treeData = processObject(baseContent);
 
-  const handleSelectTranslation = (node: TreeNode) => {
-    setSelectedNode(node);
-  };
-
   return (
     <div className="bg-black text-white h-screen flex flex-col">
       <TranslationHeader
@@ -68,7 +64,7 @@ export const TranslationEditor = () => {
             <div className="h-full">
               <TreeNodeComponent
                 content={treeData}
-                onSelectTranslation={handleSelectTranslation}
+                onSelectTranslation={(node) => setSelectedNode(node)}
               />
             </div>
           </ScrollArea>
