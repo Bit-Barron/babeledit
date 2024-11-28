@@ -16,12 +16,14 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
   onClose,
 }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
   const { setLanguages, languages } = useLanguageStore();
 
   const handleLanguageSelect = (language: string) => {
     const newLanguages = languages.map((lang) => {
       return lang.name;
     });
+    setSelectedLanguages([...selectedLanguages, language]);
     setLanguages([...newLanguages, language]);
   };
 
@@ -32,6 +34,7 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
+
       <ScrollArea className="h-[300px] mt-4">
         {LANGUAGES.map((language) => (
           <div key={language.name} className="p-1 rounded-lg">

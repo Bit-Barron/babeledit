@@ -22,11 +22,19 @@ export const HomeView: React.FC<HomeViewProps> = ({
   };
 
   return (
-    <main className="min-h-screen p-8">
+    <main className="min-h-screen overflow-hidden">
       <div className="max-w-6xl mx-auto space-y-8">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold mb-2">Create New Project</h1>
+        <div className="text-center">
+          <h1 className="text-3xl font-bold mb-2 mt-4">Create New Project</h1>
           <p className="text-gray-400">Select a project type to get started</p>
+        </div>
+        <div className="flex justify-end">
+          <Button
+            variant="outline"
+            className="text-gray-400 hover:text-white border-gray-800 hover:border-gray-700 hover:bg-gray-900"
+          >
+            Open project...
+          </Button>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
@@ -45,15 +53,6 @@ export const HomeView: React.FC<HomeViewProps> = ({
               </span>
             </button>
           ))}
-        </div>
-
-        <div className="flex justify-center mt-8">
-          <Button
-            variant="outline"
-            className="text-gray-400 hover:text-white border-gray-800 hover:border-gray-700 hover:bg-gray-900"
-          >
-            Open example project...
-          </Button>
         </div>
 
         <CreateProject

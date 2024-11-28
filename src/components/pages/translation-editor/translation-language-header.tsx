@@ -7,12 +7,14 @@ export const LanguageHeader: React.FC = () => {
 
   return (
     <header className="flex justify-between border-b">
-      <h1 className="font-medium p-2.5 text-lg">Translations</h1>
+      <div className="p-2">
+        <h1 className="font-medium text-lg">Translations</h1>
+      </div>
       <nav className="flex items-center">
         {languages.map((lang) => (
           <>
             <Separator orientation="vertical" className="h-6 mx-1" />
-            <div className="text-center font-medium hover:bg-gray-800 transition-colors cursor-pointer">
+            <div className="p-4 text-center font-medium hover:bg-gray-800 transition-colors cursor-pointer">
               {lang.name}
             </div>
           </>
