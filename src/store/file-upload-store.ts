@@ -8,19 +8,16 @@ interface FileContent {
 interface FileUploadStore {
   selectedFiles: File[];
   processedFiles: FileContent[];
-  isLoading: boolean;
 
   setSelectedFiles: (files: File[]) => void;
   removeFile: (index: number) => void;
 
-  setIsLoading: (loading: boolean) => void;
   processFiles: () => Promise<FileContent[]>;
 }
 
 export const useFileUploadStore = create<FileUploadStore>((set, get) => ({
   selectedFiles: [],
   processedFiles: [],
-  isLoading: false,
 
   setSelectedFiles: (files) => set({ selectedFiles: files }),
 
@@ -29,11 +26,7 @@ export const useFileUploadStore = create<FileUploadStore>((set, get) => ({
     set({ selectedFiles: newFiles });
   },
 
-  setIsLoading: (loading) => set({ isLoading: loading }),
-
   processFiles: async () => {
-    set({ isLoading: true });
-
     try {
       const processedFiles = await Promise.all(
         get().selectedFiles.map(async (file) => {
@@ -45,11 +38,8 @@ export const useFileUploadStore = create<FileUploadStore>((set, get) => ({
         })
       );
       set({ processedFiles });
-      set({ isLoading: false });
       return processedFiles;
     } catch (error) {
-      set({ isLoading: false });
-
       return [];
     }
   },

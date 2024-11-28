@@ -18,31 +18,46 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
   const { languages } = useLanguageStore();
   const nodeLanguages = node?.content ? Object.entries(node.content) : [];
   const [translations, setTranslations] = useState<Record<string, string>>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const translateContent = async () => {
+      setIsLoading(true);
       const newTranslations: Record<string, string> = {};
 
-      for (const [lang, content] of nodeLanguages) {
-        if (!content) continue;
+      try {
+        for (const [lang, content] of nodeLanguages) {
+          if (!content) continue;
 
-        const sourceLang = lang.split("-")[0];
+          const sourceLang = lang.split("-")[0];
 
-        for (const language of languages) {
-          const response = await fetch(
-            `${TRANSLATION_API_URL}/get?q=${encodeURIComponent(
-              content
-            )}&langpair=${sourceLang}|${language.name}`
-          );
+          for (const language of languages) {
+            const response = await fetch(
+              `${TRANSLATION_API_URL}/get?q=${encodeURIComponent(
+                content
+              )}&langpair=${sourceLang}|${language.name}`
+            );
 
-          const { responseData } = await response.json();
-          newTranslations[language.name] = responseData.translatedText;
+            const responseData = await response.json();
+
+            const translatedText = responseData?.responseData?.translatedText;
+            if (translatedText) {
+              newTranslations[language.name] = translatedText;
+            }
+          }
         }
+        setTranslations(newTranslations);
+      } catch (error) {
+        console.error("Translation error:", error);
+      } finally {
+        setIsLoading(false);
       }
-      setTranslations(newTranslations);
     };
-    translateContent();
-  }, []);
+
+    if (node?.content) {
+      translateContent();
+    }
+  }, [node, languages]);
 
   return (
     <section>
@@ -82,6 +97,10 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
                   <Input
                     className="flex-1"
                     value={translations[language.name] || ""}
+                    disabled={isLoading}
+                    placeholder={
+                      isLoading ? "Translating..." : "No translation available"
+                    }
                   />
                   <div className="flex items-center gap-2">
                     <Checkbox />
