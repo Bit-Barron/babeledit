@@ -11,36 +11,23 @@ export const TranslationEditor = () => {
   const { processedFiles } = useFileUploadStore();
   const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
 
-  const processObject = (obj: any, path: string[] = []): TreeNode[] => {
+  const processObject = (obj: any): TreeNode[] => {
     if (!obj || typeof obj !== "object") return [];
 
-    return Object.entries(obj).map(([key, value]) => {
-      const currentPath = [...path, key];
-      const isFolder = typeof value === "object";
-
-      return {
-        label: key,
-        type: isFolder ? "folder" : "translation",
-        children: isFolder ? processObject(value, currentPath) : [],
-        content: !isFolder ? getTranslationsForKey(currentPath) : undefined,
-      };
-    });
+    return Object.entries(obj).map(([key, value]) => ({
+      label: key,
+      type: typeof value === "object" ? "folder" : "translation",
+      children: processObject(value),
+      content: getTranslations(value as string),
+    }));
   };
 
-  const getTranslationsForKey = (path: string[]) => {
+  const getTranslations = (value: string) => {
     const translations: Record<string, string> = {};
 
     processedFiles.forEach((file) => {
-      let current = file.content;
-      for (const key of path) {
-        if (!current || typeof current !== "object") return;
-        current = current[key];
-      }
-
-      if (typeof current === "string") {
-        const locale = file.name.replace(".json", "");
-        translations[locale] = current;
-      }
+      const locale = file.name.replace(".json", "");
+      translations[locale] = value;
     });
 
     return translations;
@@ -59,7 +46,6 @@ export const TranslationEditor = () => {
           <div className="p-2.5 border-b border-gray-800 font-medium shrink-0">
             Translation IDs
           </div>
-
           <ScrollArea className="flex-1">
             <div className="h-full">
               <TreeNodeComponent

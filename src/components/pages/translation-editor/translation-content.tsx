@@ -85,8 +85,11 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
           {languages.length > 0 && <Separator />}
 
           <div className="space-y-4 mt-5">
-            {languages.map((language) => (
-              <div key={language.name} className="flex items-center gap-4">
+            {languages.map((language, index) => (
+              <div
+                key={`${language.id}-${index}`}
+                className="flex items-center gap-4"
+              >
                 <label className="text-sm text-gray-400 min-w-[50px]">
                   {language.name}
                 </label>
