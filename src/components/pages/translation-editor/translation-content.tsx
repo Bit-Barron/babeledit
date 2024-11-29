@@ -2,7 +2,6 @@ import { TreeNode } from "@/types/translation-editor.types";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { highlightPlaceholders } from "@/utils/client-helper";
 import { useLanguageStore } from "@/store/language-store";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
@@ -72,7 +71,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
                 <label className="text-sm text-gray-400 min-w-[50px]">
                   {lang}
                 </label>
-                {highlightPlaceholders(content || "")}
+                {content}
                 <div className="flex items-center gap-2">
                   <Checkbox />
                   <span>Approved</span>
