@@ -26,14 +26,15 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
       try {
         await Promise.all(
           nodeLanguages.map(async ([lang, content]) => {
-            if (!content) return;
             const sourceLang = lang.split("-")[0];
+
             languages.map(async (language) => {
               const response = await fetch(
                 `${TRANSLATION_API_URL}/get?q=${encodeURIComponent(
                   content
                 )}&langpair=${sourceLang}|${language.name}`
               );
+
               const responseData = await response.json();
               setTranslations((prev) => ({
                 ...prev,
