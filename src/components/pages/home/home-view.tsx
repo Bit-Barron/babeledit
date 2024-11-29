@@ -25,7 +25,6 @@ export const HomeView: React.FC<HomeViewProps> = ({
     <main className="h-screen flex flex-col bg-black">
       <div className="flex-1 max-w-6xl mx-auto w-full px-6 pt-12 pb-6">
         <div className="flex flex-col h-full">
-          {/* Header */}
           <div className="text-center mb-6">
             <h1 className="text-3xl font-bold text-white">
               Create New Project
@@ -35,7 +34,6 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </p>
           </div>
 
-          {/* Open Project Button */}
           <div className="flex justify-end mb-6">
             <Button
               variant="outline"
@@ -45,7 +43,6 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </Button>
           </div>
 
-          {/* Project Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 auto-rows-fr">
             {TRANSLATION_PROJECTS.map(({ title, Icon }) => (
               <button
