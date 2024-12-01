@@ -29,6 +29,7 @@ export const TranslationHeader: React.FC<HeaderProps> = ({ fileName }) => {
           {
             fileName: "translation.babel",
             timestamp: new Date().toISOString(),
+            asd: "asd",
           },
           null,
           2
