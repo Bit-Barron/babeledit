@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    babeledit_lib::run()
+    bableredit_lib::run()
 }
