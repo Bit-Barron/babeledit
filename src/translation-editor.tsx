@@ -43,7 +43,7 @@ export const TranslationEditor = () => {
       />
       <div className="flex flex-1 overflow-hidden">
         <div className="w-[300px] border-r border-gray-800 flex flex-col">
-          <div className="p-2.5 border-b border-gray-800 font-medium shrink-0">
+          <div className="p-1 border-b border-gray-800 font-medium shrink-0">
             Translation IDs
           </div>
           <ScrollArea className="flex-1">
