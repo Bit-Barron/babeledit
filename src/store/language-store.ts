@@ -22,7 +22,6 @@ export const useLanguageStore = create<LanguageStore>((set) => ({
 
   addLanguage: (language) =>
     set((state) => {
-      // Check if language already exists
       if (state.languages.some((lang) => lang.id === language)) {
         return state;
       }
