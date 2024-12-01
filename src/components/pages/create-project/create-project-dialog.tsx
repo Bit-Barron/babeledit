@@ -44,7 +44,6 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
       toast({
         title: "Project created",
         description: `Your ${projectType} project has been created successfully`,
-        variant: "success",
       });
     } else {
       toast({
