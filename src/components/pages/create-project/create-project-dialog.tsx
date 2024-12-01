@@ -12,8 +12,8 @@ import { PRIMARY_LANG } from "@/utils/constants";
 import { Separator } from "@radix-ui/react-separator";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { IoClose } from "react-icons/io5";
 
 interface CreateProjectProps {
   isOpen: boolean;
@@ -105,7 +105,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
                       className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
                       onClick={() => removeLanguage(language.id)}
                     >
-                      <X className="h-4 w-4 text-gray-400 hover:text-gray-200" />
+                      <IoClose className="h-4 w-4 text-gray-400 hover:text-gray-200" />
                     </Button>
                   </div>
                 ))}

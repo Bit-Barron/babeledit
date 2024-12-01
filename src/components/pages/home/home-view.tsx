@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CreateProject } from "@/components/pages/create-project/create-project-dialog";
 import { Button } from "@/components/ui/button";
 import { TRANSLATION_PROJECTS } from "@/utils/constants";
-import { Plus } from "lucide-react";
+import { FaPlus } from "react-icons/fa";
 
 interface HomeViewProps {
   isCreateProjectOpen: boolean;
@@ -51,7 +51,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 className="group relative flex flex-col items-center justify-center p-4 rounded-xl bg-gray-900 border border-gray-800 hover:border-blue-500 transition-all duration-200 hover:bg-gray-800 hover:shadow-lg hover:scale-105"
               >
                 <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Plus className="w-4 h-4 text-blue-400" />
+                  <FaPlus className="w-4 h-4 text-blue-400" />
                 </div>
                 <Icon className="w-10 h-10 mb-3 text-gray-400 group-hover:text-blue-400 transition-colors" />
                 <span className="text-sm font-medium text-center text-gray-300 group-hover:text-white transition-colors">
