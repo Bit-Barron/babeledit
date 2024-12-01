@@ -3,12 +3,15 @@ import { Button } from "@/components/ui/button";
 import { FaSave, FaFolderOpen } from "react-icons/fa";
 import { writeTextFile } from "@tauri-apps/plugin-fs";
 import { save } from "@tauri-apps/plugin-dialog";
+import { useToast } from "@/hooks/use-toast";
 
 interface HeaderProps {
   fileName: string;
 }
 
 export const TranslationHeader: React.FC<HeaderProps> = ({ fileName }) => {
+  const { toast } = useToast();
+
   const handleSaveProject = async () => {
     try {
       const savePath = await save({
@@ -18,21 +21,27 @@ export const TranslationHeader: React.FC<HeaderProps> = ({ fileName }) => {
             extensions: ["babel"],
           },
         ],
-        defaultPath: fileName,
+        defaultPath: "translation.babel",
       });
 
       if (savePath) {
-        await writeTextFile(
-          savePath,
-          JSON.stringify({
-            fileName: fileName,
-          })
+        const content = JSON.stringify(
+          {
+            fileName: "translation.babel",
+            timestamp: new Date().toISOString(),
+          },
+          null,
+          2
         );
 
-        console.log("Projekt erfolgreich gespeichert unter:", savePath);
+        await writeTextFile(savePath, content);
       }
     } catch (error) {
-      console.error("Fehler beim Speichern:", error);
+      toast({
+        title: "Error processing files",
+        description: `Please make sure your files are valid`,
+        variant: "destructive",
+      });
     }
   };
 
@@ -47,14 +56,14 @@ export const TranslationHeader: React.FC<HeaderProps> = ({ fileName }) => {
           variant="outline"
           className="border-gray-600 text-white transition-colors hover:bg-gray-800 hover:text-white"
         >
-          <FaSave />
+          <FaSave className="mr-2 h-4 w-4" />
           Save Project
         </Button>
         <Button
           variant="outline"
           className="border-gray-600 text-white transition-colors hover:bg-gray-800 hover:text-white"
         >
-          <FaFolderOpen />
+          <FaFolderOpen className="mr-2 h-4 w-4" />
           Open Project
         </Button>
       </section>
