@@ -4,6 +4,7 @@ import { FaSave, FaFolderOpen } from "react-icons/fa";
 import { writeTextFile } from "@tauri-apps/plugin-fs";
 import { save } from "@tauri-apps/plugin-dialog";
 import { useToast } from "@/hooks/use-toast";
+import { Builder } from "xml2js";
 
 interface HeaderProps {
   fileName: string;
@@ -25,22 +26,41 @@ export const TranslationHeader: React.FC<HeaderProps> = ({ fileName }) => {
       });
 
       if (savePath) {
-        const content = JSON.stringify(
-          {
-            fileName: "translation.babel",
-            timestamp: new Date().toISOString(),
-            asd: "asd",
-          },
-          null,
-          2
-        );
+        const extractedFileName =
+          savePath.split("/").pop() || "Untitled Project";
 
-        await writeTextFile(savePath, content);
+        const xmlObject = {
+          babeledit_project: {
+            $: {
+              be_version: "1.0",
+              version: "1.0",
+            },
+            preset_collections: "",
+            framework: "generic-json",
+            filename: extractedFileName,
+            source_root_dir: "dev/cryptotracker",
+          },
+        };
+
+        const builder = new Builder({
+          xmldec: { version: "1.0", encoding: "UTF-8" },
+          renderOpts: { pretty: true, indent: "\t" },
+        });
+
+        const xmlContent = builder.buildObject(xmlObject);
+
+        await writeTextFile(savePath, xmlContent);
+
+        toast({
+          title: "Project Saved",
+          description: `Successfully saved translation project to ${savePath}`,
+          variant: "default",
+        });
       }
     } catch (error) {
       toast({
         title: "Error processing files",
-        description: `Please make sure your files are valid`,
+        description: `Please make sure your files are valid: ${error}`,
         variant: "destructive",
       });
     }
