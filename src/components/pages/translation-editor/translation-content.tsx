@@ -9,16 +9,16 @@ import { TranslationEditorService } from "@/services/translation-editor-service"
 import { toast } from "@/hooks/use-toast";
 
 interface TranslationContentProps {
-  node: TreeNode | null;
+  node: TreeNode;
 }
 
 export const TranslationContent: React.FC<TranslationContentProps> = ({
   node,
 }) => {
   const { languages } = useLanguageStore();
-  const nodeLanguages = node?.content ? Object.entries(node.content) : [];
   const [translations, setTranslations] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const nodeLanguages = node.content ? Object.entries(node.content) : [];
 
   useEffect(() => {
     const fetchAndSetTranslations = async () => {
