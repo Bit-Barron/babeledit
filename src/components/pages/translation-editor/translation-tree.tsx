@@ -12,7 +12,6 @@ export const TreeNodeComponent: React.FC<TreeNodeProps> = ({
   onSelectTranslation,
 }) => {
   const nodes = Array.isArray(content) ? content : [content];
-
   const [expandedNodes, setExpandedNodes] = useState<Record<string, boolean>>(
     {}
   );
