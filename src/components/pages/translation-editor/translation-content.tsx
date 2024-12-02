@@ -9,7 +9,7 @@ import { TranslationEditorService } from "@/services/translation-editor-service"
 import { toast } from "@/hooks/use-toast";
 
 interface TranslationContentProps {
-  node: TreeNode;
+  node: TreeNode | null;
 }
 
 export const TranslationContent: React.FC<TranslationContentProps> = ({
@@ -18,7 +18,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
   const { languages } = useLanguageStore();
   const [translations, setTranslations] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const nodeLanguages = node.content ? Object.entries(node.content) : [];
+  const nodeLanguages = node?.content ? Object.entries(node.content) : [];
 
   useEffect(() => {
     const fetchAndSetTranslations = async () => {
@@ -46,7 +46,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
 
   if (!node?.type) {
     return (
-      <h1 className="flex text-2xl items-center justify-center h-full text-gray-400">
+      <h1 className="flex text-xl items-center justify-center h-full text-gray-600">
         Select a translation from the list
       </h1>
     );
@@ -61,9 +61,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
             return (
               <div key={lang}>
                 <div className="flex items-center gap-4">
-                  <label className="text-sm text-gray-400 min-w-[50px]">
-                    {lang}
-                  </label>
+                  <label className="text-sm min-w-[50px]">{lang}</label>
                   <Input value={content || ""} />
                   <div className="flex items-center gap-2">
                     <Checkbox />
@@ -83,7 +81,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
                 key={`${language.id}-${index}`}
                 className="flex items-center gap-4"
               >
-                <label className="text-sm text-gray-400 min-w-[50px]">
+                <label className="text-sm text-gray-600 min-w-[50px]">
                   {language.name}
                 </label>
                 <Input

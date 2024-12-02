@@ -8,7 +8,7 @@ interface ProjectConfigProps {
 export const PROJECT_CONFIGS: Record<string, ProjectConfigProps> = {
   "Generic JSON": {
     acceptedTypes: [".json"],
-    maxSize: 5 * 1024 * 1024, // 5MB
+    maxSize: 5 * 1024 * 1024,
     title: "Configure JSON Translation Project",
     description: "Upload your JSON translation files and configure languages",
   },

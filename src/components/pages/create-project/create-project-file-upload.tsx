@@ -3,6 +3,7 @@ import { FiUpload, FiFile, FiX } from "react-icons/fi";
 import { useFileUploadStore } from "@/store/file-upload-store";
 import { validateJSON } from "@/utils/client-helper";
 import { toast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
 
 interface FileUploadProps {
   maxSize: number;
@@ -103,9 +104,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
       {selectedFiles.length > 0 && (
         <div className="space-y-2">
           {selectedFiles.map((file: File, index: number) => (
-            <div
+            <Button
+              variant="secondary"
               key={index}
-              className="flex items-center justify-between p-2 bg-gray-800 rounded-lg"
+              className="flex w-full items-center justify-between p-2 rounded-lg"
             >
               <div className="flex items-center text-gray-300">
                 <FiFile className="w-4 h-4 mr-2" />
@@ -117,7 +119,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
               >
                 <FiX className="w-4 h-4" />
               </button>
-            </div>
+            </Button>
           ))}
         </div>
       )}

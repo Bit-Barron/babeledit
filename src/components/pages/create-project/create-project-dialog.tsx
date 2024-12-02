@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useFileUploadStore } from "@/store/file-upload-store";
 import { useLanguageStore } from "@/store/language-store";
-import { PRIMARY_LANG } from "@/utils/constants";
 import { Separator } from "@radix-ui/react-separator";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -114,7 +113,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
         )}
 
         <Separator className="my-4" />
-        <LanguageDisplay primaryLang={PRIMARY_LANG} />
+        <LanguageDisplay />
         <LanguageSelectDialog
           isOpen={isLanguageOpen}
           onClose={() => setIsLanguageOpen(false)}

@@ -37,7 +37,7 @@ export const TranslationEditor = () => {
   const treeData = processObject(baseContent);
 
   return (
-    <div className="bg-black text-white h-screen flex flex-col">
+    <div className="h-screen flex flex-col">
       <TranslationHeader
         fileName={processedFiles.map((i) => i.name).join(", ")}
       />

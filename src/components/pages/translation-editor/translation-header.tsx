@@ -17,15 +17,12 @@ export const TranslationHeader: React.FC<HeaderProps> = ({ fileName }) => {
         <Button
           onClick={() => TranslationEditorService.saveProject()}
           variant="outline"
-          className="border-gray-600 text-white transition-colors hover:bg-gray-800 hover:text-white"
+          className=""
         >
           <FaSave className="mr-2 h-4 w-4" />
           Save Project
         </Button>
-        <Button
-          variant="outline"
-          className="border-gray-600 text-white transition-colors hover:bg-gray-800 hover:text-white"
-        >
+        <Button variant="outline" className="">
           <FaFolderOpen className="mr-2 h-4 w-4" />
           Open Project
         </Button>
