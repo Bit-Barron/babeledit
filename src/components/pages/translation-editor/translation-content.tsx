@@ -81,7 +81,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
                 key={`${language.id}-${index}`}
                 className="flex items-center gap-4"
               >
-                <label className="text-sm text-gray-600 min-w-[50px]">
+                <label className="text-sm min-w-[50px]">
                   {language.name}
                 </label>
                 <Input

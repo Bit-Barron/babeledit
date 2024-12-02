@@ -7,7 +7,7 @@ export const LanguageHeader: React.FC = () => {
 
   return (
     <header className="flex justify-between border-b">
-      <h1 className="font-medium text-sm mt-2">Translations</h1>
+      <h1 className="font-medium text-sm mt-2 p-2.5">Translations</h1>
       <nav className="flex items-center">
         {languages.map((lang) => (
           <>
