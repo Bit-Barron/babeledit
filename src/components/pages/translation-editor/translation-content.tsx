@@ -22,8 +22,6 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
 
   useEffect(() => {
     const fetchAndSetTranslations = async () => {
-      setIsLoading(true);
-
       try {
         const fetchedTranslations =
           await TranslationEditorService.fetchTranslations({
