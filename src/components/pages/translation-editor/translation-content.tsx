@@ -54,7 +54,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
 
   return (
     <section>
-      <Card className="p-4">
+      <Card className="p-4 bg-card">
         <h3 className="text-lg font-medium mb-4">Translation: {node?.label}</h3>
         <div className="space-y-4 mt-5">
           {nodeLanguages.map(([lang, content]) => {

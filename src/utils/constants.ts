@@ -109,4 +109,3 @@ export const LANGUAGES = [
   { id: "zh-TW", name: "zh-TW" },
 ];
 export const TRANSLATION_API_URL = "https://api.mymemory.translated.net";
-export const PRIMARY_LANG = "english";
