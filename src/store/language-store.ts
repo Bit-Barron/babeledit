@@ -6,7 +6,6 @@ interface LanguageStore {
   setLanguages: (languages: string[]) => void;
   addLanguage: (language: string) => void;
   removeLanguage: (languageId: string) => void;
-  clearLanguages: () => void;
 }
 
 export const useLanguageStore = create<LanguageStore>((set) => ({
@@ -41,6 +40,4 @@ export const useLanguageStore = create<LanguageStore>((set) => ({
     set((state) => ({
       languages: state.languages.filter((lang) => lang.id !== languageId),
     })),
-
-  clearLanguages: () => set({ languages: [] }),
 }));
