@@ -5,7 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useLanguageStore } from "@/store/language-store";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
-import { TRANSLATION_API_URL } from "@/utils/constants";
+import { TranslationEditorService } from "@/rpc/translation-editor-service";
 
 interface TranslationContentProps {
   node: TreeNode | null;
@@ -20,37 +20,25 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const translateContent = async () => {
+    const fetchAndSetTranslations = async () => {
       setIsLoading(true);
 
       try {
-        await Promise.all(
-          nodeLanguages.map(async ([lang, content]) => {
-            const sourceLang = lang.split("-")[0];
+        const fetchedTranslations =
+          await TranslationEditorService.fetchTranslations({
+            nodeLanguages,
+            targetLanguages: languages,
+          });
 
-            languages.map(async (language) => {
-              const response = await fetch(
-                `${TRANSLATION_API_URL}/get?q=${encodeURIComponent(
-                  content
-                )}&langpair=${sourceLang}|${language.name}`
-              );
-
-              const responseData = await response.json();
-              setTranslations((prev) => ({
-                ...prev,
-                [language.name]: responseData.responseData.translatedText,
-              }));
-            });
-          })
-        );
+        setTranslations(fetchedTranslations);
         setIsLoading(false);
       } catch (error) {
-        console.error("Translation error:", error);
+        console.error("Error fetching translations:", error);
         setIsLoading(false);
       }
     };
 
-    translateContent();
+    fetchAndSetTranslations();
   }, [node, languages]);
 
   if (!node?.type) {
@@ -97,7 +85,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
                 </label>
                 <Input
                   className="flex-1"
-                  value={translations[language.name]}
+                  value={translations[language.name] || ""}
                   disabled={isLoading}
                   placeholder={
                     isLoading ? "Translating..." : "No translation available"

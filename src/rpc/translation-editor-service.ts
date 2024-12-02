@@ -2,6 +2,12 @@ import { writeTextFile } from "@tauri-apps/plugin-fs";
 import { save } from "@tauri-apps/plugin-dialog";
 import YAML from "yaml";
 import { toast } from "@/hooks/use-toast";
+import { TRANSLATION_API_URL } from "@/utils/constants";
+
+interface FetchTranslationsProps {
+  nodeLanguages: [string, string][];
+  targetLanguages: { id: string; name: string }[];
+}
 
 export class TranslationEditorService {
   static async saveProject(): Promise<void> {
@@ -53,5 +59,34 @@ export class TranslationEditorService {
         variant: "destructive",
       });
     }
+  }
+  static async fetchTranslations({
+    nodeLanguages,
+    targetLanguages,
+  }: FetchTranslationsProps): Promise<Record<string, string>> {
+    const translations: Record<string, string> = {};
+
+    for (const [sourceLang, content] of nodeLanguages) {
+      const baseLang = sourceLang.split("-")[0];
+      for (const targetLanguage of targetLanguages) {
+        try {
+          const response = await fetch(
+            `${TRANSLATION_API_URL}/get?q=${encodeURIComponent(
+              content
+            )}&langpair=${baseLang}|${targetLanguage.name}`
+          );
+          const responseData = await response.json();
+          translations[targetLanguage.name] =
+            responseData.responseData.translatedText;
+        } catch (error) {
+          console.error(
+            `Error translating content "${content}" to "${targetLanguage.name}":`,
+            error
+          );
+        }
+      }
+    }
+
+    return translations;
   }
 }
