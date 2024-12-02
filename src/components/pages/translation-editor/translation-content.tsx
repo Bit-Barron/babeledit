@@ -5,7 +5,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useLanguageStore } from "@/store/language-store";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
-import { TranslationEditorService } from "@/rpc/translation-editor-service";
+import { TranslationEditorService } from "@/services/translation-editor-service";
+import { toast } from "@/hooks/use-toast";
 
 interface TranslationContentProps {
   node: TreeNode | null;
@@ -33,7 +34,11 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
         setTranslations(fetchedTranslations);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching translations:", error);
+        toast({
+          type: "background",
+          variant: "destructive",
+          description: `Failed to fetch translations: ${error}`,
+        });
         setIsLoading(false);
       }
     };
