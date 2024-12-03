@@ -22,7 +22,6 @@ export const TranslationHeader: React.FC<HeaderProps> = ({ fileName }) => {
             )
           }
           variant="outline"
-          className=""
         >
           <FaSave className="mr-2 h-4 w-4" />
           Save Project

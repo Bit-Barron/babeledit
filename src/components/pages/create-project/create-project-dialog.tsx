@@ -30,40 +30,21 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
   const { selectedFiles, processFiles } = useFileUploadStore();
   const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
   const navigate = useNavigate();
-
-  const config =
+  
+  const CONFIG =
     PROJECT_CONFIGS[projectType] || PROJECT_CONFIGS["Generic JSON"];
-
-  const handleCreateProject = async () => {
-    const processedFiles = await processFiles();
-
-    if (processedFiles.length > 0) {
-      setIsOpen(false);
-      navigate("/translation-editor");
-      toast({
-        title: "Project created",
-        description: `Your ${projectType} project has been created successfully`,
-      });
-    } else {
-      toast({
-        title: "Error processing files",
-        description: `Please make sure your files are valid ${projectType} files`,
-        variant: "destructive",
-      });
-    }
-  };
 
   return (
     <MyDialog
-      title={config.title}
-      description={config.description}
+      title={CONFIG.title}
+      description={CONFIG.description}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
     >
       <div className="space-y-4">
         <FileUpload
-          maxSize={config.maxSize}
-          acceptedTypes={config.acceptedTypes}
+          maxSize={CONFIG.maxSize}
+          acceptedTypes={CONFIG.acceptedTypes}
           onUpload={(files) =>
             useFileUploadStore.getState().setSelectedFiles(files)
           }
@@ -74,7 +55,24 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
             Add Language
           </Button>
           <Button
-            onClick={handleCreateProject}
+            onClick={async () => {
+              try {
+                await processFiles();
+                navigate("/translation-editor");
+
+                toast({
+                  type: "background",
+                  variant: "default",
+                  description: `Project created successfully`,
+                });
+              } catch (error) {
+                toast({
+                  type: "background",
+                  variant: "destructive",
+                  description: `Failed to create project: ${error}`,
+                });
+              }
+            }}
             variant="default"
             disabled={selectedFiles.length === 0}
           >
