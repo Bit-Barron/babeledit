@@ -5,6 +5,7 @@ import { toast } from "@/hooks/use-toast";
 import { TRANSLATION_API_URL } from "@/utils/constants";
 import { useNodeContentStore } from "@/store/node-store";
 import { TreeNode } from "@/types/translation-editor.types";
+import { createYmlObject } from "@/services/yml-object-builder";
 
 interface FetchTranslationsProps {
   nodeLanguages: [string, string][];
@@ -18,7 +19,7 @@ export class TranslationEditorService {
   ): Promise<void> {
     const { selectedNode } = useNodeContentStore();
 
-    console.log("selectedNodeinTranslat", selectedNode);
+    console.log("daddynode", selectedNode);
 
     try {
       const savePath = await save({
@@ -39,23 +40,14 @@ export class TranslationEditorService {
         });
         return;
       }
-
       const extractedFileName = savePath.split("/").pop() || "Untitled Project";
 
-      const ymlObject = {
-        babeledit_project: {
-          be_version: "1.0",
-          version: "1.0",
-          preset_collections: "",
-          framework: "generic-json",
-          filename: extractedFileName,
-          source_root_dir: savePath,
-          translations: {
-            source_languages: nodeLanguages.map(([lang]) => lang),
-            target_languages: targetLanguages.map(({ id }) => id),
-          },
-        },
-      };
+      const ymlObject = createYmlObject(
+        nodeLanguages,
+        targetLanguages,
+        savePath,
+        extractedFileName
+      );
 
       const yamlContent = YAML.stringify(ymlObject);
       await writeTextFile(savePath, yamlContent);
@@ -92,10 +84,11 @@ export class TranslationEditorService {
           translations[targetLanguage.name] =
             responseData.responseData.translatedText;
         } catch (error) {
-          console.error(
-            `Error translating content "${content}" to "${targetLanguage.name}":`,
-            error
-          );
+          toast({
+            type: "background",
+            variant: "destructive",
+            description: `Failed to fetch translations: ${error}`,
+          });
         }
       }
     }
@@ -118,7 +111,7 @@ export class TranslationEditorService {
   }
 
   static processObject(
-    obj: { [key: string]: any },
+    obj: Record<string, any>,
     processedFiles: { name: string }[]
   ): TreeNode[] {
     if (!obj || typeof obj !== "object") return [];
