@@ -118,7 +118,7 @@ export class TranslationEditorService {
   }
 
   static processObject(
-    obj: any,
+    obj: { [key: string]: any },
     processedFiles: { name: string }[]
   ): TreeNode[] {
     if (!obj || typeof obj !== "object") return [];
