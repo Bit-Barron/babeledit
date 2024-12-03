@@ -62,7 +62,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
               <div key={lang}>
                 <div className="flex items-center gap-4">
                   <label className="text-sm min-w-[50px]">{lang}</label>
-                  <Input value={content || ""} />
+                  <Input value={content} />
                   <div className="flex items-center gap-2">
                     <Checkbox />
                     <span>Approved</span>
@@ -81,12 +81,10 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
                 key={`${language.id}-${index}`}
                 className="flex items-center gap-4"
               >
-                <label className="text-sm min-w-[50px]">
-                  {language.name}
-                </label>
+                <label className="text-sm min-w-[50px]">{language.name}</label>
                 <Input
                   className="flex-1"
-                  value={translations[language.name] || ""}
+                  value={translations[language.name]}
                   disabled={isLoading}
                   placeholder={
                     isLoading ? "Translating..." : "No translation available"
