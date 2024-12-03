@@ -11,7 +11,7 @@ export const TranslationEditor = () => {
   const { processedFiles } = useFileUploadStore();
   const { selectedNode, setSelectedNode } = useNodeContentStore();
 
-  const baseContent = processedFiles[0]?.content || {};
+  const baseContent = processedFiles[0].content;
   const treeData = TranslationEditorService.processObject(
     baseContent,
     processedFiles
