@@ -15,7 +15,12 @@ export const TranslationHeader: React.FC<HeaderProps> = ({ fileName }) => {
       </div>
       <section className="flex space-x-4">
         <Button
-          onClick={() => TranslationEditorService.saveProject()}
+          onClick={() =>
+            TranslationEditorService.saveProject(
+              [["en", "English"]],
+              [{ id: "es", name: "Spanish" }]
+            )
+          }
           variant="outline"
           className=""
         >

@@ -10,7 +10,10 @@ interface FetchTranslationsProps {
 }
 
 export class TranslationEditorService {
-  static async saveProject(): Promise<void> {
+  static async saveProject(
+    nodeLanguages: [string, string][],
+    targetLanguages: { id: string; name: string }[]
+  ): Promise<void> {
     try {
       const savePath = await save({
         filters: [
@@ -41,6 +44,10 @@ export class TranslationEditorService {
           framework: "generic-json",
           filename: extractedFileName,
           source_root_dir: savePath,
+          translations: {
+            source_languages: nodeLanguages.map(([lang]) => lang),
+            target_languages: targetLanguages.map(({ id }) => id),
+          },
         },
       };
 
