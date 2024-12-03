@@ -1,40 +1,21 @@
-import { TreeNode } from "@/types/translation-editor.types";
 import { TranslationContent } from "@/components/pages/translation-editor/translation-content";
 import { TranslationHeader } from "@/components/pages/translation-editor/translation-header";
 import { LanguageHeader } from "@/components/pages/translation-editor/translation-language-header";
 import { TreeNodeComponent } from "@/components/pages/translation-editor/translation-tree";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { useState } from "react";
+import { TranslationEditorService } from "@/services/translation-editor-service";
 import { useFileUploadStore } from "@/store/file-upload-store";
+import { useNodeContentStore } from "@/store/node-store";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 export const TranslationEditor = () => {
   const { processedFiles } = useFileUploadStore();
-  const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
-
-  const processObject = (obj: any): TreeNode[] => {
-    if (!obj || typeof obj !== "object") return [];
-
-    return Object.entries(obj).map(([key, value]) => ({
-      label: key,
-      type: typeof value === "object" ? "folder" : "translation",
-      children: processObject(value),
-      content: getTranslations(value as string),
-    }));
-  };
-
-  const getTranslations = (value: string) => {
-    const translations: Record<string, string> = {};
-
-    processedFiles.forEach((file) => {
-      const locale = file.name.replace(".json", "");
-      translations[locale] = value;
-    });
-
-    return translations;
-  };
+  const { selectedNode, setSelectedNode } = useNodeContentStore();
 
   const baseContent = processedFiles[0]?.content || {};
-  const treeData = processObject(baseContent);
+  const treeData = TranslationEditorService.processObject(
+    baseContent,
+    processedFiles
+  );
 
   return (
     <div className="h-screen flex flex-col">

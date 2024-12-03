@@ -19,14 +19,6 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
   const { setLanguages, languages } = useLanguageStore();
 
-  const handleLanguageSelect = (language: string) => {
-    const newLanguages = languages.map((lang) => {
-      return lang.name;
-    });
-    setSelectedLanguages([...selectedLanguages, language]);
-    setLanguages([...newLanguages, language]);
-  };
-
   return (
     <MyDialog title="Select language" isOpen={isOpen} setIsOpen={onClose}>
       <Input
@@ -39,7 +31,24 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
         {LANGUAGES.map((language) => (
           <div key={language.name} className="p-1 rounded-lg">
             <Button
-              onClick={() => handleLanguageSelect(language.id)}
+              onClick={() => {
+                if (selectedLanguages.includes(language.name)) {
+                  setSelectedLanguages(
+                    selectedLanguages.filter((lang) => lang !== language.name)
+                  );
+                  setLanguages(
+                    languages
+                      .filter((lang) => lang.name !== language.name)
+                      .map((lang) => lang.name)
+                  );
+                  return;
+                }
+                setSelectedLanguages([...selectedLanguages, language.name]);
+                setLanguages([
+                  ...languages.map((lang) => lang.name),
+                  language.name,
+                ]);
+              }}
               variant="outline"
               className="w-full justify-start"
             >

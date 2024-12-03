@@ -3,6 +3,8 @@ import { save } from "@tauri-apps/plugin-dialog";
 import YAML from "yaml";
 import { toast } from "@/hooks/use-toast";
 import { TRANSLATION_API_URL } from "@/utils/constants";
+import { useNodeContentStore } from "@/store/node-store";
+import { TreeNode } from "@/types/translation-editor.types";
 
 interface FetchTranslationsProps {
   nodeLanguages: [string, string][];
@@ -14,6 +16,10 @@ export class TranslationEditorService {
     nodeLanguages: [string, string][],
     targetLanguages: { id: string; name: string }[]
   ): Promise<void> {
+    const { selectedNode } = useNodeContentStore();
+
+    console.log("selectedNodeinTranslat", selectedNode);
+
     try {
       const savePath = await save({
         filters: [
@@ -95,5 +101,36 @@ export class TranslationEditorService {
     }
 
     return translations;
+  }
+
+  static getTranslations(
+    value: string,
+    processedFiles: { name: string }[]
+  ): Record<string, string> {
+    const translations: Record<string, string> = {};
+
+    processedFiles.forEach((file) => {
+      const locale = file.name.replace(".json", "");
+      translations[locale] = value;
+    });
+
+    return translations;
+  }
+
+  static processObject(
+    obj: any,
+    processedFiles: { name: string }[]
+  ): TreeNode[] {
+    if (!obj || typeof obj !== "object") return [];
+
+    return Object.entries(obj).map(([key, value]) => ({
+      label: key,
+      type: typeof value === "object" ? "folder" : "translation",
+      children: TranslationEditorService.processObject(value, processedFiles),
+      content: TranslationEditorService.getTranslations(
+        value as string,
+        processedFiles
+      ),
+    }));
   }
 }
