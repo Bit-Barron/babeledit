@@ -1,6 +1,6 @@
 import React from "react";
 import { PROJECT_CONFIGS } from "@/components/configs/project-configs";
-import { MyDialog } from "@/components/elements/my-dialog";
+import { MyDialog } from "@/components/elements/custom-dialog";
 import { FileUpload } from "@/components/pages/create-project/create-project-file-upload";
 import { LanguageDisplay } from "@/components/pages/create-project/create-project-language-list";
 import { LanguageSelectDialog } from "@/components/pages/create-project/create-project-language-select";

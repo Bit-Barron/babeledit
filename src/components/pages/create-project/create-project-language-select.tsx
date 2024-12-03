@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MyDialog } from "@/components/elements/my-dialog";
+import { MyDialog } from "@/components/elements/custom-dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LANGUAGES } from "@/utils/constants";
