@@ -30,7 +30,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
   const { selectedFiles, processFiles } = useFileUploadStore();
   const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
   const navigate = useNavigate();
-  
+
   const CONFIG =
     PROJECT_CONFIGS[projectType] || PROJECT_CONFIGS["Generic JSON"];
 
@@ -86,24 +86,20 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
               Selected Languages
             </h3>
             <ScrollArea className="w-full h-20 rounded-md">
-              <div className="grid grid-cols-3 gap-2 p-1">
+              <div className="flex flex-col space-y-3">
                 {languages.map((language) => (
-                  <div
-                    key={language.id}
-                    className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg border border-gray-700/50 hover:border-gray-600 transition-colors group"
-                  >
+                  <Button variant="secondary" key={language.id}>
                     <span className="text-gray-200 truncate">
                       {language.name}
                     </span>
                     <Button
-                      variant="ghost"
+                      variant="secondary"
                       size="icon"
-                      className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
                       onClick={() => removeLanguage(language.id)}
                     >
                       <IoClose className="h-4 w-4 text-gray-400 hover:text-gray-200" />
                     </Button>
-                  </div>
+                  </Button>
                 ))}
               </div>
             </ScrollArea>
