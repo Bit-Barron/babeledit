@@ -111,12 +111,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
                 <FiFile className="w-4 h-4 mr-2" />
                 <span className="text-sm">{file.name}</span>
               </div>
-              <button
+              <span
                 onClick={() => handleFileRemove(index)}
                 className="text-gray-400 hover:text-gray-200"
               >
                 <FiX className="w-4 h-4" />
-              </button>
+              </span>
             </Button>
           ))}
         </div>

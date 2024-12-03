@@ -62,7 +62,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
               <div key={lang}>
                 <div className="flex items-center gap-4">
                   <label className="text-sm min-w-[50px]">{lang}</label>
-                  <Input value={content} />
+                  <Input readOnly value={content} />
                   <div className="flex items-center gap-2">
                     <Checkbox />
                     <span>Approved</span>
