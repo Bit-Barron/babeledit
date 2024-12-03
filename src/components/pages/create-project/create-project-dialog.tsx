@@ -92,13 +92,9 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
                     <span className="text-gray-200 truncate">
                       {language.name}
                     </span>
-                    <Button
-                      variant="secondary"
-                      size="icon"
-                      onClick={() => removeLanguage(language.id)}
-                    >
+                    <span onClick={() => removeLanguage(language.id)}>
                       <IoClose className="h-4 w-4 text-gray-400 hover:text-gray-200" />
-                    </Button>
+                    </span>
                   </Button>
                 ))}
               </div>

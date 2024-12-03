@@ -8,16 +8,16 @@ export const LanguageHeader: React.FC = () => {
   return (
     <header className="flex justify-between border-b">
       <h1 className="font-medium text-sm mt-2 p-2.5">Translations</h1>
-      <nav className="flex items-center">
+      <section className="flex items-center">
         {languages.map((lang) => (
-          <>
+          <div key={lang.name} className="flex items-center">
             <Separator orientation="vertical" className="h-6 mx-1" />
             <div className="p-1 text-center font-medium transition-colors cursor-pointer">
               {lang.name}
             </div>
-          </>
+          </div>
         ))}
-      </nav>
+      </section>
     </header>
   );
 };
