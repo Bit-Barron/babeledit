@@ -15,10 +15,8 @@ export class TranslationEditorService {
   static async saveProject(
     nodeLanguages: [string, string][],
     targetLanguages: { id: string; name: string }[],
-    selectedNode: TreeNode | null
+    processedFiles: any[]
   ): Promise<void> {
-    console.log("daddynode", selectedNode);
-
     try {
       const savePath = await save({
         filters: [
@@ -45,7 +43,8 @@ export class TranslationEditorService {
         nodeLanguages,
         targetLanguages,
         savePath,
-        extractedFileName
+        extractedFileName,
+        processedFiles
       );
 
       const yamlContent = YAML.stringify(ymlObject);

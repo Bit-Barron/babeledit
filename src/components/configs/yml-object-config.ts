@@ -1,8 +1,11 @@
+import { FileContent } from "@/types/translation-editor.types";
+
 export function createYmlObject(
   nodeLanguages: [string, string][],
   targetLanguages: { id: string; name: string }[],
   savePath: string,
-  extractedFileName: string
+  extractedFileName: string,
+  translation: FileContent[]
 ) {
   return {
     babeledit_project: {
@@ -13,14 +16,15 @@ export function createYmlObject(
       filename: extractedFileName,
       source_root_dir: savePath,
       translations: {
-        source_languages: nodeLanguages.map(([lang]) => ({
-          code: lang,
-          name: lang,
-        })),
-        target_languages: targetLanguages.map(({ id, name }) => ({
-          code: id,
-          name: name,
-        })),
+        source_language: nodeLanguages[0][0],
+        target_languages: targetLanguages.map((lang) => lang.id),
+        translations: translation.map((file) => {
+          return {
+            id: file.name,
+            name: file.name,
+            
+          };
+        }),
       },
       metadata: {
         created_at: new Date().toISOString(),
@@ -28,10 +32,6 @@ export function createYmlObject(
         author: "Current User",
       },
       translation_files: {},
-      settings: {
-        auto_translate: false,
-        merge_strategy: "replace", // Beispiel
-      },
     },
   };
 }
