@@ -2,12 +2,15 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { FaSave, FaFolderOpen } from "react-icons/fa";
 import { TranslationEditorService } from "@/services/translation-editor-service";
+import { useNodeContentStore } from "@/store/node-store";
 
 interface HeaderProps {
   fileName: string;
 }
 
 export const TranslationHeader: React.FC<HeaderProps> = ({ fileName }) => {
+  const { selectedNode } = useNodeContentStore();
+
   return (
     <header className="flex items-center justify-between border-b border-gray-800 p-4">
       <div className="flex items-center gap-4">
@@ -18,7 +21,8 @@ export const TranslationHeader: React.FC<HeaderProps> = ({ fileName }) => {
           onClick={() =>
             TranslationEditorService.saveProject(
               [["en", "English"]],
-              [{ id: "es", name: "Spanish" }]
+              [{ id: "es", name: "Spanish" }],
+              selectedNode
             )
           }
           variant="outline"

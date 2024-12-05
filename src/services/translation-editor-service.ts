@@ -3,7 +3,6 @@ import { save } from "@tauri-apps/plugin-dialog";
 import YAML from "yaml";
 import { toast } from "@/hooks/use-toast";
 import { TRANSLATION_API_URL } from "@/utils/constants";
-import { useNodeContentStore } from "@/store/node-store";
 import { TreeNode } from "@/types/translation-editor.types";
 import { createYmlObject } from "@/components/configs/yml-object-config";
 
@@ -15,10 +14,9 @@ interface FetchTranslationsProps {
 export class TranslationEditorService {
   static async saveProject(
     nodeLanguages: [string, string][],
-    targetLanguages: { id: string; name: string }[]
+    targetLanguages: { id: string; name: string }[],
+    selectedNode?: any // Make this optional or with a specific type
   ): Promise<void> {
-    const { selectedNode } = useNodeContentStore();
-
     console.log("daddynode", selectedNode);
 
     try {
@@ -40,6 +38,7 @@ export class TranslationEditorService {
         });
         return;
       }
+
       const extractedFileName = savePath.split("/").pop() || "Untitled Project";
 
       const ymlObject = createYmlObject(
@@ -65,6 +64,7 @@ export class TranslationEditorService {
       });
     }
   }
+
   static async fetchTranslations({
     nodeLanguages,
     targetLanguages,
