@@ -20,8 +20,6 @@ export const TranslationEditor = () => {
     processedFiles
   );
 
-  console.log(processedFiles);
-
   return (
     <div className="h-screen flex flex-col">
       <TranslationHeader

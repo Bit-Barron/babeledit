@@ -19,9 +19,6 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
   const { setLanguages, languages } = useLanguageStore();
 
-  console.log("selectedLanguages", selectedLanguages);
-  console.log("languages", languages);
-
   return (
     <MyDialog title="Select language" isOpen={isOpen} setIsOpen={onClose}>
       <Input
