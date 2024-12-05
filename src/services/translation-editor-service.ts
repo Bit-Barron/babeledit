@@ -15,7 +15,7 @@ export class TranslationEditorService {
   static async saveProject(
     nodeLanguages: [string, string][],
     targetLanguages: { id: string; name: string }[],
-    selectedNode?: any // Make this optional or with a specific type
+    selectedNode: TreeNode | null
   ): Promise<void> {
     console.log("daddynode", selectedNode);
 
