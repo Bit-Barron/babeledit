@@ -7,12 +7,9 @@ import { LanguageSelectDialog } from "@/components/pages/create-project/create-p
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useFileUploadStore } from "@/store/file-upload-store";
-import { useLanguageStore } from "@/store/language-store";
 import { Separator } from "@radix-ui/react-separator";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { IoClose } from "react-icons/io5";
 
 interface CreateProjectProps {
   isOpen: boolean;
@@ -26,7 +23,6 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
   projectType,
 }) => {
   const { toast } = useToast();
-  const { languages, removeLanguage } = useLanguageStore();
   const { selectedFiles, processFiles } = useFileUploadStore();
   const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -79,28 +75,6 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
             Create {projectType} Project
           </Button>
         </div>
-
-        {languages.length > 0 && (
-          <div className="space-y-2 mt-4">
-            <h3 className="text-sm font-medium text-gray-300">
-              Selected Languages
-            </h3>
-            <ScrollArea className="w-full h-20 rounded-md">
-              <div className="flex flex-col space-y-3">
-                {languages.map((language) => (
-                  <Button variant="secondary" key={language.id}>
-                    <span className="text-gray-200 truncate">
-                      {language.name}
-                    </span>
-                    <span onClick={() => removeLanguage(language.id)}>
-                      <IoClose className="h-4 w-4 text-gray-400 hover:text-gray-200" />
-                    </span>
-                  </Button>
-                ))}
-              </div>
-            </ScrollArea>
-          </div>
-        )}
 
         <Separator className="my-4" />
         <LanguageDisplay />

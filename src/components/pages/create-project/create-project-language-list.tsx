@@ -8,7 +8,7 @@ export const LanguageDisplay: React.FC<LanguageDisplayProps> = ({
   primaryLang,
 }) => (
   <div className="flex space-x-5">
-    <Button variant="default">
+    <Button variant="secondary">
       {primaryLang || "Select Primary Language"}
     </Button>
   </div>

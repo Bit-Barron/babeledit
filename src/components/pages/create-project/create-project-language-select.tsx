@@ -50,7 +50,9 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
                 ]);
               }}
               variant="outline"
-              className="w-full justify-start"
+              className={`w-full justify-start ${
+                selectedLanguages.includes(language.name) ? "bg-secondary" : ""
+              }`}
             >
               <span>{language.name}</span>
             </Button>
