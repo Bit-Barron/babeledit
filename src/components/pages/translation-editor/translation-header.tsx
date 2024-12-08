@@ -10,14 +10,7 @@ interface HeaderProps {
 
 export const TranslationHeader: React.FC<HeaderProps> = ({ fileName }) => {
   const { processedFiles } = useFileUploadStore();
-
-  const handleSaveProject = () => {
-    TranslationEditorService.saveProject(
-      [["en", "English"]],
-      [{ id: "es", name: "Spanish" }],
-      processedFiles
-    );
-  };
+  const { saveProject, openProject } = TranslationEditorService;
 
   return (
     <header className="flex items-center justify-between border-b border-gray-800 p-4">
@@ -25,11 +18,20 @@ export const TranslationHeader: React.FC<HeaderProps> = ({ fileName }) => {
         <h1 className="text-lg font-medium">Translation Editor - {fileName}</h1>
       </div>
       <section className="flex space-x-4">
-        <Button onClick={handleSaveProject} variant="outline">
+        <Button
+          onClick={() =>
+            saveProject(
+              [["en", "English"]],
+              [{ id: "es", name: "Spanish" }],
+              processedFiles
+            )
+          }
+          variant="outline"
+        >
           <FaSave className="mr-2 h-4 w-4" />
           Save Project
         </Button>
-        <Button variant="outline" className="">
+        <Button onClick={openProject} variant="outline" className="">
           <FaFolderOpen className="mr-2 h-4 w-4" />
           Open Project
         </Button>

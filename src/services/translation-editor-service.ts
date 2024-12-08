@@ -64,6 +64,41 @@ export class TranslationEditorService {
     }
   }
 
+  static async openProject(): Promise<void> {
+    try {
+      const openPath = await save({
+        filters: [
+          {
+            name: "Translation Project",
+            extensions: ["yaml"],
+          },
+        ],
+        defaultPath: "translation.yaml",
+      });
+
+      if (!openPath) {
+        toast({
+          title: "Open Cancelled",
+          description: "No file was opened.",
+          variant: "default",
+        });
+        return;
+      }
+
+      toast({
+        title: "Project Opened",
+        description: `Successfully opened translation project from ${openPath}`,
+        variant: "default",
+      });
+    } catch (error) {
+      toast({
+        title: "Error Opening Project",
+        description: `An error occurred while opening the project: ${error}`,
+        variant: "destructive",
+      });
+    }
+  }
+
   static async fetchTranslations({
     nodeLanguages,
     targetLanguages,
