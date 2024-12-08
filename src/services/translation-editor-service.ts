@@ -4,7 +4,7 @@ import YAML from "yaml";
 import { toast } from "@/hooks/use-toast";
 import { TRANSLATION_API_URL } from "@/utils/constants";
 import { FileContent, TreeNode } from "@/types/translation-editor.types";
-import { createYmlObject } from "@/components/configs/yml-object-config";
+import { createYmlObject } from "@/components/builder/yml-builder";
 
 interface FetchTranslationsProps {
   nodeLanguages: [string, string][];
@@ -13,8 +13,6 @@ interface FetchTranslationsProps {
 
 export class TranslationEditorService {
   static async saveProject(
-    nodeLanguages: [string, string][],
-    targetLanguages: { id: string; name: string }[],
     processedFiles: FileContent[]
   ): Promise<void> {
     try {
@@ -40,8 +38,6 @@ export class TranslationEditorService {
       const extractedFileName = savePath.split("/").pop() || "Untitled Project";
 
       const ymlObject = createYmlObject(
-        nodeLanguages,
-        targetLanguages,
         savePath,
         extractedFileName,
         processedFiles

@@ -1,8 +1,6 @@
 import { FileContent } from "@/types/translation-editor.types";
 
 export function createYmlObject(
-  nodeLanguages: [string, string][],
-  targetLanguages: { id: string; name: string }[],
   savePath: string,
   extractedFileName: string,
   translation: FileContent[]
