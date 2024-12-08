@@ -11,6 +11,7 @@ interface FetchTranslationsProps {
   targetLanguages: { id: string; name: string }[];
 }
 
+ 
 export class TranslationEditorService {
   static async saveProject(
     nodeLanguages: [string, string][],
