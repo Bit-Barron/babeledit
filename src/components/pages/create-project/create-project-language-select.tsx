@@ -17,9 +17,9 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
 }) => {
   const {
     languages,
+    searchQuery,
     addLanguage,
     removeLanguage,
-    searchQuery,
     setSearchQuery,
   } = useLanguageStore();
 
@@ -45,9 +45,8 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
               }
               variant="outline"
               className={`w-full justify-start ${
-                languages.some((lang) => lang.name === language.name)
-                  ? "bg-secondary"
-                  : ""
+                languages.some((lang) => lang.name === language.name) &&
+                "bg-secondary"
               }`}
             >
               {language.name}
@@ -57,10 +56,7 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
       </ScrollArea>
 
       <div className="flex justify-end gap-2 mt-4">
-        <Button variant="outline" onClick={onClose}>
-          Cancel
-        </Button>
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="default" className="w-full" onClick={onClose}>
           Save
         </Button>
       </div>
