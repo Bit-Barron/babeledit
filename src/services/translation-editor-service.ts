@@ -4,7 +4,7 @@ import YAML from "yaml";
 import { toast } from "@/hooks/use-toast";
 import { TRANSLATION_API_URL } from "@/utils/constants";
 import { FileContent, TreeNode } from "@/types/translation-editor.types";
-import { createYmlObject } from "@/components/builder/yml-builder";
+import { createYmlObject } from "@/utils/yml-builder";
 
 interface FetchTranslationsProps {
   nodeLanguages: [string, string][];
