@@ -73,8 +73,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
       >
         <div
           className={`border-2 border-dashed rounded-lg p-8 transition-colors ${
-            dragActive ? "border-blue-500 bg-blue-50" : "border-gray-300"
-          }text-white hover:border-blue-400`}
+            dragActive ? " bg-blue-50" : "border-gray-300"
+          }text-white `}
         >
           <input
             type="file"

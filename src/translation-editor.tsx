@@ -4,12 +4,12 @@ import { LanguageHeader } from "@/components/pages/translation-editor/translatio
 import { TreeNodeComponent } from "@/components/pages/translation-editor/translation-tree";
 import { TranslationEditorService } from "@/services/translation-editor-service";
 import { useFileUploadStore } from "@/store/file-upload-store";
-import { useNodeContentStore } from "@/store/node-store";
+import { useTranslationStore } from "@/store/translation-store";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 export const TranslationEditor = () => {
   const { processedFiles } = useFileUploadStore();
-  const { selectedNode, setSelectedNode } = useNodeContentStore();
+  const { selectedNode, setSelectedNode } = useTranslationStore();
 
   const baseContent = processedFiles[0].content as unknown as Record<
     string,
