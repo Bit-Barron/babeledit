@@ -54,5 +54,3 @@ export const HomeView: React.FC<HomeViewProps> = ({
     </main>
   );
 };
-
-export default HomeView;
