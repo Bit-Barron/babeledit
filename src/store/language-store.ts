@@ -9,6 +9,9 @@ interface LanguageStore {
 
   isLanguageOpen: boolean;
   setIsLanguageOpen: (open: boolean) => void;
+
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
 }
 
 export const useLanguageStore = create<LanguageStore>((set) => ({
@@ -24,6 +27,9 @@ export const useLanguageStore = create<LanguageStore>((set) => ({
 
   isLanguageOpen: false,
   setIsLanguageOpen: (open) => set({ isLanguageOpen: open }),
+
+  searchQuery: "",
+  setSearchQuery: (query) => set({ searchQuery: query }),
 
   addLanguage: (language) =>
     set((state) => {
