@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useFileUploadStore } from "@/store/file-upload-store";
 import { Separator } from "@radix-ui/react-separator";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLanguageStore } from "@/store/language-store";
 
 interface CreateProjectProps {
   isOpen: boolean;
@@ -24,7 +24,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
 }) => {
   const { toast } = useToast();
   const { selectedFiles, processFiles } = useFileUploadStore();
-  const [isLanguageOpen, setIsLanguageOpen] = useState<boolean>(false);
+  const { isLanguageOpen, setIsLanguageOpen } = useLanguageStore();
   const navigate = useNavigate();
 
   const CONFIG =

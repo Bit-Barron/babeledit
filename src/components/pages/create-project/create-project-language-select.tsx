@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { MyDialog } from "@/components/elements/custom-dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -16,8 +16,26 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
   onClose,
 }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
-  const { setLanguages, languages } = useLanguageStore();
+  const { languages, addLanguage, removeLanguage } = useLanguageStore();
+
+  const filteredLanguages = useMemo(() => {
+    return LANGUAGES.filter((language) =>
+      language.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery]);
+
+  const isLanguageSelected = (languageName: string) =>
+    languages.some((lang) => lang.name === languageName);
+
+  const handleLanguageToggle = (languageName: string) => {
+    const isCurrentlySelected = isLanguageSelected(languageName);
+
+    if (isCurrentlySelected) {
+      removeLanguage(languageName);
+    } else {
+      addLanguage(languageName);
+    }
+  };
 
   return (
     <MyDialog title="Select language" isOpen={isOpen} setIsOpen={onClose}>
@@ -25,45 +43,30 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
         placeholder="Search languages..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
+        className="mb-4"
       />
 
-      <ScrollArea className="h-[300px] mt-4">
-        {LANGUAGES.map((language) => (
-          <div key={language.name} className="p-1 rounded-lg">
+      <ScrollArea className="h-[300px]">
+        {filteredLanguages.map((language) => (
+          <div key={language.name} className="p-1">
             <Button
-              onClick={() => {
-                if (selectedLanguages.includes(language.name)) {
-                  setSelectedLanguages(
-                    selectedLanguages.filter((lang) => lang !== language.name)
-                  );
-                  setLanguages(
-                    languages
-                      .filter((lang) => lang.name !== language.name)
-                      .map((lang) => lang.name)
-                  );
-                  return;
-                }
-                setSelectedLanguages([...selectedLanguages, language.name]);
-                setLanguages([
-                  ...languages.map((lang) => lang.name),
-                  language.name,
-                ]);
-              }}
+              onClick={() => handleLanguageToggle(language.name)}
               variant="outline"
               className={`w-full justify-start ${
-                selectedLanguages.includes(language.name) ? "bg-secondary" : ""
+                isLanguageSelected(language.name) ? "bg-secondary" : ""
               }`}
             >
-              <span>{language.name}</span>
+              {language.name}
             </Button>
           </div>
         ))}
       </ScrollArea>
-      <div className="flex items-end justify-end gap-2 mt-5">
+
+      <div className="flex justify-end gap-2 mt-4">
         <Button variant="outline" onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="secondary" onClick={() => onClose()}>
           Save
         </Button>
       </div>

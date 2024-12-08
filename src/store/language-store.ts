@@ -6,6 +6,9 @@ interface LanguageStore {
   setLanguages: (languages: string[]) => void;
   addLanguage: (language: string) => void;
   removeLanguage: (languageId: string) => void;
+
+  isLanguageOpen: boolean;
+  setIsLanguageOpen: (open: boolean) => void;
 }
 
 export const useLanguageStore = create<LanguageStore>((set) => ({
@@ -18,6 +21,9 @@ export const useLanguageStore = create<LanguageStore>((set) => ({
         name: language,
       })),
     }),
+
+  isLanguageOpen: false,
+  setIsLanguageOpen: (open) => set({ isLanguageOpen: open }),
 
   addLanguage: (language) =>
     set((state) => {
