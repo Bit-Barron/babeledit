@@ -1,4 +1,4 @@
-import { LanguageProps } from "@/types/translation-editor.types";
+import { LanguageProps } from "@/shared/types/translation-editor.types";
 import { create } from "zustand";
 
 interface LanguageStore {

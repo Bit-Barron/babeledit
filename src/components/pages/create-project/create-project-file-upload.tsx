@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FiUpload, FiFile, FiX } from "react-icons/fi";
 import { useFileUploadStore } from "@/store/file-upload-store";
-import { validateJSON } from "@/utils/client-helper";
-import { toast } from "@/hooks/use-toast";
+import { validateJSON } from "@/shared/utils/client-helper";
+import { toast } from "@/shared/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 
 interface FileUploadProps {

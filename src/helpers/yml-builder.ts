@@ -1,4 +1,4 @@
-import { FileContent } from "@/types/translation-editor.types";
+import { FileContent } from "@/shared/types/translation-editor.types";
 
 export function createYmlObject(
   savePath: string,

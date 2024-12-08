@@ -1,4 +1,4 @@
-import { TreeNode } from "@/types/translation-editor.types";
+import { TreeNode } from "@/shared/types/translation-editor.types";
 import { create } from "zustand";
 
 interface TranslationStore {

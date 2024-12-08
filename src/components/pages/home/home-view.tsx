@@ -1,7 +1,7 @@
 import React from "react";
 import { CreateProject } from "@/components/pages/create-project/create-project-dialog";
 import { Button } from "@/components/ui/button";
-import { TRANSLATION_PROJECTS } from "@/utils/constants";
+import { TRANSLATION_PROJECTS } from "@/shared/utils/constants";
 import { useHomeStore } from "@/store/home-store";
 
 interface HomeViewProps {

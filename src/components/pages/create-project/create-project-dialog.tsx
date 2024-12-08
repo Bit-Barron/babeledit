@@ -1,11 +1,11 @@
 import React from "react";
-import { PROJECT_CONFIGS } from "@/components/configs/project-config";
+import { PROJECT_CONFIGS } from "@/shared/configs/project-config";
 import { MyDialog } from "@/components/elements/custom-dialog";
 import { FileUpload } from "@/components/pages/create-project/create-project-file-upload";
 import { LanguageDisplay } from "@/components/pages/create-project/create-project-language-list";
 import { LanguageSelectDialog } from "@/components/pages/create-project/create-project-language-select";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/shared/hooks/use-toast";
 import { useFileUploadStore } from "@/store/file-upload-store";
 import { Separator } from "@radix-ui/react-separator";
 import { useNavigate } from "react-router-dom";

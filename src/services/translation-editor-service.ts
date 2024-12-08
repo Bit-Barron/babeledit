@@ -1,9 +1,9 @@
 import { writeTextFile } from "@tauri-apps/plugin-fs";
 import { save } from "@tauri-apps/plugin-dialog";
 import YAML from "yaml";
-import { toast } from "@/hooks/use-toast";
-import { TRANSLATION_API_URL } from "@/utils/constants";
-import { FileContent, TreeNode } from "@/types/translation-editor.types";
+import { toast } from "@/shared/hooks/use-toast";
+import { TRANSLATION_API_URL } from "@/shared/utils/constants";
+import { FileContent, TreeNode } from "@/shared/types/translation-editor.types";
 import { createYmlObject } from "@/helpers/yml-builder";
 
 interface FetchTranslationsProps {
@@ -12,9 +12,7 @@ interface FetchTranslationsProps {
 }
 
 export class TranslationEditorService {
-  static async saveProject(
-    processedFiles: FileContent[]
-  ): Promise<void> {
+  static async saveProject(processedFiles: FileContent[]): Promise<void> {
     try {
       const savePath = await save({
         filters: [

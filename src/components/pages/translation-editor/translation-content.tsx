@@ -1,4 +1,4 @@
-import { TreeNode } from "@/types/translation-editor.types";
+import { TreeNode } from "@/shared/types/translation-editor.types";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -6,7 +6,7 @@ import { useLanguageStore } from "@/store/language-store";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { TranslationEditorService } from "@/services/translation-editor-service";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@/shared/hooks/use-toast";
 import { useTranslationStore } from "@/store/translation-store";
 
 interface TranslationContentProps {

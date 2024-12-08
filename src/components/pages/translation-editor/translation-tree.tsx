@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaFolder, FaFolderOpen, FaRegFileAlt } from "react-icons/fa";
-import { TreeNode } from "@/types/translation-editor.types";
+import { TreeNode } from "@/shared/types/translation-editor.types";
 
 interface TreeNodeProps {
   content: TreeNode[];
