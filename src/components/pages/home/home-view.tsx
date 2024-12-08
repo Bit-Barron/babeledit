@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { CreateProject } from "@/components/pages/create-project/create-project-dialog";
 import { Button } from "@/components/ui/button";
 import { TRANSLATION_PROJECTS } from "@/utils/constants";
+import { useHomeStore } from "@/store/home-store";
 
 interface HomeViewProps {
   isCreateProjectOpen: boolean;
@@ -12,8 +13,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   isCreateProjectOpen,
   setIsCreateProjectOpen,
 }) => {
-  const [selectedProjectType, setSelectedProjectType] =
-    useState<string>("Generic JSON");
+  const { selectedProjectType, setSelectedProjectType } = useHomeStore();
 
   return (
     <main className="h-screen flex flex-col">

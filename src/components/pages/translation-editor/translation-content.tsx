@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { TranslationEditorService } from "@/services/translation-editor-service";
 import { toast } from "@/hooks/use-toast";
+import { useTranslationStore } from "@/store/translation-store";
 
 interface TranslationContentProps {
   node: TreeNode | null;
@@ -16,7 +17,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
   node,
 }) => {
   const { languages } = useLanguageStore();
-  const [translations, setTranslations] = useState<Record<string, string>>({});
+  const { translations, setTranslations } = useTranslationStore();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const nodeLanguages = node?.content ? Object.entries(node.content) : [];
 

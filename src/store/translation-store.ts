@@ -7,6 +7,10 @@ interface TranslationStore {
 
   selectedNode: TreeNode | null;
   setSelectedNode: (node: TreeNode | null) => void;
+  translations: Record<string, string>;
+  setTranslations: (translations: Record<string, string>) => void;
+
+  
 }
 
 export const useTranslationStore = create<TranslationStore>((set) => ({
@@ -21,7 +25,8 @@ export const useTranslationStore = create<TranslationStore>((set) => ({
         },
       },
     })),
-
+  translations: {},
+  setTranslations: (translations) => set({ translations }),
   selectedNode: null,
   setSelectedNode: (node) => set({ selectedNode: node }),
 }));
