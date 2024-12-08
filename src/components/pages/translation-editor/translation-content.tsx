@@ -10,16 +10,16 @@ import { toast } from "@/shared/hooks/use-toast";
 import { useTranslationStore } from "@/store/translation-store";
 
 interface TranslationContentProps {
-  node: TreeNode | null;
+  content: TreeNode | null;
 }
 
 export const TranslationContent: React.FC<TranslationContentProps> = ({
-  node,
+  content,
 }) => {
   const { languages } = useLanguageStore();
   const { translations, setTranslations } = useTranslationStore();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const nodeLanguages = node?.content ? Object.entries(node.content) : [];
+  const nodeLanguages = content?.content ? Object.entries(content.content) : [];
 
   useEffect(() => {
     const fetchAndSetTranslations = async () => {
@@ -43,9 +43,9 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
     };
 
     fetchAndSetTranslations();
-  }, [node, languages]);
+  }, [content, languages]);
 
-  if (!node?.type) {
+  if (!content?.type) {
     return (
       <h1 className="flex text-xl items-center justify-center h-full text-gray-600">
         Select a translation from the list
@@ -56,7 +56,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
   return (
     <section>
       <Card className="p-4 bg-card">
-        <h3 className="text-lg font-medium mb-4">Translation: {node?.label}</h3>
+        <h3 className="text-lg font-medium mb-4">Translation: {content?.label}</h3>
         <div className="space-y-4 mt-5">
           {nodeLanguages.map(([lang, content]) => {
             return (
