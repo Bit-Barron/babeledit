@@ -3,7 +3,7 @@ import { save } from "@tauri-apps/plugin-dialog";
 import YAML from "yaml";
 import { toast } from "@/hooks/use-toast";
 import { TRANSLATION_API_URL } from "@/utils/constants";
-import { TreeNode } from "@/types/translation-editor.types";
+import { FileContent, TreeNode } from "@/types/translation-editor.types";
 import { createYmlObject } from "@/components/configs/yml-object-config";
 
 interface FetchTranslationsProps {
@@ -11,12 +11,11 @@ interface FetchTranslationsProps {
   targetLanguages: { id: string; name: string }[];
 }
 
- 
 export class TranslationEditorService {
   static async saveProject(
     nodeLanguages: [string, string][],
     targetLanguages: { id: string; name: string }[],
-    processedFiles: any[]
+    processedFiles: FileContent[]
   ): Promise<void> {
     try {
       const savePath = await save({
