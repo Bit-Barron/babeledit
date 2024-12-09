@@ -6,7 +6,7 @@ export const LanguageHeader: React.FC = () => {
   const { languages } = useLanguageStore();
 
   return (
-    <header className="flex justify-between border-b">
+    <header className="flex justify-between border-b ">
       <h1 className="font-medium text-sm p-2.5">Translations</h1>
       <section className="flex items-center">
         {languages.map((lang) => (
