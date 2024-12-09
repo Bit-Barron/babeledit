@@ -29,10 +29,11 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
           });
           return null;
         }
+        return file;
       })
     );
 
-    const validFiles = validationResults.filter(Boolean) as unknown as File[];
+    const validFiles = validationResults.filter(Boolean) as File[];
 
     setSelectedFiles([...selectedFiles, ...validFiles]);
     onUpload([...selectedFiles, ...validFiles]);
