@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { CreateProject } from "@/components/pages/create-project/create-project-dialog";
 import { Button } from "@/components/ui/button";
@@ -54,5 +56,3 @@ export const HomeView: React.FC<HomeViewProps> = ({
     </main>
   );
 };
-
-export default HomeView;

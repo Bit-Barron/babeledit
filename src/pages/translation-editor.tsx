@@ -1,3 +1,5 @@
+"use client";
+
 import { TranslationContent } from "@/components/pages/translation-editor/translation-content";
 import { TranslationHeader } from "@/components/pages/translation-editor/translation-header";
 import { LanguageHeader } from "@/components/pages/translation-editor/translation-language-header";
@@ -43,7 +45,7 @@ export const TranslationEditor = () => {
           <LanguageHeader />
           <ScrollArea className="flex-1">
             <div className="p-4">
-              <TranslationContent node={selectedNode} />
+              <TranslationContent content={selectedNode} />
             </div>
           </ScrollArea>
         </div>

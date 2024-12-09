@@ -1,5 +1,5 @@
 import React from "react";
-import { MyDialog } from "@/components/elements/custom-dialog";
+import { MyDialog } from "@/components/ui/custom-dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LANGUAGES } from "@/shared/utils/constants";

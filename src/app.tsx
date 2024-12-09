@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import "./app.css";
-import { HomeView } from "@/components/pages/home/home-view";
-import { TranslationEditor } from "@/translation-editor";
+import "./styles/app.css";
+import { HomeView } from "@/pages/home-view";
+import { TranslationEditor } from "@/pages/translation-editor";
 
 function App() {
   const [isCreateProjectOpen, setIsCreateProjectOpen] =
