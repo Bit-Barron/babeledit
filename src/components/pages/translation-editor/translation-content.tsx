@@ -20,15 +20,15 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
   const { translations, setTranslations } = useTranslationStore();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const nodeLanguages = content?.content ? Object.entries(content.content) : [];
+  const { fetchTranslations } = TranslationEditorService;
 
   useEffect(() => {
     const fetchAndSetTranslations = async () => {
       try {
-        const fetchedTranslations =
-          await TranslationEditorService.fetchTranslations({
-            nodeLanguages,
-            targetLanguages: languages,
-          });
+        const fetchedTranslations = await fetchTranslations({
+          nodeLanguages,
+          targetLanguages: languages,
+        });
 
         setTranslations(fetchedTranslations);
         setIsLoading(false);
@@ -56,7 +56,9 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
   return (
     <section>
       <Card className="p-4 bg-card">
-        <h3 className="text-lg font-medium mb-4">Translation: {content?.label}</h3>
+        <h3 className="text-lg font-medium mb-4">
+          Translation: {content?.label}
+        </h3>
         <div className="space-y-4 mt-5">
           {nodeLanguages.map(([lang, content]) => {
             return (
