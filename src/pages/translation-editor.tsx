@@ -41,9 +41,9 @@ export const TranslationEditor = () => {
             </div>
           </ScrollArea>
         </div>
-        <div className="flex-1 flex flex-col overflow-auto">
+        <div className="flex-1 flex flex-col">
           <LanguageHeader />
-          <ScrollArea className="flex-1">
+          <ScrollArea className="flex-1  overflow-auto">
             <div className="p-4">
               <TranslationContent content={selectedNode} />
             </div>
