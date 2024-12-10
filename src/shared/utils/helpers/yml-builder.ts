@@ -6,6 +6,7 @@ export function createYmlObject(
   extractedFileName: string,
   translation: FileContent[]
 ) {
+  console.log("translations", translation);
   const yamlStructure = {
     babeledit_project: {
       be_version: "1.0",
@@ -22,13 +23,15 @@ export function createYmlObject(
             children: {
               folder_node: {
                 name: "translations",
-                children: Object.keys(t.content).map((key) => ({
-                  name: key,
-                  translation: translation.map((lang) => ({
-                    language: lang.name.replace(".json", ""),
-                    approved: false,
-                  })),
-                })),
+                children: t.content
+                  ? Object.keys(t.content).map((key) => ({
+                      name: key,
+                      translation: translation.map((lang) => ({
+                        language: lang.name,
+                        approved: false,
+                      })),
+                    }))
+                  : [],
               },
             },
           },

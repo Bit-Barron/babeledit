@@ -16,10 +16,7 @@ export class TranslationEditorService {
     processedFiles: FileContent[],
     translation: any
   ): Promise<void> {
-    
     const content = [...processedFiles, translation];
-
-    console.log("content", content);
 
     try {
       const savePath = await save({
