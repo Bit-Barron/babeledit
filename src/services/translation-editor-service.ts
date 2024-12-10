@@ -18,8 +18,6 @@ export class TranslationEditorService {
   ): Promise<void> {
     const content = [...processedFiles, translation];
 
-    console.log("content", content);
-
     try {
       const savePath = await save({
         filters: [
@@ -99,8 +97,10 @@ export class TranslationEditorService {
   static async fetchTranslations({
     nodeLanguages,
     targetLanguages,
-  }: FetchTranslationsProps): Promise<Record<string, string>> {
-    const translations: Record<string, string> = {};
+  }: FetchTranslationsProps): Promise<
+    Array<{ name: string; content: string }>
+  > {
+    const translations: Array<{ name: string; content: string }> = [];
 
     for (const [sourceLang, content] of nodeLanguages) {
       const baseLang = sourceLang.split("-")[0];
@@ -112,8 +112,11 @@ export class TranslationEditorService {
             )}&langpair=${baseLang}|${targetLanguage.name}`
           );
           const responseData = await response.json();
-          translations[targetLanguage.name] =
-            responseData.responseData.translatedText;
+
+          translations.push({
+            name: targetLanguage.name,
+            content: responseData.responseData.translatedText,
+          });
         } catch (error) {
           toast({
             type: "background",
@@ -123,7 +126,6 @@ export class TranslationEditorService {
         }
       }
     }
-
     return translations;
   }
 

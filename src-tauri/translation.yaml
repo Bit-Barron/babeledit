@@ -1,0 +1,10 @@
+|
+babeledit_project:
+  be_version: '1.0'
+  version: '1.0'
+  preset_collections: ''
+  framework: generic-json
+  filename: translation.yaml
+  source_root_dir: /home/barron/Desktop/bableredit/src-tauri/translation.yaml
+  folder_node:
+    name: root
