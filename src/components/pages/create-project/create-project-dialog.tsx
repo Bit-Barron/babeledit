@@ -28,7 +28,7 @@ export const CreateProject: React.FC<CreateProjectProps> = ({
   const navigate = useNavigate();
 
   const CONFIG =
-    PROJECT_CONFIGS["Generic JSON"] || PROJECT_CONFIGS["Generic JSON"];
+    PROJECT_CONFIGS[projectType] || PROJECT_CONFIGS["Generic JSON"];
 
   return (
     <MyDialog

@@ -12,7 +12,12 @@ interface FetchTranslationsProps {
 }
 
 export class TranslationEditorService {
-  static async saveProject(processedFiles: FileContent[]): Promise<void> {
+  static async saveProject(
+    processedFiles: FileContent[],
+    translation: any
+  ): Promise<void> {
+    console.log("translation", translation, "proesssobject", processedFiles);
+
     try {
       const savePath = await save({
         filters: [
