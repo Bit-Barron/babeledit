@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./styles/app.css";
 import { Home } from "@/pages/home";
