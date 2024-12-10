@@ -12,15 +12,12 @@ import { ScrollArea } from "@radix-ui/react-scroll-area";
 export const TranslationEditor = () => {
   const { processedFiles } = useFileUploadStore();
   const { selectedNode, setSelectedNode } = useTranslationStore();
-
+  const { processObject } = TranslationEditorService;
   const baseContent = processedFiles[0].content as unknown as Record<
     string,
     string
   >;
-  const treeData = TranslationEditorService.processObject(
-    baseContent,
-    processedFiles
-  );
+  const treeData = processObject(baseContent, processedFiles);
 
   return (
     <div className="h-screen flex flex-col">
@@ -43,7 +40,7 @@ export const TranslationEditor = () => {
         </div>
         <div className="flex-1 flex flex-col">
           <LanguageHeader />
-          <ScrollArea className="flex-1  overflow-auto">
+          <ScrollArea className="flex-1 overflow-auto">
             <div className="p-4">
               <TranslationContent content={selectedNode} />
             </div>
