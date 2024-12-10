@@ -1,21 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { CreateProject } from "@/components/pages/create-project/create-project-dialog";
 import { Button } from "@/components/ui/button";
 import { TRANSLATION_PROJECTS } from "@/shared/utils/constants";
 import { useHomeStore } from "@/store/home-store";
 
-interface HomeViewProps {
-  isCreateProjectOpen: boolean;
-  setIsCreateProjectOpen: (open: boolean) => void;
-}
+interface HomeProps {}
 
-export const HomeView: React.FC<HomeViewProps> = ({
-  isCreateProjectOpen,
-  setIsCreateProjectOpen,
-}) => {
+export const Home: React.FC<HomeProps> = ({}) => {
   const { selectedProjectType, setSelectedProjectType } = useHomeStore();
+  const [isCreateProjectOpen, setIsCreateProjectOpen] = useState(false);
 
   return (
     <main className="h-screen flex flex-col">

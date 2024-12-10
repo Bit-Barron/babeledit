@@ -1,24 +1,13 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./styles/app.css";
-import { HomeView } from "@/pages/home-view";
+import { Home } from "@/pages/home";
 import { TranslationEditor } from "@/pages/translation-editor";
 
 function App() {
-  const [isCreateProjectOpen, setIsCreateProjectOpen] =
-    useState<boolean>(false);
-
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <HomeView
-            isCreateProjectOpen={isCreateProjectOpen}
-            setIsCreateProjectOpen={setIsCreateProjectOpen}
-          />
-        }
-      />
+      <Route path="/" element={<Home />} />
       <Route path="/translation-editor" element={<TranslationEditor />} />
     </Routes>
   );
