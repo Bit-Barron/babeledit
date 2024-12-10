@@ -30,15 +30,6 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
           targetLanguages: languages,
         });
 
-        const convertToArr = Object.entries(fetchedTranslations).map(
-          ([key, value]) => ({
-            name: key,
-            content: value,
-          })
-        );
-
-        console.log("fetchedTranslations", convertToArr);
-
         setTranslations(fetchedTranslations);
         setIsLoading(false);
       } catch (error) {
