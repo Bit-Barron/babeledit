@@ -15,30 +15,40 @@ export function createYmlObject(
       filename: extractedFileName,
       source_root_dir: savePath,
       folder_node: {
-        name: null,
-        children: {
+        name: "root",
+        children: translation.map((t) => ({
           package_node: {
-            name: "main",
+            name: t.name,
             children: {
               folder_node: {
-                name: translation.map((t) => t.name),
-                children: {
+                name: "translations",
+                children: Object.keys(t.content).map((key) => ({
                   concept_node: {
-                    name: translation.map((t) => t.name),
+                    name: key,
+                    description: "",
+                    comment: "",
                     translations: {
-                      translation: {
-                        language: translation.map((t) => t.name),
-                      },
+                      translation: [
+                        {
+                          language: "de-DE",
+                          approved: false,
+                        },
+                        {
+                          language: "en-US",
+                          approved: false,
+                        },
+                      ],
                     },
                   },
-                },
+                })),
               },
             },
           },
-        },
+        })),
       },
     },
   };
+
   return YAML.dump(yamlStructure, {
     indent: 2,
     skipInvalid: true,

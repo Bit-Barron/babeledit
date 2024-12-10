@@ -1,0 +1,16 @@
+|
+babeledit_project:
+  folder_node:
+    name: null
+    children:
+      package_node:
+        name: main
+        children:
+          folder_node:
+            name: translations
+            children:
+              concept_node:
+                name: &ref_0 []
+                translations:
+                  translation:
+                    language: *ref_0
