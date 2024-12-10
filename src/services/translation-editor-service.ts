@@ -16,7 +16,10 @@ export class TranslationEditorService {
     processedFiles: FileContent[],
     translation: any
   ): Promise<void> {
-    console.log("translation", translation, "proesssobject", processedFiles);
+    
+    const content = [...processedFiles, translation];
+
+    console.log("content", content);
 
     try {
       const savePath = await save({
@@ -40,11 +43,7 @@ export class TranslationEditorService {
 
       const extractedFileName = savePath.split("/").pop() || "Untitled Project";
 
-      const ymlObject = createYmlObject(
-        savePath,
-        extractedFileName,
-        processedFiles
-      );
+      const ymlObject = createYmlObject(savePath, extractedFileName, content);
 
       const yamlContent = YAML.stringify(ymlObject);
       await writeTextFile(savePath, yamlContent);

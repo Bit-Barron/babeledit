@@ -24,7 +24,6 @@ export const useFileUploadStore = create<FileUploadStore>((set, get) => ({
           return {
             name: file.name,
             content: JSON.parse(text),
-            translations: {},
           };
         })
       );
