@@ -9,6 +9,7 @@ import {
 } from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
 import { SiEmberdotjs } from "react-icons/si";
+import { useNavigate } from "react-router-dom";
 
 export const TRANSLATION_PROJECTS = [
   {
@@ -109,3 +110,4 @@ export const LANGUAGES = [
   { id: "zh-TW", name: "zh-TW" },
 ];
 export const TRANSLATION_API_URL = "https://api.mymemory.translated.net";
+export const navigate = useNavigate();
