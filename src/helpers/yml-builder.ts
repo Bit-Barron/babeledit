@@ -23,23 +23,11 @@ export function createYmlObject(
               folder_node: {
                 name: "translations",
                 children: Object.keys(t.content).map((key) => ({
-                  concept_node: {
-                    name: key,
-                    description: "",
-                    comment: "",
-                    translations: {
-                      translation: [
-                        {
-                          language: "de-DE",
-                          approved: false,
-                        },
-                        {
-                          language: "en-US",
-                          approved: false,
-                        },
-                      ],
-                    },
-                  },
+                  name: key,
+                  translation: translation.map((lang) => ({
+                    language: lang.name.replace(".json", ""),
+                    approved: false,
+                  })),
                 })),
               },
             },
