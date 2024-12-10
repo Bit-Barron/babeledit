@@ -24,13 +24,14 @@ export const useFileUploadStore = create<FileUploadStore>((set, get) => ({
           return {
             name: file.name,
             content: JSON.parse(text),
+            translations: {},
           };
         })
       );
       set({ processedFiles });
       return processedFiles;
     } catch (error) {
-      return [];
+      throw new Error("Error processing files");
     }
   },
 }));

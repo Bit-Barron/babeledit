@@ -18,9 +18,9 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
 }) => {
   const { languages } = useLanguageStore();
   const { translations, setTranslations } = useTranslationStore();
+  const { fetchTranslations } = TranslationEditorService;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const nodeLanguages = content?.content ? Object.entries(content.content) : [];
-  const { fetchTranslations } = TranslationEditorService;
 
   useEffect(() => {
     const fetchAndSetTranslations = async () => {
