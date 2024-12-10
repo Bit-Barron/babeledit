@@ -16,7 +16,6 @@ export class TranslationEditorService {
     processedFiles: FileContent[],
     translation: any
   ): Promise<void> {
-    const content = [...processedFiles, translation];
 
     try {
       const savePath = await save({
@@ -40,7 +39,11 @@ export class TranslationEditorService {
 
       const extractedFileName = savePath.split("/").pop() || "Untitled Project";
 
-      const ymlObject = createYmlObject(savePath, extractedFileName, content);
+      const ymlObject = createYmlObject(
+        savePath,
+        extractedFileName,
+        processedFiles
+      );
 
       const yamlContent = YAML.stringify(ymlObject);
       await writeTextFile(savePath, yamlContent);
@@ -97,10 +100,8 @@ export class TranslationEditorService {
   static async fetchTranslations({
     nodeLanguages,
     targetLanguages,
-  }: FetchTranslationsProps): Promise<
-    Array<{ name: string; content: string }>
-  > {
-    const translations: Array<{ name: string; content: string }> = [];
+  }: FetchTranslationsProps): Promise<Record<string, string>> {
+    const translations: Record<string, string> = {};
 
     for (const [sourceLang, content] of nodeLanguages) {
       const baseLang = sourceLang.split("-")[0];
@@ -112,11 +113,8 @@ export class TranslationEditorService {
             )}&langpair=${baseLang}|${targetLanguage.name}`
           );
           const responseData = await response.json();
-
-          translations.push({
-            name: targetLanguage.name,
-            content: responseData.responseData.translatedText,
-          });
+          translations[targetLanguage.name] =
+            responseData.responseData.translatedText;
         } catch (error) {
           toast({
             type: "background",
@@ -126,6 +124,7 @@ export class TranslationEditorService {
         }
       }
     }
+
     return translations;
   }
 
