@@ -94,7 +94,7 @@ export const TranslationContent: React.FC<TranslationContentProps> = ({
                 key={`${language.id}-${index}`}
                 className="flex items-center gap-4"
               >
-                <label className="text-sm min-w-[50px]">{language.name}</label>
+                <label className="text-sm min-w-[50px]">{language.id}</label>
                 <Input
                   className="flex-1"
                   value={translations[language.name]?.content || ""}
