@@ -1,11 +1,12 @@
 import { FileContent } from "@/shared/types/translation-editor.types";
+import YAML from "js-yaml";
 
 export function createYmlObject(
   savePath: string,
   extractedFileName: string,
   translation: FileContent[]
 ) {
-  return {
+  const yamlStructure = {
     babeledit_project: {
       be_version: "1.0",
       version: "1.0",
@@ -13,16 +14,33 @@ export function createYmlObject(
       framework: "generic-json",
       filename: extractedFileName,
       source_root_dir: savePath,
-      translations: translation.map((t) => ({
-        key: t.name,
-        value: t.content,
-      })),
-      metadata: {
-        created_at: new Date().toISOString(),
-        last_modified: new Date().toISOString(),
-        author: "Current User",
+      folder_node: {
+        name: null,
+        children: {
+          package_node: {
+            name: "main",
+            children: {
+              folder_node: {
+                name: translation.map((t) => t.name),
+                children: {
+                  concept_node: {
+                    name: translation.map((t) => t.name),
+                    translations: {
+                      translation: {
+                        language: translation.map((t) => t.name),
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
       },
-      translation_files: {},
     },
   };
+  return YAML.dump(yamlStructure, {
+    indent: 2,
+    skipInvalid: true,
+  });
 }
