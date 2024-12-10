@@ -10,7 +10,7 @@ interface HomeProps {}
 
 export const Home: React.FC<HomeProps> = ({}) => {
   const { selectedProjectType, setSelectedProjectType } = useHomeStore();
-  const [isCreateProjectOpen, setIsCreateProjectOpen] = useState(false);
+  const [isCreateProjectOpen, setIsCreateProjectOpen] = useState<boolean>(false);
 
   return (
     <main className="h-screen flex flex-col">

@@ -32,7 +32,7 @@ export const TranslationEditor = () => {
           <div className="p-2 border-b border-gray-800 font-medium shrink-0">
             Translation IDs
           </div>
-          <ScrollArea className="flex-1">
+          <ScrollArea className="overflow-auto">
             <div className="h-full">
               <TreeNodeComponent
                 content={treeData}

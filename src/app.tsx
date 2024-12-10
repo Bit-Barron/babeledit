@@ -1,11 +1,11 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./styles/app.css";
 import { Home } from "@/pages/home";
 import { TranslationEditor } from "@/pages/translation-editor";
 import { Button } from "@/components/ui/button";
-import { navigate } from "@/shared/utils/constants";
 
-export default function App() {
+function App() {
+  const navigate = useNavigate();
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -23,3 +23,4 @@ export default function App() {
   );
 }
 
+export default App;
