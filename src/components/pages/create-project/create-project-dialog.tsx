@@ -6,10 +6,10 @@ import { LanguageDisplay } from "@/components/pages/create-project/create-projec
 import { LanguageSelectDialog } from "@/components/pages/create-project/create-project-language-select";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/shared/hooks/use-toast";
-import { useFileUploadStore } from "@/store/file-upload-store";
+import { useFileUploadStore } from "@/store/create-project/file-upload-store";
 import { Separator } from "@radix-ui/react-separator";
 import { useNavigate } from "react-router-dom";
-import { useLanguageStore } from "@/store/language-store";
+import { useLanguageStore } from "@/store/create-project/language-store";
 
 interface CreateProjectProps {
   isOpen: boolean;

@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LANGUAGES } from "@/shared/utils/constants";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useLanguageStore } from "@/store/language-store";
+import { useLanguageStore } from "@/store/create-project/language-store";
 
 interface LanguageSelectDialogProps {
   isOpen: boolean;

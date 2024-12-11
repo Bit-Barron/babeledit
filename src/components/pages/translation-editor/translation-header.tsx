@@ -2,8 +2,8 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { FaSave, FaFolderOpen } from "react-icons/fa";
 import { TranslationEditorService } from "@/services/translation-editor-service";
-import { useFileUploadStore } from "@/store/file-upload-store";
-import { useTranslationStore } from "@/store/translation-store";
+import { useFileUploadStore } from "@/store/create-project/file-upload-store";
+import { useTranslationStore } from "@/store/translation-editor/translation-store";
 
 interface HeaderProps {
   fileName: string;

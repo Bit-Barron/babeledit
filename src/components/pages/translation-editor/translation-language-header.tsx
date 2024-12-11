@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import { useLanguageStore } from "@/store/language-store";
+import { useLanguageStore } from "@/store/create-project/language-store";
 import React from "react";
 
 export const LanguageHeader: React.FC = () => {

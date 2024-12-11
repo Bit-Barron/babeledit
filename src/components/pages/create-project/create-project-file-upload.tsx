@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FiUpload, FiFile, FiX } from "react-icons/fi";
-import { useFileUploadStore } from "@/store/file-upload-store";
+import { useFileUploadStore } from "@/store/create-project/file-upload-store";
 import { validateJSON } from "@/shared/utils/client-helper";
 import { toast } from "@/shared/hooks/use-toast";
 import { Button } from "@/components/ui/button";
