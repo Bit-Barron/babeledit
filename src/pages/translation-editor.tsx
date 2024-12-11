@@ -2,7 +2,7 @@
 
 import { TranslationContent } from "@/components/pages/translation-editor/translation-content";
 import { TranslationHeader } from "@/components/pages/translation-editor/translation-header";
-import { LanguageHeader } from "@/components/pages/translation-editor/translation-language-header";
+import { LanguageHeader } from "@/components/pages/translation-editor/translation-lang-header";
 import { TreeNodeComponent } from "@/components/pages/translation-editor/translation-tree-node";
 import { TranslationEditorService } from "@/services/translation-editor-service";
 import { useFileUploadStore } from "@/store/file/file-upload.store";
