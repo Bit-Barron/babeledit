@@ -4,7 +4,7 @@ import YAML from "yaml";
 import { toast } from "@/shared/hooks/use-toast";
 import { TRANSLATION_API_URL } from "@/shared/utils/constants";
 import { FileContent, TreeNode } from "@/shared/types/translation-editor.types";
-import { createYmlObject } from "@/shared/utils/helpers/yml-builder";
+import { createYmlObject } from "@/shared/utils/helpers";
 
 interface FetchTranslationsProps {
   nodeLanguages: [string, string][];
@@ -14,9 +14,8 @@ interface FetchTranslationsProps {
 export class TranslationEditorService {
   static async saveProject(
     processedFiles: FileContent[],
-    translation: any
+    nodeTranslation: any
   ): Promise<void> {
-
     try {
       const savePath = await save({
         filters: [
@@ -46,7 +45,7 @@ export class TranslationEditorService {
       );
 
       const yamlContent = YAML.stringify(ymlObject);
-      await writeTextFile(savePath, yamlContent);
+      await writeTextFile(savePath, yamlContent, nodeTranslation);
 
       toast({
         title: "Project Saved",

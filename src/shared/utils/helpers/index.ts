@@ -3,9 +3,12 @@ import YAML from "js-yaml";
 export function createYmlObject(
   savePath: string,
   extractedFileName: string,
-  translation: Record<string, any>
+  nodeTranslation: Record<string, any>
 ) {
-  console.log("asd", translation);
+  console.log("extraced", extractedFileName);
+
+  console.log("nodetrans", nodeTranslation);
+
   const yamlStructure = {
     babeledit_project: {
       be_version: "1.0",
