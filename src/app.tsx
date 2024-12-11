@@ -4,7 +4,7 @@ import { Home } from "@/pages/home";
 import { TranslationEditor } from "@/pages/translation-editor";
 import { Button } from "@/components/ui/button";
 
-function App() {
+export default function App() {
   const navigate = useNavigate();
   return (
     <Routes>
@@ -23,4 +23,3 @@ function App() {
   );
 }
 
-export default App;

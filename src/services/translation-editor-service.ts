@@ -1,10 +1,10 @@
 import { writeTextFile } from "@tauri-apps/plugin-fs";
 import { save } from "@tauri-apps/plugin-dialog";
-import YAML from "yaml";
 import { toast } from "@/shared/hooks/use-toast";
 import { TRANSLATION_API_URL } from "@/shared/utils/constants";
 import { FileContent, TreeNode } from "@/shared/types/translation-editor.types";
 import { createYmlObject } from "@/shared/utils/helpers/yml-helper";
+import YAML from "js-yaml";
 
 interface FetchTranslationsProps {
   nodeLanguages: [string, string][];
@@ -38,7 +38,10 @@ export class TranslationEditorService {
 
       const ymlObject = createYmlObject(savePath, processedFiles);
 
-      const yamlContent = YAML.stringify(ymlObject);
+      const yamlContent = YAML.dump(ymlObject, {
+        indent: 2,
+        skipInvalid: true,
+      });
       await writeTextFile(savePath, yamlContent, nodeTranslation);
 
       toast({
