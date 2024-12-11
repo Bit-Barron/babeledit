@@ -17,7 +17,6 @@ export const TranslationEditor = () => {
     string,
     string
   >;
-  const treeData = processObject(baseContent, processedFiles);
 
   return (
     <div className="h-screen flex flex-col">
@@ -32,7 +31,7 @@ export const TranslationEditor = () => {
           <ScrollArea className="overflow-auto">
             <div className="h-full">
               <TreeNodeComponent
-                content={treeData}
+                content={processObject(baseContent, processedFiles)}
                 onSelectTranslation={(node) => setSelectedNode(node)}
               />
             </div>
