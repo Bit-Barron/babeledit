@@ -26,9 +26,8 @@ export const TreeNodeComponent: React.FC<TreeNodeProps> = ({
   const handleNodeClick = (node: TreeNode) => {
     if (node.type === "folder") {
       toggleNode(node.label);
-    } else {
-      onSelectTranslation(node);
     }
+    onSelectTranslation(node);
   };
 
   return (
