@@ -18,19 +18,22 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
   const handleFiles = async (files: FileList): Promise<void> => {
     const fileArray = Array.from(files);
 
-    const validationResults = fileArray.map(async (file) => {
-      const isValid = await validateJSON(file);
+    const validationResults = await Promise.all(
+      fileArray.map(async (file) => {
+        const isValid = await validateJSON(file);
+        if (!isValid) {
+          toast({
+            title: "Invalid file format",
+            description: `The file "${file.name}" is not valid JSON.`,
+            variant: "destructive",
+          });
+          return null;
+        }
+        return file;
+      })
+    );
 
-      !isValid &&
-        toast({
-          title: "Invalid file format",
-          description: `The file "${file.name}" is not valid JSON.`,
-          variant: "destructive",
-        });
-      return file;
-    });
-
-    const validFiles = validationResults.filter(Boolean) as unknown as File[];
+    const validFiles = validationResults.filter(Boolean) as File[];
 
     setSelectedFiles([...selectedFiles, ...validFiles]);
     onUpload([...selectedFiles, ...validFiles]);
