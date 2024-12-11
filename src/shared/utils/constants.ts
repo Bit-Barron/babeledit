@@ -107,5 +107,7 @@ export const LANGUAGES = [
   { id: "zh-CN", name: "zh-CN" },
   { id: "zh-HK", name: "zh-HK" },
   { id: "zh-TW", name: "zh-TW" },
-];
+] as const;
+
+
 export const TRANSLATION_API_URL = "https://api.mymemory.translated.net";
