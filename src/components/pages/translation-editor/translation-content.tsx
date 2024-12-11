@@ -2,12 +2,12 @@ import { TreeNode } from "@/shared/types/translation-editor.types";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useLanguageStore } from "@/store/create-project/language-store";
+import { useLanguageStore } from "@/store/language/language.store.ts";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { TranslationEditorService } from "@/services/translation-editor-service";
 import { toast } from "@/shared/hooks/use-toast";
-import { useTranslationStore } from "@/store/translation-editor/translation-store";
+import { useTranslationStore } from "@/store/translation/translation.store";
 
 interface TranslationContentProps {
   content: TreeNode | null;

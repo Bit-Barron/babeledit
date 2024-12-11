@@ -5,8 +5,8 @@ import { TranslationHeader } from "@/components/pages/translation-editor/transla
 import { LanguageHeader } from "@/components/pages/translation-editor/translation-language-header";
 import { TreeNodeComponent } from "@/components/pages/translation-editor/translation-tree";
 import { TranslationEditorService } from "@/services/translation-editor-service";
-import { useFileUploadStore } from "@/store/create-project/file-upload-store";
-import { useTranslationStore } from "@/store/translation-editor/translation-store";
+import { useFileUploadStore } from "@/store/file/file-upload.store";
+import { useTranslationStore } from "@/store/translation/translation.store";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 export const TranslationEditor = () => {
