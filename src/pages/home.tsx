@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { CreateProject } from "@/components/pages/create-project/create-project-dialog";
 import { Button } from "@/components/ui/button";
 import { TRANSLATION_PROJECTS } from "@/shared/utils/constants";
-import { useHomeStore } from "@/store/home/home-store";
+import { useHomeStore } from "@/store/home/home.store";
 
 interface HomeProps {}
 
