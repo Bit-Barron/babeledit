@@ -2,12 +2,9 @@ import YAML from "js-yaml";
 
 export function createYmlObject(
   savePath: string,
-  extractedFileName: string,
   nodeTranslation: Record<string, any>
 ) {
-  console.log("extraced", extractedFileName);
-
-  console.log("nodetrans", nodeTranslation);
+  const extractedFileName = savePath.split("/").pop() || "Untitled Project";
 
   const yamlStructure = {
     babeledit_project: {

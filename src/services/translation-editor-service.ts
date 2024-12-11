@@ -36,13 +36,7 @@ export class TranslationEditorService {
         return;
       }
 
-      const extractedFileName = savePath.split("/").pop() || "Untitled Project";
-
-      const ymlObject = createYmlObject(
-        savePath,
-        extractedFileName,
-        processedFiles
-      );
+      const ymlObject = createYmlObject(savePath, processedFiles);
 
       const yamlContent = YAML.stringify(ymlObject);
       await writeTextFile(savePath, yamlContent, nodeTranslation);
