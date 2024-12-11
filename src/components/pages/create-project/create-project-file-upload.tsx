@@ -27,7 +27,6 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload }) => {
             description: `The file "${file.name}" is not valid JSON.`,
             variant: "destructive",
           });
-          return null;
         }
         return file;
       })
