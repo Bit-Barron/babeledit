@@ -23,13 +23,6 @@ export const TreeNodeComponent: React.FC<TreeNodeProps> = ({
     }));
   };
 
-  const handleNodeClick = (node: TreeNode) => {
-    if (node.type === "folder") {
-      toggleNode(node.label);
-    }
-    onSelectTranslation(node);
-  };
-
   return (
     <div className="pl-4">
       {nodes.map((node) => {
@@ -39,7 +32,12 @@ export const TreeNodeComponent: React.FC<TreeNodeProps> = ({
           <div key={node.label}>
             <div
               className="flex items-center space-x-2 py-1 rounded cursor-pointer"
-              onClick={() => handleNodeClick(node)}
+              onClick={() => {
+                if (node.type === "folder") {
+                  toggleNode(node.label);
+                }
+                onSelectTranslation(node);
+              }}
             >
               <span className="text-lg">
                 {node.type === "folder" ? (
