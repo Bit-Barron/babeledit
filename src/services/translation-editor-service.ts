@@ -27,22 +27,20 @@ export class TranslationEditorService {
         defaultPath: "translation.yaml",
       });
 
-      if (!savePath) {
+      !savePath &&
         toast({
           title: "Save Cancelled",
           description: "No file was saved.",
           variant: "default",
         });
-        return;
-      }
 
-      const ymlObject = createYmlObject(savePath, processedFiles);
+      const ymlObject = createYmlObject(savePath as string, processedFiles);
 
       const yamlContent = YAML.dump(ymlObject, {
         indent: 2,
         skipInvalid: true,
       });
-      await writeTextFile(savePath, yamlContent, nodeTranslation);
+      await writeTextFile(savePath as string, yamlContent, nodeTranslation);
 
       toast({
         title: "Project Saved",
