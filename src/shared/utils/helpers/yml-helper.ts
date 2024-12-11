@@ -6,6 +6,8 @@ export function createYmlObject(
 ) {
   const extractedFileName = savePath.split("/").pop() || "Untitled Project";
 
+  console.log(nodeTranslation);
+
   const yamlStructure = {
     babeledit_project: {
       be_version: "1.0",
